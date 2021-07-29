@@ -12,7 +12,7 @@ import { makeStyles, FormControlLabel, FormLabel } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import Swal from "sweetalert2";
-
+const { API } = require("../Backend");
 const useStyles = makeStyles({
   field: {
     marginTop: 20,
@@ -94,29 +94,30 @@ function Signup(props) {
               password,
               gender,
             }),
-          }).then((res) => res.json())
-          .then((data) => {
-            console.log(data);
-            if(data.msg==="this email already exists"){
-              Swal.fire({
-                icon: "error",
-                title: "Email already exists",
-                text: "Please sign in instead",
-              });
-            } else if(data.msg==="this user name already exists"){
-              Swal.fire({
-                icon: "error",
-                title: "Username already exists",
-                text: "Please try another username",
-              });
-            } else if(data.msg==="register success!"){
-              Swal.fire({
-                icon: "success",
-                title: "Success",
-                text: "Registration Successfull, Welcome to Sarvh!",
-              });
-            }
           })
+            .then(res => res.json())
+            .then(data => {
+              console.log(data);
+              if (data.msg === "this email already exists") {
+                Swal.fire({
+                  icon: "error",
+                  title: "Email already exists",
+                  text: "Please sign in instead",
+                });
+              } else if (data.msg === "this user name already exists") {
+                Swal.fire({
+                  icon: "error",
+                  title: "Username already exists",
+                  text: "Please try another username",
+                });
+              } else if (data.msg === "register success!") {
+                Swal.fire({
+                  icon: "success",
+                  title: "Success",
+                  text: "Registration Successfull, Welcome to Sarvh!",
+                });
+              }
+            });
         }
       }
     }
