@@ -1,0 +1,147 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@200;400&display=swap");
+* {
+  margin: 0;
+  padding: 0%;
+  font-family: "Bebas Neue", cursive;
+  box-sizing: content-box;
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+.imghere {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 34%;
+  height: 100%;
+}
+.mainlog {
+  display: grid;
+  justify-content: normal;
+}
+
+.btnup {
+  justify-self: end;
+  border-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 1px;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+button {
+  cursor: pointer;
+}
+.btnup button:first-child {
+  background-color: rgb(0, 0, 0);
+  color: white;
+  border-style: none;
+  height: 2.5rem;
+  font-size: 1.5rem;
+}
+.btnup button {
+  border-style: none;
+  color: rgb(0, 0, 0);
+  width: 7rem;
+  height: 2.5rem;
+  font-size: 1.5rem;
+  background-color: white;
+}
+
+.btnup button:hover {
+  background-color: black;
+  color: white;
+}
+
+.textone {
+  justify-self: center;
+}
+
+.textone {
+  font-size: 3rem;
+  letter-spacing: 0.2rem;
+  height: fit-content;
+  width: fit-content;
+  padding-top: 4rem;
+}
+
+.inputbox {
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  height: fit-content;
+  width: fit-content;
+  padding-top: 5rem;
+}
+
+.inputbox input {
+  font-family: "Montserrat", sans-serif;
+  margin: 0.9rem 1rem 1rem 0.9rem;
+  width: 30rem;
+  font-size: 1.2rem;
+  color: black;
+  height: 2.3rem;
+  border: solid black 0.08rem;
+  border-radius: 0.5rem;
+  outline: black;
+  background: white;
+  align-items: center;
+  color: grey;
+  padding-left: 1rem;
+  font-weight: 400;
+}
+
+
+
+.forget {
+  width: fit-content;
+  letter-spacing: 0.07rem;
+  padding-left: 25rem;
+  font-family: "Montserrat", sans-serif;
+}
+.mainbtn {
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  width: 30rem;
+  justify-self: center;
+  padding-bottom: 2rem;
+  grid-row-gap: 1rem;
+  padding-top: 5rem;
+}
+.mainbtn button {
+  height: 2.8rem;
+}
+.mainbtn button:first-child {
+  background-color: black;
+  color: white;
+  font-size: 1.5rem;
+  border-style: none;
+}
+
+.mainbtn button:nth-child(2) {
+  background-color: #4267b2;
+  border-style: none;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.mainbtn button:last-child {
+  background-color: #ea4335;
+  border-style: none;
+  font-size: 1.5rem;
+  color: white;
+}
+
+@media (max-width: 1070px) {
+  .imghere {
+    display: none;
+  }
+
+  .main {
+    grid-template-columns: 0fr 2fr;
+  }
+} */
