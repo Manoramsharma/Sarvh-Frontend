@@ -5,6 +5,7 @@ import Login from "./components/Login"
 import Signup from "./components/Signup"
 import CategoriesProduct from "./pages/CategoryPage";
 import BuyProductPage from "./pages/BuyProductPage";
+import ProfilePage from "./pages/ProfilePage";
 const Theme = createTheme({
   palette: {
     secondary: {
@@ -38,6 +39,9 @@ function App() {
           </Route>
           <Route path="/buyproduct">
             <BuyProductPage />
+          </Route>
+          <Route path="/profile">
+            <ProfilePage />
           </Route>
         </Switch>
       </Router>

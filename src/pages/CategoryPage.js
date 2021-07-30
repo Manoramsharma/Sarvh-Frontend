@@ -11,6 +11,7 @@ const useStyles = makeStyles({
     textAlign : "center",
     marginTop : 90,
   },
+  
 })
 
 const CategoriesProduct = () => {
