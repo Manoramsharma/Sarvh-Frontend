@@ -9,7 +9,7 @@ import logo from "../../images/logo.png";
 import SearchIcon from "@material-ui/icons/Search";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import PersonIcon from "@material-ui/icons/Person";
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import NotificationsIcon from "@material-ui/icons/Notifications";
 
 const useStyles = makeStyles({
   navbar: {
@@ -40,18 +40,17 @@ const useStyles = makeStyles({
   roundedButton: {
     borderRadius: 100,
   },
-  profileButton : {
-      width : 130,
+  profileButton: {
+    width: 130,
   },
-  bellIcon : {
-    color : "#E53F3F",
-
+  bellIcon: {
+    color: "#E53F3F",
   },
-  buttonGroup : {
-    width : 300,
+  buttonGroup: {
+    width: 300,
     display: "flex",
-    justifyContent : "space-between",
-  }
+    justifyContent: "space-between",
+  },
 });
 
 const NavbarLoggedIn = () => {
@@ -71,18 +70,20 @@ const NavbarLoggedIn = () => {
               className={classes.inputBase}
             ></InputBase>
           </div>
-          
+
           <div variant="text" className={classes.buttonGroup}>
-          <Button className={classes.roundedButton}>
-              <NotificationsIcon className={classes.bellIcon}/>
+            <Button className={classes.roundedButton}>
+              <NotificationsIcon className={classes.bellIcon} />
             </Button>
-            <Button 
-                startIcon={<PersonIcon color="default" />} 
-                variant="contained"
-                disableElevation
-                color="secondary"
-                className={classes.profileButton}
-                >Profile</Button>
+            <Button
+              startIcon={<PersonIcon color="default" />}
+              variant="contained"
+              disableElevation
+              color="secondary"
+              className={classes.profileButton}
+            >
+              Profile
+            </Button>
             <Button className={classes.roundedButton}>
               <ShoppingCartIcon color="secondary" />
             </Button>

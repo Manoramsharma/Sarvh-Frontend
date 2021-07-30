@@ -10,27 +10,27 @@ const useStyles = makeStyles({
   marginTop: {
     marginTop: "2%",
   },
-  carousel : {
-      backgroundColor : "#334257",
-      marginTop: 64,
+  carousel: {
+    backgroundColor: "#334257",
+    marginTop: 64,
   },
-  carouselCaption : {
-      position : "absolute",
-      top : "50%",
-      transform : "translateY(-50%)",
-      left : "60%",
-      color : "white",
-      width : "fit-content",
-      height : "60%",
-      display: "flex",
-      flexDirection : "column",
-      alignItems : "center",
-      justifyContent : "space-around",
+  carouselCaption: {
+    position: "absolute",
+    top: "50%",
+    transform: "translateY(-50%)",
+    left: "60%",
+    color: "white",
+    width: "fit-content",
+    height: "60%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "space-around",
   },
-  button : {
-      width : 300,
-      backgroundColor : "#EEEEEE"
-  }
+  button: {
+    width: 300,
+    backgroundColor: "#EEEEEE",
+  },
 });
 
 const CarouselComponent = () => {
@@ -45,15 +45,13 @@ const CarouselComponent = () => {
             alt="First slide"
           />
           <Carousel.Caption className={classes.carouselCaption}>
-              <div>
-            <Typography variant="h3">
-                Summer Must Have
-            </Typography>
-            <Typography variant="h6">
-                Starting at Rs. 200
-            </Typography>
+            <div>
+              <Typography variant="h3">Summer Must Have</Typography>
+              <Typography variant="h6">Starting at Rs. 200</Typography>
             </div>
-            <Button className={classes.button} variant="outlined" size="large" >SHOP NOW</Button>
+            <Button className={classes.button} variant="outlined" size="large">
+              SHOP NOW
+            </Button>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item interval={2000}>
@@ -63,15 +61,13 @@ const CarouselComponent = () => {
             alt="Second slide"
           />
           <Carousel.Caption className={classes.carouselCaption}>
-          <div>
-            <Typography variant="h3">
-                Summer Must Have
-            </Typography>
-            <Typography variant="h6">
-                Starting at Rs. 200
-            </Typography>
+            <div>
+              <Typography variant="h3">Summer Must Have</Typography>
+              <Typography variant="h6">Starting at Rs. 200</Typography>
             </div>
-            <Button className={classes.button} variant="outlined" size="large" >SHOP NOW</Button>
+            <Button className={classes.button} variant="outlined" size="large">
+              SHOP NOW
+            </Button>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item interval={2000}>
@@ -81,15 +77,13 @@ const CarouselComponent = () => {
             alt="Third slide"
           />
           <Carousel.Caption className={classes.carouselCaption}>
-          <div>
-            <Typography variant="h3">
-                Summer Must Have
-            </Typography>
-            <Typography variant="h6">
-                Starting at Rs. 200
-            </Typography>
+            <div>
+              <Typography variant="h3">Summer Must Have</Typography>
+              <Typography variant="h6">Starting at Rs. 200</Typography>
             </div>
-            <Button className={classes.button} variant="outlined" size="large" >SHOP NOW</Button>
+            <Button className={classes.button} variant="outlined" size="large">
+              SHOP NOW
+            </Button>
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>

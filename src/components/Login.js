@@ -1,95 +1,78 @@
 import React, { useState } from "react";
-import styles from "./Login.css";
+import "./Login.css";
 import Loginimg from "../images/Loginimg.jpg";
-
-import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
-import { makeStyles, FormControlLabel, FormLabel } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
-import RadioGroup from "@material-ui/core/RadioGroup";
-import Radio from "@material-ui/core/Radio";
-import FormControl from "@material-ui/core/FormControl";
-import Swal from "sweetalert2";
 const useStyles = makeStyles({
   field: {
     marginTop: 20,
     marginBottom: 20,
-    display: "block",
+    width: "130%",
+    marginLeft: "-10%",
+  },
+  mainContainer: {
+    width: "50%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    marginTop: "6%",
+  },
+  btn: {
+    marginTop: "5%",
+    width: "10rem",
+  },
+  forgotPass: {
+    letterSpacing: "0.1rem",
+    textDecoration: "none",
   },
 });
-function validateEmail(email) {
-  const re =
-    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-  return re.test(email);
-}
-
-// function to validate password
-function validatePassword(str) {
-  var re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
-  return re.test(str);
-}
 function Login(props) {
   const history = useHistory();
   const classes = useStyles();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [emailError, setEmailError] = useState(false);
 
-  const logInForm = e => {
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+
+  let name, value;
+
+  const handleInputs = (e) => {
+    console.log(e);
+    name = e.target.name;
+    value = e.target.value;
+
+    setUser({ ...user, [name]: value });
+  };
+
+  const PostData = async (e) => {
     e.preventDefault();
-    if (!validateEmail(email)) {
-      setEmailError(true);
-      Swal.fire({
-        icon: "error",
-        title: "Invalid Email...",
-        text: "Please try again :(",
-      });
-    } else if (!validatePassword(password)) {
-      Swal.fire({
-        icon: "error",
-        title: "Invalid Password..",
-        text: "Password should be 8 characters long, should have one numerical, capital and a special character",
-      });
+    const { email, password } = user;
+
+    const res = await fetch("http://localhost:5000/api/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    });
+
+    const data = await res.json();
+    if (data.status === 400 || !data) {
+      window.alert("invalid signup");
+      console.log("invalid");
     } else {
-      console.log(email, password);
-      fetch(`http://localhost:5000/api/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      })
-        .then(res => res.json())
-        .then(data => {
-          console.log(data);
-          if(data.access_token){
-            Swal.fire({
-              icon: "success",
-              title: "Success",
-              text: "Login Successfull, Welcome to Sarvh!",
-            });
-          } else if(data.msg==="This email does not exist"){
-            Swal.fire({
-              icon: "error",
-              title: "Email doesn't exists",
-              text: "Signup instead!",
-            });
-          } else if(data.msg==="Password is incorrect"){
-            Swal.fire({
-              icon: "error",
-              title: "Password Incorrect!",
-              text: "Please try again!",
-            });
-          }
-        });
+      window.alert("sucsess");
+      history.push("/home");
     }
   };
 
@@ -112,57 +95,55 @@ function Login(props) {
               SIGN UP
             </button>
           </div>
-            <Container size="sm">
+          <div>
+            <Container className={classes.mainContainer}>
               <Typography
-                variant="h6"
+                variant="h5"
                 color="textPrimary"
                 component="h2"
                 gutterBottom
               >
                 Login to Continue
               </Typography>
-              <form noValidate autoComplete="off" onSubmit={logInForm}>
+              <form noValidate autoComplete="off">
                 <TextField
                   className={classes.field}
-                  label="Email"
-                  // variant="outlined"
+                  label="Username or Email"
+                  variant="standard"
                   color="secondary"
-                  id="outlined-basic"
-                  fullWidth
+                  type="email"
                   required
-                  onChange={e => setEmail(e.target.value)}
                 />
                 <TextField
                   className={classes.field}
                   label="Password"
-                  // variant="outlined"
-                  color="secondary"
+                  variant="standard"
                   type="password"
-                  fullWidth
+                  colors="primary"
                   required
-                  onChange={e => setPassword(e.target.value)}
                 />
-                <Button
-                  type="submit"
-                  color="secondary"
-                  variant="contained"
-                  endIcon={<KeyboardArrowRightIcon />}
-                >
-                  Submit
-                </Button>
               </form>
-              <div className="forget">
-                {" "}
-                <a href="" className="first">
-                  Forgot Password?
-                </a>{" "}
+              <div className={classes.forgotPass}>
+                <a className={classes.forgotPass} href="#">
+                  Forgot Password
+                </a>
               </div>
+              <Button
+                type="submit"
+                color="secondary"
+                variant="contained"
+                endIcon={<KeyboardArrowRightIcon />}
+                className={classes.btn}
+              >
+                Submit
+              </Button>
             </Container>
-          
+          </div>
 
           <div className="mainbtn">
-            <button className="facebook">FACEBOOK</button>
-            <button className="google">GOOGLE</button>
+            <Typography gutterBottom>Or Log in with</Typography>
+            <button className={classes.facebook}>FACEBOOK</button>
+            <button className={classes.google}>GOOGLE</button>
           </div>
         </div>
       </div>

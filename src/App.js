@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import Login from "./components/Login"
 import Signup from "./components/Signup"
 import CategoriesProduct from "./pages/CategoryPage";
+import BuyProductPage from "./pages/BuyProductPage";
 const Theme = createTheme({
   palette: {
     secondary: {
@@ -34,6 +35,9 @@ function App() {
           </Route>
           <Route path="/bycategories">
             <CategoriesProduct />
+          </Route>
+          <Route path="/buyproduct">
+            <BuyProductPage />
           </Route>
         </Switch>
       </Router>
