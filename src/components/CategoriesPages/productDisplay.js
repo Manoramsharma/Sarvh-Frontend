@@ -11,7 +11,6 @@ const useStyles = makeStyles({
   media: {
     height: 300,
     width: 300,
-    
   },
   cardContainer: {
     width: "100%",
@@ -32,7 +31,7 @@ const useStyles = makeStyles({
 
 const ProductDisplayComponent = () => {
   const classes = useStyles();
-  const productArray = [
+  let productArray = [
     {
       title: "Product Name",
       img: "https://d3n78nkjl8tizo.cloudfront.net/stitch-fix/image/upload/q_auto:best/dpr_2.0/landing-pages/pages/men/April-2021/mobile-hero-5_2x.jpg",
@@ -80,7 +79,6 @@ const ProductDisplayComponent = () => {
               className={classes.media}
               image={item.img}
               title={item.title}
-              
             />
             <CardContent>
               <Typography variant="body2" color="textSecondary" component="p">
@@ -98,7 +96,6 @@ const ProductDisplayComponent = () => {
           </CardActionArea>
         </Card>
       ))}
-
     </div>
   );
 };

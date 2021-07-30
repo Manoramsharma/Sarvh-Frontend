@@ -13,7 +13,7 @@ import React from "react";
 import WcIcon from "@material-ui/icons/Wc";
 import GradeIcon from "@material-ui/icons/Grade";
 import LocalMallIcon from "@material-ui/icons/LocalMall";
-import RotateLeftIcon from '@material-ui/icons/RotateLeft';
+import RotateLeftIcon from "@material-ui/icons/RotateLeft";
 const drawerWidth = 240;
 
 const useStyles = makeStyles({
@@ -27,7 +27,7 @@ const useStyles = makeStyles({
   drawerPaper: {
     width: drawerWidth,
     padding: "1%",
-    backgroundColor : "#F4F9F9",
+    backgroundColor: "#F4F9F9",
   },
   margin: {
     marginTop: 50,
@@ -39,31 +39,31 @@ const useStyles = makeStyles({
     justifyContent: "space-evenly",
     width: 140,
   },
-  drawerHeader : {
-    display : "flex",
-    justifyContent : "space-between"
+  drawerHeader: {
+    display: "flex",
+    justifyContent: "space-between",
   },
-  starIcon : {
-    color : "#FFD523"
+  starIcon: {
+    color: "#FFD523",
   },
-  ProductIcon : {
-    color : "#FB9300"
+  ProductIcon: {
+    color: "#FB9300",
   },
-  gendersIcon : {
-    color : "#005A8D"
-  }
+  gendersIcon: {
+    color: "#005A8D",
+  },
 });
 
 const DrawerComponent = () => {
   const [Gendervalue, setGenderValue] = React.useState("");
   const [RatingValue, setRatingValue] = React.useState("");
   const [ProductValue, setProductsValue] = React.useState("");
-  
+
   const handleReset = () => {
     setGenderValue("");
     setRatingValue("");
     setProductsValue("");
-  }
+  };
 
   const handleGenderChange = (event) => {
     setGenderValue(event.target.value);
@@ -88,19 +88,21 @@ const DrawerComponent = () => {
       >
         <List className={classes.filterHeading}>
           <div className={classes.drawerHeader}>
-          <Typography variant="h6">Filter</Typography>
-          <Button 
-            startIcon={<RotateLeftIcon />}
-            variant="contained"
-            disableElevation
-            size="small"
-            color="primary"
-            onClick = {handleReset}
-          >Reset</Button>
+            <Typography variant="h6">Filter</Typography>
+            <Button
+              startIcon={<RotateLeftIcon />}
+              variant="contained"
+              disableElevation
+              size="small"
+              color="primary"
+              onClick={handleReset}
+            >
+              Reset
+            </Button>
           </div>
           <Divider />
           <div className={classes.container}>
-            <WcIcon className={classes.gendersIcon}/>
+            <WcIcon className={classes.gendersIcon} />
             <Typography>Gender -</Typography>
           </div>
           <RadioGroup
@@ -129,7 +131,7 @@ const DrawerComponent = () => {
             />
           </RadioGroup>
           <div className={classes.container}>
-            <GradeIcon className={classes.starIcon}/>
+            <GradeIcon className={classes.starIcon} />
             <Typography>Rating -</Typography>
           </div>
           <RadioGroup
@@ -170,7 +172,7 @@ const DrawerComponent = () => {
             />
           </RadioGroup>
           <div className={classes.container}>
-            <LocalMallIcon className={classes.ProductIcon}/>
+            <LocalMallIcon className={classes.ProductIcon} />
             <Typography>Products -</Typography>
           </div>
           <RadioGroup
