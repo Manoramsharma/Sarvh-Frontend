@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./Login.css";
 import Loginimg from "../images/Loginimg.jpg";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
@@ -9,6 +9,24 @@ import Container from "@material-ui/core/Container";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import { makeStyles } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
+import Swal from "sweetalert2";
+import { API } from "../Backend";
+import { LoginContext } from "../hooks/LoginContext";
+import { validateEmail, validatePassword } from "../helper/validator";
+import GoogleButton from "react-google-button";
+
+import axios from "axios";
+import styled from "styled-components";
+axios.defaults.withCredentials = true;
+const AppContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 31px;
+`;
 const useStyles = makeStyles({
   field: {
     marginTop: 20,
@@ -32,50 +50,76 @@ const useStyles = makeStyles({
     textDecoration: "none",
   },
 });
-function Login(props) {
+
+const fetchAuthUser = () => {
+  console.log("in fetch auth user");
+  axios
+    .get("http://localhost:8000/auth/user", {
+      withCredentials: true,
+    })
+    .then(res => {
+      console.log(res);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
+const Login = () => {
+  // const user = useSelector((state: any) => state.app.authUser as any) as any;
+  // const dispatch = useDispatch();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const history = useHistory();
   const classes = useStyles();
+  const { auth, setAuthFunc } = useContext(LoginContext);
 
-  const [user, setUser] = useState({
-    email: "",
-    password: "",
-  });
+  function googleAuth() {
+    console.log("clicking on gogole auth");
+    // fetchAuthUser();
+    // axios.get(`${API}/auth/google`,{withCredentials: true})
+    // let timer: NodeJS.Timeout | null = null;
+    const googleLoginURL = API + "/auth/google";
+    const newWindow = window.open(
+      googleLoginURL,
+      "_blank",
+      "width=500,height=600"
+    );
 
-  let name, value;
-
-  const handleInputs = (e) => {
-    console.log(e);
-    name = e.target.name;
-    value = e.target.value;
-
-    setUser({ ...user, [name]: value });
-  };
-
-  const PostData = async (e) => {
-    e.preventDefault();
-    const { email, password } = user;
-
-    const res = await fetch("http://localhost:5000/api/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    });
-
-    const data = await res.json();
-    if (data.status === 400 || !data) {
-      window.alert("invalid signup");
-      console.log("invalid");
-    } else {
-      window.alert("sucsess");
-      history.push("/home");
+    if (newWindow) {
+      console.log("in new windows");
+      if (newWindow.closed) {
+        console.log("in new window ");
+        fetchAuthUser();
+        console.log("Yay we're authenticated");
+      }
     }
-  };
-
+  }
+  async function loginAPI(e) {
+    e.preventDefault();
+    if (!validateEmail(email)) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Email...",
+        text: "Please try again :(",
+      });
+    } else if (!validatePassword(password)) {
+      // validating password
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Password..",
+        text: "Password should be 8 characters long, should have one numerical, capital and a special character",
+      });
+    } else {
+      axios.post(`${API}/api/login`, { email, password }).then(res => {
+        console.log(res.data);
+        const data = res.data;
+        if (data.msg === "Login Sucess!") {
+          setAuthFunc(true, data.access_token, data.user.fullname, data.user.avatar);
+        }
+      });
+    }
+  }
   return (
     <div>
       <div className="main" id="left-sidebar">
@@ -105,7 +149,7 @@ function Login(props) {
               >
                 Login to Continue
               </Typography>
-              <form noValidate autoComplete="off">
+              <form noValidate autoComplete="off" onSubmit={loginAPI}>
                 <TextField
                   className={classes.field}
                   label="Username or Email"
@@ -113,6 +157,7 @@ function Login(props) {
                   color="secondary"
                   type="email"
                   required
+                  onChange={e => setEmail(e.target.value)}
                 />
                 <TextField
                   className={classes.field}
@@ -121,34 +166,37 @@ function Login(props) {
                   type="password"
                   colors="primary"
                   required
+                  onChange={e => setPassword(e.target.value)}
                 />
+                <Button
+                  type="submit"
+                  color="secondary"
+                  variant="contained"
+                  endIcon={<KeyboardArrowRightIcon />}
+                  className={classes.btn}
+                >
+                  Submit
+                </Button>
               </form>
               <div className={classes.forgotPass}>
                 <a className={classes.forgotPass} href="#">
                   Forgot Password
                 </a>
               </div>
-              <Button
-                type="submit"
-                color="secondary"
-                variant="contained"
-                endIcon={<KeyboardArrowRightIcon />}
-                className={classes.btn}
-              >
-                Submit
-              </Button>
             </Container>
           </div>
 
           <div className="mainbtn">
             <Typography gutterBottom>Or Log in with</Typography>
+            {/* <Link target="_blank" to={"//http:localhost:8000/auth/google"} ><GoogleButton  /> </Link> */}
+            {/* <a href={"//http:localhost:8000/auth/google"}><GoogleButton /></a> */}
+            <GoogleButton onClick={googleAuth} />
             <button className={classes.facebook}>FACEBOOK</button>
-            <button className={classes.google}>GOOGLE</button>
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Login;
