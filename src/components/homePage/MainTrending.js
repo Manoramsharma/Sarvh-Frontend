@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     marginTop: "1%",
     marginLeft: "1%",
     marginRight: "1%",
-    marginBottom: "5%",
+    marginBottom: "2%",
   },
   imageList: {
     flexWrap: "nowrap",

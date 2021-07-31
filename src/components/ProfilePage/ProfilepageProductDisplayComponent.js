@@ -9,7 +9,7 @@ import {
   
   const useStyles = makeStyles({
     media: {
-      height: 300,
+      height: 350,
     },
     cardContainer: {
       width: "100%",

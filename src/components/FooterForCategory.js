@@ -12,6 +12,7 @@ const useStyles = makeStyles({
         display : "flex",
         justifyContent : "space-evenly",
         alignItems : "center",
+        marginLeft : 240
     },
     footerInside : {
         display : "flex",
@@ -32,7 +33,7 @@ const useStyles = makeStyles({
     },
 })
 
-const Footer = () => {
+const FooterForCategory = () => {
     const classes = useStyles();
     return (
         <div className={classes.footer} style={{ zIndex: 1251 }}>
@@ -68,4 +69,4 @@ const Footer = () => {
     );
 }
  
-export default Footer;
+export default FooterForCategory;

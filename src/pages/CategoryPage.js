@@ -3,7 +3,7 @@ import React from "react";
 import { useState } from "react";
 import DrawerComponent from "../components/CategoriesPages/Drawer";
 import ProductDisplayComponent from "../components/CategoriesPages/productDisplay";
-import Footer from "../components/footer";
+import FooterForCategory from "../components/FooterForCategory";
 import NavbarLoggedIn from "../components/homePage/Navbar2";
 
 const useStyles = makeStyles({
@@ -28,7 +28,7 @@ const CategoriesProduct = () => {
         <ProductDisplayComponent />
       </div>
 
-      <Footer />
+      <FooterForCategory />
     </div>
   );
 };
