@@ -6,7 +6,10 @@ import LoginSuccess from "./components/LoginSuccess";
 import Signup from "./components/Signup";
 import CategoriesProduct from "./pages/CategoryPage";
 import BuyProductPage from "./pages/BuyProductPage";
+import ProfilePage from "./pages/ProfilePage";
+
 import LoginContextProvider from "./hooks/LoginContext";
+
 const Theme = createTheme({
   palette: {
     secondary: {
@@ -21,6 +24,7 @@ const Theme = createTheme({
 function App() {
   return (
     <ThemeProvider theme={Theme}>
+
       <LoginContextProvider>
         <Router>
           <Switch>
@@ -42,6 +46,9 @@ function App() {
             <Route path="/buyproduct">
               <BuyProductPage />
             </Route>
+            <Route path="/profile">
+            <ProfilePage />
+          </Route>
           </Switch>
         </Router>
       </LoginContextProvider>
