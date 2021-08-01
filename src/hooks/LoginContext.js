@@ -11,7 +11,7 @@ export const LoginContextProvider = props => {
   //   },
   // ]);
   const [auth, setAuth] = useState([
-    { isAuthenticated: false, token: null, fullName: "Sarvh", avatar: null },
+    { isAuthenticated: false, token: null, fullName: "Sarvh", avatar: null, username: null },
   ]);
   // state = {
   //   isAuthenticated: false,
@@ -22,13 +22,14 @@ export const LoginContextProvider = props => {
   // const toggleIsAuthenticated = () => {
   //   setAuth({ isAuthenticated: !this.state.isAuthenticated });
   // };
-  const setAuthFunc = (authBool, token, fullName, avatar) => {
+  const setAuthFunc = (authBool, token, fullName, avatar, username) => {
     setAuth([
       {
         isAuthenticated: authBool,
         token: token,
         fullName: fullName,
         avatar: avatar,
+        username: username
       },
     ]);
   };

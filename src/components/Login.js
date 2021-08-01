@@ -14,7 +14,8 @@ import { API } from "../Backend";
 import { LoginContext } from "../hooks/LoginContext";
 import { validateEmail, validatePassword } from "../helper/validator";
 import GoogleButton from "react-google-button";
-
+import { login } from "../redux/actions/authAction";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
 axios.defaults.withCredentials = true;
@@ -73,6 +74,7 @@ const Login = () => {
   const history = useHistory();
   const classes = useStyles();
   const { auth, setAuthFunc } = useContext(LoginContext);
+  const dispatch = useDispatch();
 
   function googleAuth() {
     console.log("clicking on gogole auth");
@@ -111,13 +113,19 @@ const Login = () => {
         text: "Password should be 8 characters long, should have one numerical, capital and a special character",
       });
     } else {
-      axios.post(`${API}/api/login`, { email, password }).then(res => {
-        console.log(res.data);
-        const data = res.data;
-        if (data.msg === "Login Sucess!") {
-          setAuthFunc(true, data.access_token, data.user.fullname, data.user.avatar);
-        }
-      });
+      const userData = {
+        email: email,
+        password: password,
+      };
+      console.log(userData);
+      dispatch(login(userData));
+      // axios.post(`${API}/api/login`, { email, password }).then(res => {
+      //   console.log(res.data);
+      //   const data = res.data;
+      //   if (data.msg === "Login Sucess!") {
+      //     setAuthFunc(true, data.access_token, data.user.fullname, data.user.avatar);
+      //   }
+      // });
     }
   }
   return (

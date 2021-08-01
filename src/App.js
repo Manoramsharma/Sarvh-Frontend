@@ -46,7 +46,7 @@ function App() {
             <Route path="/buyproduct">
               <BuyProductPage />
             </Route>
-            <Route path="/profile">
+            <Route path="/profile/:user_name_param">
             <ProfilePage />
           </Route>
           </Switch>
