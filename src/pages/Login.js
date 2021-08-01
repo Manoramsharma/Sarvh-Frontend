@@ -176,6 +176,11 @@ const Login = () => {
                   required
                   onChange={e => setPassword(e.target.value)}
                 />
+                <div className={classes.forgotPass}>
+                <a className={classes.forgotPass} href="#">
+                  Forgot Password
+                </a>
+              </div>
                 <Button
                   type="submit"
                   color="secondary"
@@ -186,11 +191,7 @@ const Login = () => {
                   Submit
                 </Button>
               </form>
-              <div className={classes.forgotPass}>
-                <a className={classes.forgotPass} href="#">
-                  Forgot Password
-                </a>
-              </div>
+              
             </Container>
           </div>
 
