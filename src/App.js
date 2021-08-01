@@ -1,9 +1,9 @@
 import { ThemeProvider, createTheme } from "@material-ui/core";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import Home from "./pages/Home";
-import Login from "./components/Login";
+import Login from "./pages/Login";
 import LoginSuccess from "./components/LoginSuccess";
-import Signup from "./components/Signup";
+import Signup from "./pages/Signup";
 import CategoriesProduct from "./pages/CategoryPage";
 import BuyProductPage from "./pages/BuyProductPage";
 import ProfilePage from "./pages/ProfilePage";
