@@ -73,7 +73,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const history = useHistory();
   const classes = useStyles();
-  const { auth, setAuthFunc } = useContext(LoginContext);
+  // const { auth, setAuthFunc } = useContext(LoginContext);
   const dispatch = useDispatch();
 
   function googleAuth() {

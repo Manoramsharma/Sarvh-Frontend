@@ -1,3 +1,4 @@
+import { useSelector, useDispatch } from "react-redux";
 import { ThemeProvider, createTheme } from "@material-ui/core";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import Home from "./pages/Home";
@@ -9,7 +10,9 @@ import BuyProductPage from "./pages/BuyProductPage";
 import ProfilePage from "./pages/ProfilePage";
 
 import LoginContextProvider from "./hooks/LoginContext";
-
+import Alert from "./components/Alert";
+import { useEffect } from "react";
+import {refreshToken} from "./redux/actions/authAction";
 const Theme = createTheme({
   palette: {
     secondary: {
@@ -22,37 +25,56 @@ const Theme = createTheme({
 });
 
 function App() {
+  const { auth } = useSelector(state => state);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(refreshToken());
+  }, [dispatch]);
   return (
     <ThemeProvider theme={Theme}>
-
-      <LoginContextProvider>
-        <Router>
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route exact path="/login">
-              <Login />
-            </Route>
-            <Route exact path="/login/success">
-              <LoginSuccess />
-            </Route>
-            <Route path="/signup">
-              <Signup />
-            </Route>
-            <Route path="/bycategories">
-              <CategoriesProduct />
-            </Route>
-            <Route path="/buyproduct">
-              <BuyProductPage />
-            </Route>
-            <Route path="/profile/:user_name_param">
-            <ProfilePage />
-          </Route>
-          </Switch>
-        </Router>
-      </LoginContextProvider>
+      <Router>
+        <Alert />
+        <div className="App">
+          <div className="main">
+            <Route exact path="/" component={Home} />
+            <Route exact path="/login" component={auth.token ? Home : Login} />
+            <Route exact path="/signup" component={auth.token ? Home : Signup} />
+          </div>
+        </div>
+      </Router>
     </ThemeProvider>
+    // <ThemeProvider theme={Theme}>
+
+    //   <LoginContextProvider>
+    //     <Router>
+    //       <Notify/>
+    //       <Switch>
+    //         <Route exact path="/">
+    //           <Home />
+    //         </Route>
+    //         <Route exact path="/login">
+    //           <Login />
+    //         </Route>
+    //         <Route exact path="/login/success">
+    //           <LoginSuccess />
+    //         </Route>
+    //         <Route path="/signup">
+    //           <Signup />
+    //         </Route>
+    //         <Route path="/bycategories">
+    //           <CategoriesProduct />
+    //         </Route>
+    //         <Route path="/buyproduct">
+    //           <BuyProductPage />
+    //         </Route>
+    //         <Route path="/profile/:user_name_param">
+    //         <ProfilePage />
+    //       </Route>
+    //       </Switch>
+    //     </Router>
+    //   </LoginContextProvider>
+
+    // </ThemeProvider>
   );
 }
 
