@@ -40,7 +40,7 @@ export const refreshToken = () => async dispatch => {
       console.log(res);
       dispatch({
         type: GLOBALTYPES.AUTH,
-        payload: { token: res.data.token, user: res.data.user },
+        payload: { token: res.data.access_token, user: res.data.user },
       });
       dispatch({ type: GLOBALTYPES.ALERT, payload: {  } });
     } catch (err) {
