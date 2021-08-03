@@ -13,6 +13,7 @@ import LoginContextProvider from "./hooks/LoginContext";
 import Alert from "./components/Alert";
 import { useEffect } from "react";
 import {refreshToken} from "./redux/actions/authAction";
+import ForgotPassword from "./pages/forgotPass";
 const Theme = createTheme({
   palette: {
     secondary: {
@@ -38,6 +39,7 @@ function App() {
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={auth.token ? Home : Login} />
             <Route exact path="/signup" component={auth.token ? Home : Signup} />
+            <Route exact path="/forgotpassword" component={ForgotPassword} />
         </div>
       </Router>
     </ThemeProvider>
