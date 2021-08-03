@@ -3,6 +3,7 @@ import { ThemeProvider, createTheme } from "@material-ui/core";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import ResetPass from "./pages/ResetPass";
 import LoginSuccess from "./components/LoginSuccess";
 import Signup from "./pages/Signup";
 import CategoriesProduct from "./pages/CategoryPage";
@@ -40,6 +41,7 @@ function App() {
             <Route exact path="/login" component={auth.token ? Home : Login} />
             <Route exact path="/signup" component={auth.token ? Home : Signup} />
             <Route exact path="/forgotpassword" component={ForgotPassword} />
+            <Route exact path="/resetpass" component={ResetPass} />
         </div>
       </Router>
     </ThemeProvider>
