@@ -1,13 +1,14 @@
+import { useSelector, useDispatch } from "react-redux";
+
 import { makeStyles } from "@material-ui/core";
 import NavbarWithLogin from "../components/homePage/Navbar1";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import NavbarLoggedIn from "../components/homePage/Navbar2";
 import CarouselComponent from "../components/homePage/Caraousel";
 import MainContainerNewProducts from "../components/homePage/MainWhatsNew";
 import MainContainerCategories from "../components/homePage/MainCategories";
 import MainContainerTrendingProducts from "../components/homePage/MainTrending";
 import Footer from "../components/footer";
-
 
 const useStyles = makeStyles({
   marginTop: {
@@ -26,7 +27,13 @@ const useStyles = makeStyles({
 
 const Home = () => {
   const classes = useStyles();
-  const [loggedIn, setLoggedIn] = useState(false);
+  const { auth } = useSelector(state => state);
+  var [loggedIn, setLoggedIn] = useState(auth.token ? true : false);
+  useEffect(() => {
+    setLoggedIn=auth.token?true:false;
+  })
+  console.log(auth.token);
+
   return (
     <div>
       {loggedIn ? <NavbarLoggedIn /> : <NavbarWithLogin />}
