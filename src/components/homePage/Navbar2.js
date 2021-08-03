@@ -10,6 +10,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import PersonIcon from "@material-ui/icons/Person";
 import NotificationsIcon from "@material-ui/icons/Notifications";
+import {  Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   navbar: {
@@ -75,6 +76,7 @@ const NavbarLoggedIn = () => {
             <Button className={classes.roundedButton}>
               <NotificationsIcon className={classes.bellIcon} />
             </Button>
+            <Link to={"/profile"} style={{ textDecoration: 'none' }}>
             <Button
               startIcon={<PersonIcon color="default" />}
               variant="contained"
@@ -84,6 +86,8 @@ const NavbarLoggedIn = () => {
             >
               Profile
             </Button>
+            </Link >
+            
             <Button className={classes.roundedButton}>
               <ShoppingCartIcon color="secondary" />
             </Button>
