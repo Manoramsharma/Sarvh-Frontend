@@ -42,7 +42,7 @@ export const refreshToken = () => async dispatch => {
         type: GLOBALTYPES.AUTH,
         payload: { token: res.data.access_token, user: res.data.user },
       });
-      dispatch({ type: GLOBALTYPES.ALERT, payload: {  } });
+      dispatch({ type: GLOBALTYPES.ALERT, payload: {} });
     } catch (err) {
       dispatch({
         type: GLOBALTYPES.ALERT,
@@ -51,5 +51,24 @@ export const refreshToken = () => async dispatch => {
         },
       });
     }
+  }
+};
+
+export const register = data => async dispatch => {
+  try {
+    dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
+
+    const res = await postDataAPI("register", data);
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: { token: res.data.access_token, user: res.data.user },
+    });
+    localStorage.setItem("firstLogin", true);
+    dispatch({ type: GLOBALTYPES.ALERT, payload: { success: res.data.msg } });
+  } catch (err) {
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: { error: err.response.data.msg },
+    });
   }
 };
