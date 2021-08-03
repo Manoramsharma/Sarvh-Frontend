@@ -43,8 +43,8 @@ function App() {
             <Route exact path="/login" component={auth.token ? Home : Login} />
             <Route exact path="/signup" component={auth.token ? Home : Signup} />
             <Route exact path="/forgotpassword" component={ForgotPassword} />
-            <Route exact path="/resetpass:resetToken" component={ResetPass} />
-            <Route exact path="/resetpass" component={ResetPass} />
+            <Route exact path="/resetpass/:resetToken" component={ResetPass} />
+            {/* <Route exact path="/resetpass" component={ResetPass} /> */}
             <Route exact path="/profile" component={auth.token ? ProfilePage : Home} />
         </div>
       </Router>

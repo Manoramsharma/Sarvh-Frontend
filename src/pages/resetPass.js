@@ -3,9 +3,13 @@ import "./forgotpass.css";
 import image from "../images/forgotpass.svg";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { useParams } from "react-router";
-
+import { validatePassword } from "../helper/validator";
 import { useState } from "react";
 import axios from "axios";
+import Swal from "sweetalert2";
+
+import { API } from "../Backend";
+axios.defaults.withCredentials = true;
 
 const useStyles = makeStyles({
   container: {
@@ -25,36 +29,38 @@ const useStyles = makeStyles({
   typography: {
     fontWeight: "700",
   },
-  description : {
-      width : "80%",
-      textAlign : "center",
-      marginTop: "3%"
+  description: {
+    width: "80%",
+    textAlign: "center",
+    marginTop: "3%",
   },
-  email : {
-      alignSelf : "flex-start",
-      marginLeft : "11.3%",
-      marginTop : "10%",
-      fontWeight : "700"
+  email: {
+    alignSelf: "flex-start",
+    marginLeft: "11.3%",
+    marginTop: "10%",
+    fontWeight: "700",
   },
-  form : {
-      alignSelf : "flex-start",
-      marginLeft : "11.3%",
-      width : "50%",
+  form: {
+    alignSelf: "flex-start",
+    marginLeft: "11.3%",
+    width: "50%",
   },
-  textField : {
-      marginTop : "2%",
-     padding : "0%"
+  textField: {
+    marginTop: "2%",
+    padding: "0%",
   },
-  submitBtn : {
-      marginTop : "10%"
+  submitBtn: {
+    marginTop: "10%",
   },
-  RetypePassword : {
-    marginTop : "2%",
-    fontWeight : "700"
-  }
+  RetypePassword: {
+    marginTop: "2%",
+    fontWeight: "700",
+  },
 });
 
-const ResetPass = ({ match  }) => {
+const ResetPass = match => {
+  const { resetToken } = useParams();
+  console.log(resetToken);
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -62,46 +68,32 @@ const ResetPass = ({ match  }) => {
   const [success, setSuccess] = useState("");
   const classes = useStyles();
 
-  const resetPasswordHandler = async (e) => {
+  const resetPasswordHandler = async e => {
+    console.log("in reset password handler");
     e.preventDefault();
-
-    const config = {
-      header: {
-        "Content-Type": "application/json",
-      },
-    };
-
     if (password !== confirmPassword) {
       setPassword("");
       setConfirmPassword("");
-      setTimeout(() => {
-        setError("");
-      }, 5000);
-      return setError("Passwords don't match");
-    }
-
-
-    try {
-       const { data } = await axios.put(
-        `/api/resetpass/${match.params.resetToken}`,
-        {
-          password,
-        },
-        config
-      );
-
-      console.log(data)
-
-      setSuccess(data.data);
-    } catch (error) {
-      setError(error.response.data.error);
-      setTimeout(() => {
-        setError("");
-      }, 5000);
+      Swal.fire({
+        icon: "error",
+        title: "Password doesn't match..",
+        text: "Please try again :(",
+      });
+    } else if (!validatePassword(password)) {
+      Swal.fire({
+        icon: "error",
+        title: "Invalid Password..",
+        text: "Password should be 8 characters long, should have one numerical, capital and a special character",
+      });
+    } else {
+      console.log(password, confirmPassword);
+      axios
+        .put(`${API}/api/resetpass/${resetToken}`, { password: password })
+        .then(response => {
+          console.log(response);
+        });
     }
   };
-  
-
 
   return (
     <div className={classes.container}>
@@ -131,29 +123,51 @@ const ResetPass = ({ match  }) => {
             FORGOT <span class="passwordText">PASSWORD</span>
           </Typography>
           <Typography className={classes.description} variant="h6">
-          Enter the email address you used when you joined and we will send you intructions to reset your password
+            Enter the email address you used when you joined and we will send
+            you intructions to reset your password
           </Typography>
-          <Typography className={classes.email} variant="h6">Enter New Password</Typography>
-          <form className={classes.form}   onSubmit={resetPasswordHandler}>
-          <TextField variant="outlined"  type="password"
-            required
-            id="password"
-            placeholder="Enter new password"
-            autoComplete="true"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-             fullWidth className={classes.textField}/>
-          <Typography className={classes.RetypePassword} 
-           type="password"
-           required
-           id="confirmpassword"
-           placeholder="Confirm new password"
-           autoComplete="true"
-           value={confirmPassword}
-           onChange={(e) => setConfirmPassword(e.target.value)}
-          variant="h6">Re-type Password</Typography>
-          <TextField variant="outlined"  fullWidth className={classes.textField}/>
-            <Button type="submit" variant="contained" color="primary" className={classes.submitBtn}>Update Password</Button>
+          <form className={classes.form} onSubmit={resetPasswordHandler}>
+            <Typography className={classes.email} variant="h6">
+              Enter New Password
+            </Typography>
+            <TextField
+              variant="outlined"
+              type="password"
+              required
+              id="password"
+              placeholder="Enter new password"
+              autoComplete="true"
+              // value={password}
+              type="password"
+              onChange={e => setPassword(e.target.value)}
+              fullWidth
+              className={classes.textField}
+            />
+            <Typography className={classes.email} variant="h6">
+              Re-Enter New Password
+            </Typography>
+            <TextField
+              variant="outlined"
+              type="password"
+              required
+              id="password"
+              placeholder="Enter new password"
+              autoComplete="true"
+              // value={password}
+              type="password"
+              onChange={e => setConfirmPassword(e.target.value)}
+              fullWidth
+              className={classes.textField}
+            />
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              className={classes.submitBtn}
+              // onClick={resetPassAPI}
+            >
+              Update Password
+            </Button>
           </form>
         </div>
       </div>
