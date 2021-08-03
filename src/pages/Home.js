@@ -28,11 +28,10 @@ const useStyles = makeStyles({
 const Home = () => {
   const classes = useStyles();
   const { auth } = useSelector(state => state);
-  var [loggedIn, setLoggedIn] = useState(auth.token ? true : false);
-  useEffect(() => {
-    setLoggedIn=auth.token?true:false;
-  })
-  console.log(auth.token);
+  var [loggedIn, setLoggedIn] = useState(false);
+  if (auth.token) {
+    loggedIn = true;
+  }
 
   return (
     <div>

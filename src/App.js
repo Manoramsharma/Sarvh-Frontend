@@ -3,6 +3,7 @@ import { ThemeProvider, createTheme } from "@material-ui/core";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import ResetPass from "./pages/ResetPass";
 import LoginSuccess from "./components/LoginSuccess";
 import Signup from "./pages/Signup";
 import CategoriesProduct from "./pages/CategoryPage";
@@ -13,6 +14,7 @@ import LoginContextProvider from "./hooks/LoginContext";
 import Alert from "./components/Alert";
 import { useEffect } from "react";
 import {refreshToken} from "./redux/actions/authAction";
+import ForgotPassword from "./pages/forgotPass";
 const Theme = createTheme({
   palette: {
     secondary: {
@@ -38,6 +40,8 @@ function App() {
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={auth.token ? Home : Login} />
             <Route exact path="/signup" component={auth.token ? Home : Signup} />
+            <Route exact path="/forgotpassword" component={ForgotPassword} />
+            <Route exact path="/resetpass" component={ResetPass} />
         </div>
       </Router>
     </ThemeProvider>
