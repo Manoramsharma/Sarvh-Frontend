@@ -35,11 +35,9 @@ function App() {
       <Router>
         <Alert />
         <div className="App">
-          <div className="main">
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={auth.token ? Home : Login} />
             <Route exact path="/signup" component={auth.token ? Home : Signup} />
-          </div>
         </div>
       </Router>
     </ThemeProvider>
