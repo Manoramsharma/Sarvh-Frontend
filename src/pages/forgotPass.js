@@ -2,6 +2,9 @@ import { Typography, makeStyles, Button, TextField } from "@material-ui/core";
 import "./forgotpass.css";
 import image from "../images/forgotpass.svg";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import { useState } from "react";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
   container: {
@@ -47,10 +50,45 @@ const useStyles = makeStyles({
 });
 
 const ForgotPassword = () => {
+
+
   const classes = useStyles();
+  const history = useHistory();
+
+
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+
+  const forgotPasswordHandler = async (e) => {
+    e.preventDefault();
+
+    const config = {
+      header: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      const { data } = await axios.post(
+        "/api/forgotpassword",
+        { email },
+        config
+      );
+
+      setSuccess(data.data);
+      history.push("/");
+
+    } catch (error) {
+      alert("wrong");
+      
+  };
+  }
+
+
   return (
     <div className={classes.container}>
-      <div class="leftMain">
+      <div class="leftMain"  >
         <Typography gutterBottom variant="h4" class="heading headingmain">
           S A R V H
         </Typography>
@@ -61,8 +99,8 @@ const ForgotPassword = () => {
           Discover. Sell. Connect
         </Typography>
         <img src={image} class="image" />
-      </div>
-      <div class="rightMain">
+       </div>
+       <div  class="rightMain">
         <div class="navRight">
           <Button className={classes.backBtn}>
             <ArrowBackIosIcon />
@@ -79,9 +117,14 @@ const ForgotPassword = () => {
           Enter the email address you used when you joined and we will send you intructions to reset your password
           </Typography>
           <Typography className={classes.email} variant="h6">Email Address</Typography>
-          <form className={classes.form}>
-          <TextField variant="outlined" fullWidth className={classes.textField}/>
-            <Button type="submit" variant="contained" color="primary" className={classes.submitBtn}>Send reset instructions</Button>
+          <form className={classes.form} onSubmit={forgotPasswordHandler}>
+          <TextField  type="email"
+            required
+            id="email"
+            placeholder="Email address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)} variant="outlined" fullWidth className={classes.textField}/>
+            <Button  type="submit" variant="contained" color="primary" className={classes.submitBtn}>Send reset instructions</Button>
           </form>
         </div>
       </div>

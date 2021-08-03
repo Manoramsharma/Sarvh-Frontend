@@ -2,6 +2,10 @@ import { Typography, makeStyles, Button, TextField } from "@material-ui/core";
 import "./forgotpass.css";
 import image from "../images/forgotpass.svg";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import { useParams } from "react-router";
+
+import { useState } from "react";
+import axios from "axios";
 
 const useStyles = makeStyles({
   container: {
@@ -50,8 +54,55 @@ const useStyles = makeStyles({
   }
 });
 
-const ForgotPassword = () => {
+const ResetPass = ({ match  }) => {
+
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const classes = useStyles();
+
+  const resetPasswordHandler = async (e) => {
+    e.preventDefault();
+
+    const config = {
+      header: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    if (password !== confirmPassword) {
+      setPassword("");
+      setConfirmPassword("");
+      setTimeout(() => {
+        setError("");
+      }, 5000);
+      return setError("Passwords don't match");
+    }
+
+
+    try {
+       const { data } = await axios.put(
+        `/api/resetpass/${match.params.resetToken}`,
+        {
+          password,
+        },
+        config
+      );
+
+      console.log(data)
+
+      setSuccess(data.data);
+    } catch (error) {
+      setError(error.response.data.error);
+      setTimeout(() => {
+        setError("");
+      }, 5000);
+    }
+  };
+  
+
+
   return (
     <div className={classes.container}>
       <div class="leftMain">
@@ -83,10 +134,25 @@ const ForgotPassword = () => {
           Enter the email address you used when you joined and we will send you intructions to reset your password
           </Typography>
           <Typography className={classes.email} variant="h6">Enter New Password</Typography>
-          <form className={classes.form}>
-          <TextField variant="outlined" fullWidth className={classes.textField}/>
-          <Typography className={classes.RetypePassword} variant="h6">Re-type Password</Typography>
-          <TextField variant="outlined" fullWidth className={classes.textField}/>
+          <form className={classes.form}   onSubmit={resetPasswordHandler}>
+          <TextField variant="outlined"  type="password"
+            required
+            id="password"
+            placeholder="Enter new password"
+            autoComplete="true"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+             fullWidth className={classes.textField}/>
+          <Typography className={classes.RetypePassword} 
+           type="password"
+           required
+           id="confirmpassword"
+           placeholder="Confirm new password"
+           autoComplete="true"
+           value={confirmPassword}
+           onChange={(e) => setConfirmPassword(e.target.value)}
+          variant="h6">Re-type Password</Typography>
+          <TextField variant="outlined"  fullWidth className={classes.textField}/>
             <Button type="submit" variant="contained" color="primary" className={classes.submitBtn}>Update Password</Button>
           </form>
         </div>
@@ -95,4 +161,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default ResetPass;
