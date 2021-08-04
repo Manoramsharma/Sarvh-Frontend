@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useContext } from "react";
-import { LoginContext } from "../hooks/LoginContext";
 const LoginSuccess = () => {
   // useEffect(() => {
   //   setTimeout(() => {

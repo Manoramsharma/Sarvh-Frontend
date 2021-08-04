@@ -1,14 +1,20 @@
+import { useSelector, useDispatch } from "react-redux";
 import { ThemeProvider, createTheme } from "@material-ui/core";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
-import LoginSuccess from "./components/LoginSuccess";
+import ResetPass from "./pages/resetPass";
+// import LoginSuccess from "./components/LoginSuccess";
 import Signup from "./pages/Signup";
 import CategoriesProduct from "./pages/CategoryPage";
 import BuyProductPage from "./pages/BuyProductPage";
 import ProfilePage from "./pages/ProfilePage";
 
-import LoginContextProvider from "./hooks/LoginContext";
+import Alert from "./components/Alert";
+import { useEffect } from "react";
+import {refreshToken} from "./redux/actions/authAction";
+import ForgotPassword from "./pages/forgotPass";
+
 
 const Theme = createTheme({
   palette: {
@@ -22,36 +28,26 @@ const Theme = createTheme({
 });
 
 function App() {
+  const { auth } = useSelector(state => state);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(refreshToken());
+  }, [dispatch]);
   return (
     <ThemeProvider theme={Theme}>
-
-      <LoginContextProvider>
-        <Router>
-          <Switch>
-            <Route exact path="/">
-              <Home />
-            </Route>
-            <Route exact path="/login">
-              <Login />
-            </Route>
-            <Route exact path="/login/success">
-              <LoginSuccess />
-            </Route>
-            <Route path="/signup">
-              <Signup />
-            </Route>
-            <Route path="/bycategories">
-              <CategoriesProduct />
-            </Route>
-            <Route path="/buyproduct">
-              <BuyProductPage />
-            </Route>
-            <Route path="/profile/:user_name_param">
-            <ProfilePage />
-          </Route>
-          </Switch>
-        </Router>
-      </LoginContextProvider>
+      <Router>
+        <Alert />
+        <div className="App">
+            <Route exact path="/" component={Home} />
+            <Route exact path="/login" component={auth.token ? Home : Login} />
+            <Route exact path="/signup" component={auth.token ? Home : Signup} />
+            <Route exact path="/forgotpassword" component={ForgotPassword} />
+            <Route exact path="/resetpass/:resetToken" component={ResetPass} />
+            <Route exact path="/profile" component={auth.token ? ProfilePage : Home} />
+            <Route exact path="/bycategories" component={CategoriesProduct} />
+            <Route exact path="/buyproduct" component={BuyProductPage} />
+        </div>
+      </Router>
     </ThemeProvider>
   );
 }

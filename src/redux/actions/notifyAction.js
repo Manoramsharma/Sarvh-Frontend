@@ -1,10 +1,10 @@
+import { GLOBALTYPES } from "./globalTypes";
 export const TYPES = {
-    NOTIFY: "NOTIFY",
-  };
-  export const login = data => dispatch => {
-    try {
-      console.log(data);
-      dispatch({type: 'NOTIFY', payload:{loading: true}})
-    } catch (err) {}
-  };
-  
+  NOTIFY: GLOBALTYPES.ALERT,
+};
+export const login = data => dispatch => {
+  try {
+    console.log(data);
+    dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
+  } catch (err) {}
+};

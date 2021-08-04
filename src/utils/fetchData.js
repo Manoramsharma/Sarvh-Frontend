@@ -1,7 +1,7 @@
 import axios from "axios";
 import {API} from "../Backend";
 export const getDataAPI = async (url, token) => {
-  const res = await axios.get(`/api${url}`, {
+  const res = await axios.get(`/api/${url}`, {
     headers: { Authorization: token },
   });
 
@@ -17,7 +17,7 @@ export const postDataAPI = async (url, post, token) => {
 };
 
 export const putDataAPI = async (url, post, token) => {
-  const res = await axios.put(`/api${url}`, post, {
+  const res = await axios.put(`${API}/api/${url}`, post, {
     headers: { Authorization: token },
   });
 

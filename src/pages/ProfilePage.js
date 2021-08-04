@@ -1,13 +1,11 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { Avatar, Button, makeStyles, Typography } from "@material-ui/core";
 import NavbarLoggedIn from "../components/homePage/Navbar2";
 import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
 import { ToggleButton, ToggleButtonGroup } from "react-bootstrap";
-import { Divider } from "@material-ui/core";
-import ProductDisplayComponent from "../components/CategoriesPages/productDisplay";
 import ProfilePageProductDisplayComponent from "../components/ProfilePage/ProfilepageProductDisplayComponent";
 import { useParams } from "react-router";
-import { LoginContext } from "../hooks/LoginContext";
 
 const useStyles = makeStyles(theme => ({
   large: {
@@ -61,33 +59,23 @@ const useStyles = makeStyles(theme => ({
     padding: "2%",
   },
 }));
-
-// let profileInfo = {
-//   img: "https://mediaproxy.salon.com/width/1200/https://media.salon.com/2019/04/suprised-man.jpg",
-//   name: "Swahim Namdev",
-//   username: "@swahim",
-//   followers: 1000,
-//   following: 500,
-// };
-
 const ProfilePage = () => {
-  const { auth } = useContext(LoginContext);
   const { user_name_param } = useParams();
-  console.log(auth);
-  if (auth[0].isAuthenticated && auth[0].username === user_name_param) {
-    console.log("user is view it's own profile");
-  }
-  const [profileInfo, setProfileInfo] = useState([
-    {
-      img: null,
-      name: "Sohan Bandary",
-      username: "username2001",
-      followers: 200,
-      following: 2000,
-    },
-  ]);
+  const { auth } = useSelector(state => state);
   console.log(user_name_param);
-  console.log(profileInfo);
+  console.log(auth.user) 
+  var [avatar, setAvatar]= useState(null);
+  var [name, setName]= useState("Sarvh User");
+  var [username, setUsername]= useState("sarvh username");
+  var [followers, setFollowers]= useState(10);
+  var [following, setFollowing]= useState(10);
+  if(auth.token) {
+    avatar=auth.user.avatar;
+    name=auth.user.fullname;
+    username=auth.user.username;
+    followers=auth.user.followers.length;
+    following=auth.user.followers.length;
+  }
   const classes = useStyles();
   return (
     <div>
@@ -95,16 +83,16 @@ const ProfilePage = () => {
       <div className={classes.avatarContainer}>
         <div className={classes.left}>
           <Avatar
-            src={profileInfo[0].img}
+            src={avatar}
             alt="profile image"
             className={classes.large}
           />
           <div className={classes.userInfo}>
             <Typography className={classes.bold}>
-              {profileInfo[0].name}
+              {name}
             </Typography>
             <Typography color="textSecondary" className={classes.fontSize}>
-              {profileInfo[0].username}
+              {username}
             </Typography>
             <StarOutlinedIcon />
           </div>
@@ -113,13 +101,13 @@ const ProfilePage = () => {
           <div className={classes.right2}>
             <div className={classes.followersDiv}>
               <Typography className={classes.bold}>
-                {profileInfo[0].followers}
+                {followers}
               </Typography>
               <Typography>Followers</Typography>
             </div>
             <div className={classes.followersDiv}>
               <Typography className={classes.bold}>
-                {profileInfo[0].following}
+                {following}
               </Typography>
               <Typography gutterBottom>Following</Typography>
             </div>
