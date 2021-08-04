@@ -15,6 +15,8 @@ import Alert from "./components/Alert";
 import { useEffect } from "react";
 import {refreshToken} from "./redux/actions/authAction";
 import ForgotPassword from "./pages/forgotPass";
+
+
 const Theme = createTheme({
   palette: {
     secondary: {
@@ -41,7 +43,9 @@ function App() {
             <Route exact path="/login" component={auth.token ? Home : Login} />
             <Route exact path="/signup" component={auth.token ? Home : Signup} />
             <Route exact path="/forgotpassword" component={ForgotPassword} />
-            <Route exact path="/resetpass" component={ResetPass} />
+            <Route exact path="/resetpass/:resetToken" component={ResetPass} />
+            {/* <Route exact path="/resetpass" component={ResetPass} /> */}
+            <Route exact path="/profile" component={auth.token ? ProfilePage : Home} />
         </div>
       </Router>
     </ThemeProvider>

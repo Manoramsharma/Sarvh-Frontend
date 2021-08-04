@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useHistory, Link } from "react-router-dom";
 import styles from "./Signup.css";
 import Signupimg from "../images/Signupimg.jpg";
 import Login from "./Login";
-import { useHistory } from "react-router-dom";
+import { register } from "../redux/actions/authAction";
 
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
@@ -13,7 +15,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 
 import TextField from "@material-ui/core/TextField";
 import Swal from "sweetalert2";
-import {validateEmail, validatePassword} from "../helper/validator"
+import { validateEmail, validatePassword } from "../helper/validator";
 import { API } from "../Backend";
 
 const useStyles = makeStyles({
@@ -28,6 +30,8 @@ const useStyles = makeStyles({
 });
 
 function Signup(props) {
+  const { auth, alert } = useSelector(state => state);
+  const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
 
@@ -40,6 +44,9 @@ function Signup(props) {
   const [emailError, setEmailError] = useState(false);
   const [fullnameError, setFullnameError] = useState(false);
 
+  useEffect(() => {
+    if (auth.token) history.push("/");
+  }, [auth.token, history]);
   const signUpForm = e => {
     e.preventDefault();
     if (fullname === "") {
@@ -74,41 +81,50 @@ function Signup(props) {
             text: "Password should be 8 characters long, should have one numerical, capital and a special character",
           });
         } else {
-          fetch(`${API}/api/register`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              fullname,
-              username,
-              email,
-              password,
-              gender,
-            }),
-          }).then((res) => res.json())
-          .then((data) => {
-            console.log(data);
-            if(data.msg==="this email already exists"){
-              Swal.fire({
-                icon: "error",
-                title: "Email already exists",
-                text: "Please sign in instead",
-              });
-            } else if(data.msg==="this user name already exists"){
-              Swal.fire({
-                icon: "error",
-                title: "Username already exists",
-                text: "Please try another username",
-              });
-            } else if(data.msg==="register success!"){
-              Swal.fire({
-                icon: "success",
-                title: "Success",
-                text: "Registration Successfull, Welcome to Sarvh!",
-              });
-            }
-          })
+          const userData = {
+            fullname,
+            username,
+            email,
+            password,
+            gender,
+          };
+          dispatch(register(userData));
+          // fetch(`${API}/api/register`, {
+          //   method: "POST",
+          //   headers: {
+          //     "Content-Type": "application/json",
+          //   },
+          //   body: JSON.stringify({
+          //     fullname,
+          //     username,
+          //     email,
+          //     password,
+          //     gender,
+          //   }),
+          // })
+          //   .then(res => res.json())
+          //   .then(data => {
+          //     console.log(data);
+          //     if (data.msg === "this email already exists") {
+          //       Swal.fire({
+          //         icon: "error",
+          //         title: "Email already exists",
+          //         text: "Please sign in instead",
+          //       });
+          //     } else if (data.msg === "this user name already exists") {
+          //       Swal.fire({
+          //         icon: "error",
+          //         title: "Username already exists",
+          //         text: "Please try another username",
+          //       });
+          //     } else if (data.msg === "register success!") {
+          //       Swal.fire({
+          //         icon: "success",
+          //         title: "Success",
+          //         text: "Registration Successfull, Welcome to Sarvh!",
+          //       });
+          //     }
+          //   });
         }
       }
     }
