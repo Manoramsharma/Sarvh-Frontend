@@ -10,8 +10,8 @@ import SearchIcon from "@material-ui/icons/Search";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import PersonIcon from "@material-ui/icons/Person";
 import NotificationsIcon from "@material-ui/icons/Notifications";
-import {  Link } from "react-router-dom";
-
+import { Dropdown, ButtonGroup } from "react-bootstrap";
+import HomeIcon from '@material-ui/icons/Home';
 const useStyles = makeStyles({
   navbar: {
     backgroundColor: "#ffffff",
@@ -48,7 +48,7 @@ const useStyles = makeStyles({
     color: "#E53F3F",
   },
   buttonGroup: {
-    width: 300,
+    width: 400,
     display: "flex",
     justifyContent: "space-between",
   },
@@ -76,8 +76,7 @@ const NavbarLoggedIn = () => {
             <Button className={classes.roundedButton}>
               <NotificationsIcon className={classes.bellIcon} />
             </Button>
-            <Link to={"/profile"} style={{ textDecoration: 'none' }}>
-            <Button
+            {/* <Button
               startIcon={<PersonIcon color="default" />}
               variant="contained"
               disableElevation
@@ -85,11 +84,31 @@ const NavbarLoggedIn = () => {
               className={classes.profileButton}
             >
               Profile
-            </Button>
-            </Link >
-            
+            </Button> */}
+            <Dropdown as={ButtonGroup}>
+              <Button
+                variant="contained"
+                disableElevation
+                color="secondary"
+                startIcon={<PersonIcon color="default" />}
+              >
+                Profile
+              </Button>
+              <Dropdown.Toggle
+                color="secondary"
+                split
+                id="dropdown-split-basic"
+              />
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-2">Edit profile</Dropdown.Item>
+                <Dropdown.Item href="#/action-1">Log Out</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
             <Button className={classes.roundedButton}>
               <ShoppingCartIcon color="secondary" />
+            </Button>
+            <Button className={classes.roundedButton}>
+              <HomeIcon color="secondary" />
             </Button>
           </div>
         </Toolbar>
