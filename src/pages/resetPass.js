@@ -1,6 +1,6 @@
 import { Typography, makeStyles, Button, TextField } from "@material-ui/core";
 import "./forgotpass.css";
-import image from "../images/forgotpass.svg";
+import forgotpass from "../images/forgotpass.svg";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { useParams } from "react-router";
 import { validatePassword } from "../helper/validator";
@@ -64,8 +64,6 @@ const ResetPass = match => {
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const classes = useStyles();
 
   const resetPasswordHandler = async e => {
@@ -107,7 +105,7 @@ const ResetPass = match => {
         <Typography variant="h6" class="heading sub">
           Discover. Sell. Connect
         </Typography>
-        <img src={image} class="image" />
+        <img src={forgotpass} class="image" alt="reset" />
       </div>
       <div class="rightMain">
         <div class="navRight">
@@ -135,10 +133,8 @@ const ResetPass = match => {
               type="password"
               required
               id="password"
-              placeholder="Enter new password"
+              label="Enter new password"
               autoComplete="true"
-              // value={password}
-              type="password"
               onChange={e => setPassword(e.target.value)}
               fullWidth
               className={classes.textField}
@@ -151,10 +147,8 @@ const ResetPass = match => {
               type="password"
               required
               id="password"
-              placeholder="Enter new password"
+              label="Re-Enter new password"
               autoComplete="true"
-              // value={password}
-              type="password"
               onChange={e => setConfirmPassword(e.target.value)}
               fullWidth
               className={classes.textField}
@@ -164,7 +158,6 @@ const ResetPass = match => {
               variant="contained"
               color="primary"
               className={classes.submitBtn}
-              // onClick={resetPassAPI}
             >
               Update Password
             </Button>

@@ -4,13 +4,12 @@ import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import ResetPass from "./pages/resetPass";
-import LoginSuccess from "./components/LoginSuccess";
+// import LoginSuccess from "./components/LoginSuccess";
 import Signup from "./pages/Signup";
 import CategoriesProduct from "./pages/CategoryPage";
 import BuyProductPage from "./pages/BuyProductPage";
 import ProfilePage from "./pages/ProfilePage";
 
-import LoginContextProvider from "./hooks/LoginContext";
 import Alert from "./components/Alert";
 import { useEffect } from "react";
 import {refreshToken} from "./redux/actions/authAction";
@@ -44,43 +43,12 @@ function App() {
             <Route exact path="/signup" component={auth.token ? Home : Signup} />
             <Route exact path="/forgotpassword" component={ForgotPassword} />
             <Route exact path="/resetpass/:resetToken" component={ResetPass} />
-            {/* <Route exact path="/resetpass" component={ResetPass} /> */}
             <Route exact path="/profile" component={auth.token ? ProfilePage : Home} />
+            <Route exact path="/bycategories" component={CategoriesProduct} />
+            <Route exact path="/buyproduct" component={BuyProductPage} />
         </div>
       </Router>
     </ThemeProvider>
-    // <ThemeProvider theme={Theme}>
-
-    //   <LoginContextProvider>
-    //     <Router>
-    //       <Notify/>
-    //       <Switch>
-    //         <Route exact path="/">
-    //           <Home />
-    //         </Route>
-    //         <Route exact path="/login">
-    //           <Login />
-    //         </Route>
-    //         <Route exact path="/login/success">
-    //           <LoginSuccess />
-    //         </Route>
-    //         <Route path="/signup">
-    //           <Signup />
-    //         </Route>
-    //         <Route path="/bycategories">
-    //           <CategoriesProduct />
-    //         </Route>
-    //         <Route path="/buyproduct">
-    //           <BuyProductPage />
-    //         </Route>
-    //         <Route path="/profile/:user_name_param">
-    //         <ProfilePage />
-    //       </Route>
-    //       </Switch>
-    //     </Router>
-    //   </LoginContextProvider>
-
-    // </ThemeProvider>
   );
 }
 

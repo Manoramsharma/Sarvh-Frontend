@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import "./Login.css";
 import Loginimg from "../images/Loginimg.jpg";
 import { useHistory, Link } from "react-router-dom";
@@ -11,11 +11,10 @@ import { makeStyles } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Swal from "sweetalert2";
 import { API } from "../Backend";
-import { LoginContext } from "../hooks/LoginContext";
 import { validateEmail, validatePassword } from "../helper/validator";
 import GoogleButton from "react-google-button";
 import { login } from "../redux/actions/authAction";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
 axios.defaults.withCredentials = true;
@@ -73,7 +72,6 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const history = useHistory();
   const classes = useStyles();
-  // const { auth, setAuthFunc } = useContext(LoginContext);
   const dispatch = useDispatch();
 
   function googleAuth() {
@@ -117,7 +115,6 @@ const Login = () => {
         email: email,
         password: password,
       };
-      console.log(userData);
       dispatch(login(userData));
       // axios.post(`${API}/api/login`, { email, password }).then(res => {
       //   console.log(res.data);
@@ -176,11 +173,9 @@ const Login = () => {
                   required
                   onChange={e => setPassword(e.target.value)}
                 />
-                <div className={classes.forgotPass}>
-                <a className={classes.forgotPass} href="#">
-                  Forgot Password
-                </a>
-              </div>
+                <Link to={"/forgotpassword"}>
+                  <div className={classes.forgotPass}>Forgot Password</div>
+                </Link>
                 <Button
                   type="submit"
                   color="secondary"
@@ -191,7 +186,6 @@ const Login = () => {
                   Submit
                 </Button>
               </form>
-              
             </Container>
           </div>
 

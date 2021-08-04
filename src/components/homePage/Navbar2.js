@@ -12,6 +12,7 @@ import PersonIcon from "@material-ui/icons/Person";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import { Dropdown, ButtonGroup } from "react-bootstrap";
 import HomeIcon from '@material-ui/icons/Home';
+import {  Link } from "react-router-dom";
 const useStyles = makeStyles({
   navbar: {
     backgroundColor: "#ffffff",
@@ -86,14 +87,17 @@ const NavbarLoggedIn = () => {
               Profile
             </Button> */}
             <Dropdown as={ButtonGroup}>
-              <Button
-                variant="contained"
-                disableElevation
-                color="secondary"
-                startIcon={<PersonIcon color="default" />}
-              >
-                Profile
-              </Button>
+            <Link to={"/profile"} style={{ textDecoration: 'none' }}>
+            <Button
+              startIcon={<PersonIcon color="primary" />}
+              variant="contained"
+              disableElevation
+              color="secondary"
+              className={classes.profileButton}
+            >
+              Profile
+            </Button>
+            </Link >
               <Dropdown.Toggle
                 color="secondary"
                 split
@@ -108,7 +112,10 @@ const NavbarLoggedIn = () => {
               <ShoppingCartIcon color="secondary" />
             </Button>
             <Button className={classes.roundedButton}>
+              <Link to={"/"}>
+
               <HomeIcon color="secondary" />
+              </Link>
             </Button>
           </div>
         </Toolbar>
