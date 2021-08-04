@@ -1,10 +1,15 @@
 import React from "react";
 import { Carousel } from "react-bootstrap";
 import { Button, makeStyles, Typography } from "@material-ui/core";
+import { useTheme } from "@material-ui/styles";
+import { useMediaQuery } from "@material-ui/core";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) =>({
   carouselImages: {
     width: 800,
+    [theme.breakpoints.down("md")]: {
+      width: 500,
+    },
     height: 400,
   },
   marginTop: {
@@ -26,15 +31,26 @@ const useStyles = makeStyles({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "space-around",
+  
+    
+  },
+  edit : {
+    [theme.breakpoints.down("md")]:
+      {
+fontSize : 10
+      },
+    
   },
   button: {
     width: 300,
     backgroundColor: "#EEEEEE",
   },
-});
+}));
 
 const CarouselComponent = () => {
   const classes = useStyles();
+  const theme = useTheme() ;
+  const match = useMediaQuery(theme.breakpoints.down('md'));
   return (
     <div>
       <Carousel fade={true} className={classes.carousel} pause="hover">
@@ -46,7 +62,7 @@ const CarouselComponent = () => {
           />
           <Carousel.Caption className={classes.carouselCaption}>
             <div>
-              <Typography variant="h3">Summer Must Have</Typography>
+              <Typography  className={classes.edit} variant="h3">Summer Must Have</Typography>
               <Typography variant="h6">Starting at Rs. 200</Typography>
             </div>
             <Button className={classes.button} variant="outlined" size="large">
