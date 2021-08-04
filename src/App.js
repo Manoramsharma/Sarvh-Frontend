@@ -9,7 +9,7 @@ import Signup from "./pages/Signup";
 import CategoriesProduct from "./pages/CategoryPage";
 import BuyProductPage from "./pages/BuyProductPage";
 import ProfilePage from "./pages/ProfilePage";
-
+import SpinnerComponent from "./components/spinner"
 import LoginContextProvider from "./hooks/LoginContext";
 import Alert from "./components/Alert";
 import { useEffect } from "react";
@@ -44,6 +44,7 @@ function App() {
             <Route exact path="/signup" component={auth.token ? Home : Signup} />
             <Route exact path="/forgotpassword" component={ForgotPassword} />
             <Route exact path="/resetpass/:resetToken" component={ResetPass} />
+            <Route exact path="/spinner" component={SpinnerComponent} />
             {/* <Route exact path="/resetpass" component={ResetPass} /> */}
             <Route exact path="/profile" component={auth.token ? ProfilePage : Home} />
         </div>

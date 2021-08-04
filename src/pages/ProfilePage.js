@@ -9,6 +9,7 @@ import ProductDisplayComponent from "../components/CategoriesPages/productDispla
 import ProfilePageProductDisplayComponent from "../components/ProfilePage/ProfilepageProductDisplayComponent";
 import { useParams } from "react-router";
 import { LoginContext } from "../hooks/LoginContext";
+import Footer from "../components/footer";
 
 const useStyles = makeStyles(theme => ({
   large: {
@@ -150,6 +151,7 @@ const ProfilePage = () => {
       <div className={classes.displayDiv}>
         <ProfilePageProductDisplayComponent />
       </div>
+      <Footer />
     </div>
   );
 };
