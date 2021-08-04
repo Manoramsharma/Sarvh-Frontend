@@ -11,8 +11,11 @@ import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import PersonIcon from "@material-ui/icons/Person";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import { Dropdown, ButtonGroup } from "react-bootstrap";
-import HomeIcon from '@material-ui/icons/Home';
-import {  Link } from "react-router-dom";
+import HomeIcon from "@material-ui/icons/Home";
+import { Link, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { logout } from "../../redux/actions/authAction";
+import { GLOBALTYPES } from "../../redux/actions/globalTypes";
 const useStyles = makeStyles({
   navbar: {
     backgroundColor: "#ffffff",
@@ -57,6 +60,9 @@ const useStyles = makeStyles({
 
 const NavbarLoggedIn = () => {
   const classes = useStyles();
+  const { auth, theme, notify } = useSelector(state => state);
+  const dispatch = useDispatch();
+  // const { pathname } = useLocation();
   return (
     <div>
       <AppBar position="fixed" elevation={0} style={{ zIndex: 1251 }}>
@@ -87,17 +93,17 @@ const NavbarLoggedIn = () => {
               Profile
             </Button> */}
             <Dropdown as={ButtonGroup}>
-            <Link to={"/profile"} style={{ textDecoration: 'none' }}>
-            <Button
-              startIcon={<PersonIcon color="primary" />}
-              variant="contained"
-              disableElevation
-              color="secondary"
-              className={classes.profileButton}
-            >
-              Profile
-            </Button>
-            </Link >
+              <Link to={"/profile"} style={{ textDecoration: "none" }}>
+                <Button
+                  startIcon={<PersonIcon color="primary" />}
+                  variant="contained"
+                  disableElevation
+                  color="secondary"
+                  className={classes.profileButton}
+                >
+                  Profile
+                </Button>
+              </Link>
               <Dropdown.Toggle
                 color="secondary"
                 split
@@ -105,7 +111,10 @@ const NavbarLoggedIn = () => {
               />
               <Dropdown.Menu>
                 <Dropdown.Item href="#/action-2">Edit profile</Dropdown.Item>
-                <Dropdown.Item href="#/action-1">Log Out</Dropdown.Item>
+                <div className="dropdown-divider"></div>
+                <Link style={{ textDecoration: "none" }} onClick={() => dispatch(logout())}>
+                  <Dropdown.Item>Log Out</Dropdown.Item>
+                </Link>
               </Dropdown.Menu>
             </Dropdown>
             <Button className={classes.roundedButton}>
@@ -113,8 +122,7 @@ const NavbarLoggedIn = () => {
             </Button>
             <Button className={classes.roundedButton}>
               <Link to={"/"}>
-
-              <HomeIcon color="secondary" />
+                <HomeIcon color="secondary" />
               </Link>
             </Button>
           </div>
