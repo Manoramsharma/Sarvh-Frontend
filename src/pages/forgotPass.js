@@ -24,43 +24,37 @@ const useStyles = makeStyles({
   typography: {
     fontWeight: "700",
   },
-  description : {
-      width : "80%",
-      textAlign : "center",
-      marginTop: "3%"
+  description: {
+    width: "80%",
+    textAlign: "center",
+    marginTop: "3%",
   },
-  email : {
-      alignSelf : "flex-start",
-      marginLeft : "11.3%",
-      marginTop : "10%",
-      fontWeight : "700"
+  email: {
+    alignSelf: "flex-start",
+    marginLeft: "11.3%",
+    marginTop: "10%",
+    fontWeight: "700",
   },
-  form : {
-      alignSelf : "flex-start",
-      marginLeft : "11.3%",
-      width : "50%",
+  form: {
+    alignSelf: "flex-start",
+    marginLeft: "11.3%",
+    width: "50%",
   },
-  textField : {
-      marginTop : "2%",
-     padding : "0%"
+  textField: {
+    marginTop: "2%",
+    padding: "0%",
   },
-  submitBtn : {
-      marginTop : "10%"
-  }
+  submitBtn: {
+    marginTop: "10%",
+  },
 });
 
 const ForgotPassword = () => {
-
-
   const classes = useStyles();
   const history = useHistory();
 
-
   const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
-
-  const forgotPasswordHandler = async (e) => {
+  const forgotPasswordHandler = async e => {
     e.preventDefault();
 
     const config = {
@@ -76,19 +70,15 @@ const ForgotPassword = () => {
         config
       );
 
-      setSuccess(data.data);
       history.push("/");
-
     } catch (error) {
       alert("wrong");
-      
+    }
   };
-  }
-
 
   return (
     <div className={classes.container}>
-      <div class="leftMain"  >
+      <div class="leftMain">
         <Typography gutterBottom variant="h4" class="heading headingmain">
           S A R V H
         </Typography>
@@ -98,9 +88,9 @@ const ForgotPassword = () => {
         <Typography variant="h6" class="heading sub">
           Discover. Sell. Connect
         </Typography>
-        <img src={image} class="image" />
-       </div>
-       <div  class="rightMain">
+        <img src={image} class="image" alt="forgot_pass"/>
+      </div>
+      <div class="rightMain">
         <div class="navRight">
           <Button className={classes.backBtn}>
             <ArrowBackIosIcon />
@@ -114,17 +104,32 @@ const ForgotPassword = () => {
             FORGOT <span class="passwordText">PASSWORD</span>
           </Typography>
           <Typography className={classes.description} variant="h6">
-          Enter the email address you used when you joined and we will send you intructions to reset your password
+            Enter the email address you used when you joined and we will send
+            you intructions to reset your password
           </Typography>
-          <Typography className={classes.email} variant="h6">Email Address</Typography>
+          <Typography className={classes.email} variant="h6">
+            Email Address
+          </Typography>
           <form className={classes.form} onSubmit={forgotPasswordHandler}>
-          <TextField  type="email"
-            required
-            id="email"
-            placeholder="Email address"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)} variant="outlined" fullWidth className={classes.textField}/>
-            <Button  type="submit" variant="contained" color="primary" className={classes.submitBtn}>Send reset instructions</Button>
+            <TextField
+              type="email"
+              required
+              id="email"
+              placeholder="Email address"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              variant="outlined"
+              fullWidth
+              className={classes.textField}
+            />
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              className={classes.submitBtn}
+            >
+              Send reset instructions
+            </Button>
           </form>
         </div>
       </div>

@@ -1,22 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory, Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import styles from "./Signup.css";
 import Signupimg from "../images/Signupimg.jpg";
-import Login from "./Login";
 import { register } from "../redux/actions/authAction";
 
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
-import { makeStyles, FormControlLabel, FormLabel } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
 
 import TextField from "@material-ui/core/TextField";
 import Swal from "sweetalert2";
 import { validateEmail, validatePassword } from "../helper/validator";
-import { API } from "../Backend";
 
 const useStyles = makeStyles({
   field: {

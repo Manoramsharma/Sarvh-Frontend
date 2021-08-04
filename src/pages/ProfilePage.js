@@ -1,11 +1,9 @@
-import React, { useState, useContext } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { Avatar, Button, makeStyles, Typography } from "@material-ui/core";
 import NavbarLoggedIn from "../components/homePage/Navbar2";
 import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
 import { ToggleButton, ToggleButtonGroup } from "react-bootstrap";
-import { Divider } from "@material-ui/core";
-import ProductDisplayComponent from "../components/CategoriesPages/productDisplay";
 import ProfilePageProductDisplayComponent from "../components/ProfilePage/ProfilepageProductDisplayComponent";
 import { useParams } from "react-router";
 import { LoginContext } from "../hooks/LoginContext";
