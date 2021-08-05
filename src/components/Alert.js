@@ -25,6 +25,7 @@ const Notify = () => {
       {alert.loading && <LinearProgress />}
       {alert.error && (
         <Toast
+        type="error"
           msg={alert.error}
           position="top-right"
           handleShow={() => dispatch({ type: GLOBALTYPES.ALERT, payload: {} })}
@@ -32,6 +33,7 @@ const Notify = () => {
       )}
       {alert.success && (
         <Toast
+        type="success"
           msg={alert.success}
           position="top-right"
           handleShow={() => dispatch({ type: GLOBALTYPES.ALERT, payload: {} })}
