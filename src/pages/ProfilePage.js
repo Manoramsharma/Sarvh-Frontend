@@ -1,11 +1,16 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux'
 import { Avatar, Button, makeStyles, Typography } from "@material-ui/core";
 import NavbarLoggedIn from "../components/homePage/Navbar2";
+import Info from "../components/ProfilePage/Info";
+import Posts from "../components/ProfilePage/Posts";
 import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
 import { ToggleButton, ToggleButtonGroup } from "react-bootstrap";
 import ProfilePageProductDisplayComponent from "../components/ProfilePage/ProfilepageProductDisplayComponent";
 import { useParams } from "react-router";
+import { getProfileUsers } from '../redux/actions/profileAction'
+import { GLOBALTYPES } from '../redux/actions/globalTypes'
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 import Footer from "../components/footer";
 
@@ -15,7 +20,7 @@ const useStyles = makeStyles(theme => ({
     height: theme.spacing(10),
   },
   avatarContainer: {
-    marginTop: 130,
+    marginTop: 100,
     position: "relative",
     left: "50%",
     transform: "translateX(-50%)",
@@ -62,25 +67,19 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 const ProfilePage = () => {
-  const { user_name_param } = useParams();
-  const { auth } = useSelector(state => state);
-  console.log(user_name_param);
-  console.log(auth.user) 
-  var [avatar, setAvatar]= useState(null);
-  var [name, setName]= useState("Sarvh User");
-  var [username, setUsername]= useState("sarvh username");
-  var [followers, setFollowers]= useState(10);
-  var [following, setFollowing]= useState(10);
-  if(auth.token) {
-    avatar=auth.user.avatar;
-    name=auth.user.fullname;
-    username=auth.user.username;
-    followers=auth.user.followers.length;
-    following=auth.user.followers.length;
-  }
+  const { profile, auth } = useSelector(state => state);
+  console.log(profile);
+  const dispatch = useDispatch();
+  const { id } = useParams();
   const classes = useStyles();
+  // useEffect(() => {
+  //   if (profile.ids.every(item => item !== id)) {
+  //     dispatch(getProfileUsers({ id, auth }));
+  //   }
+  // }, [id, auth, dispatch, profile.ids]);
   return (
     <div>
+      {profile.loading && <LinearProgress/>}
       <NavbarLoggedIn />
       <div className={classes.avatarContainer}>
         <div className={classes.left}>
@@ -150,6 +149,8 @@ const ProfilePage = () => {
         <ProfilePageProductDisplayComponent />
       </div>
       <Footer />
+      <Info id={id} auth={auth} profile={profile} dispatch={dispatch} />
+      <Posts />
     </div>
   );
 };

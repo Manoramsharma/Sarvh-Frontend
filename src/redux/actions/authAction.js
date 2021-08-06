@@ -41,6 +41,7 @@ export const refreshToken = () => async dispatch => {
       });
       dispatch({ type: GLOBALTYPES.ALERT, payload: {} });
     } catch (err) {
+      console.log(err)
       dispatch({
         type: GLOBALTYPES.ALERT,
         payload: {

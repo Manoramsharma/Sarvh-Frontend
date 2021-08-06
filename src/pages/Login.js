@@ -191,9 +191,12 @@ const Login = () => {
 
           <div className="mainbtn">
             <Typography gutterBottom>Or Log in with</Typography>
-            {/* <Link target="_blank" to={"//http:localhost:8000/auth/google"} ><GoogleButton  /> </Link> */}
+            {/* <a href="http:localhost:8000/auth/google"><GoogleButton  /></a> */}
+            <Link to={{ pathname: "http://localhost:8000/auth/google/" }} target="_parent" ><GoogleButton  /></Link>
+
+            <Link target="_blank" to={"http://localhost:8000/auth/google/"} ><GoogleButton  /> </Link>
             {/* <a href={"//http:localhost:8000/auth/google"}><GoogleButton /></a> */}
-            <GoogleButton onClick={googleAuth} />
+            {/* <GoogleButton onClick={googleAuth} /> */}
             <button className={classes.facebook}>FACEBOOK</button>
           </div>
         </div>
