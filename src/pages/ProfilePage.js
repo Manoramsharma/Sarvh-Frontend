@@ -6,7 +6,7 @@ import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
 import { ToggleButton, ToggleButtonGroup } from "react-bootstrap";
 import ProfilePageProductDisplayComponent from "../components/ProfilePage/ProfilepageProductDisplayComponent";
 import { useParams } from "react-router";
-import { LoginContext } from "../hooks/LoginContext";
+
 import Footer from "../components/footer";
 
 const useStyles = makeStyles(theme => ({

@@ -9,14 +9,11 @@ import Signup from "./pages/Signup";
 import CategoriesProduct from "./pages/CategoryPage";
 import BuyProductPage from "./pages/BuyProductPage";
 import ProfilePage from "./pages/ProfilePage";
-import SpinnerComponent from "./components/spinner"
-import LoginContextProvider from "./hooks/LoginContext";
+import SpinnerComponent from "./components/spinner";
 import Alert from "./components/Alert";
 import { useEffect } from "react";
-import {refreshToken} from "./redux/actions/authAction";
+import { refreshToken } from "./redux/actions/authAction";
 import ForgotPassword from "./pages/forgotPass";
-
-
 const Theme = createTheme({
   palette: {
     secondary: {
@@ -29,7 +26,7 @@ const Theme = createTheme({
 });
 
 function App() {
-  const { auth } = useSelector(state => state);
+  const { auth } = useSelector((state) => state);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(refreshToken());
@@ -39,16 +36,20 @@ function App() {
       <Router>
         <Alert />
         <div className="App">
-            <Route exact path="/" component={Home} />
-            <Route exact path="/login" component={auth.token ? Home : Login} />
-            <Route exact path="/signup" component={auth.token ? Home : Signup} />
-            <Route exact path="/forgotpassword" component={ForgotPassword} />
-            <Route exact path="/resetpass/:resetToken" component={ResetPass} />
-            {/* <Route exact path="/spinner" component={SpinnerComponent} /> */}
-            {/* <Route exact path="/resetpass" component={ResetPass} /> */}
-            <Route exact path="/profile" component={auth.token ? ProfilePage : Home} />
-            <Route exact path="/bycategories" component={CategoriesProduct} />
-            <Route exact path="/buyproduct" component={BuyProductPage} />
+          <Route exact path="/" component={Home} />
+          <Route exact path="/login" component={auth.token ? Home : Login} />
+          <Route exact path="/signup" component={auth.token ? Home : Signup} />
+          <Route exact path="/forgotpassword" component={ForgotPassword} />
+          <Route exact path="/resetpass/:resetToken" component={ResetPass} />
+          {/* <Route exact path="/spinner" component={SpinnerComponent} /> */}
+          {/* <Route exact path="/resetpass" component={ResetPass} /> */}
+          <Route
+            exact
+            path="/profile"
+            component={auth.token ? ProfilePage : Home}
+          />
+          <Route exact path="/bycategories" component={CategoriesProduct} />
+          <Route exact path="/buyproduct" component={BuyProductPage} />
         </div>
       </Router>
     </ThemeProvider>
