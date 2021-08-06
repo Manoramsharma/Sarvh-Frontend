@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from "react-redux";
 import { Avatar, Button, makeStyles, Typography } from "@material-ui/core";
 import NavbarLoggedIn from "../components/homePage/Navbar2";
 import Info from "../components/ProfilePage/Info";
@@ -8,9 +8,9 @@ import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
 import { ToggleButton, ToggleButtonGroup } from "react-bootstrap";
 import ProfilePageProductDisplayComponent from "../components/ProfilePage/ProfilepageProductDisplayComponent";
 import { useParams } from "react-router";
-import { getProfileUsers } from '../redux/actions/profileAction'
-import { GLOBALTYPES } from '../redux/actions/globalTypes'
-import LinearProgress from '@material-ui/core/LinearProgress';
+import { getProfileUsers } from "../redux/actions/profileAction";
+import { GLOBALTYPES } from "../redux/actions/globalTypes";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 const useStyles = makeStyles(theme => ({
   large: {
@@ -70,16 +70,23 @@ const ProfilePage = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const classes = useStyles();
-  // useEffect(() => {
-  //   if (profile.ids.every(item => item !== id)) {
-  //     dispatch(getProfileUsers({ id, auth }));
-  //   }
-  // }, [id, auth, dispatch, profile.ids]);
+  const [userData, setUserData] = useState([]);
+
+  useEffect(() => {
+    console.log("use effect ran in profile page")
+    if(auth.user.username !== id){
+      dispatch(getProfileUsers({ users:profile.users, id, auth }));
+      console.log(profile.users);
+    } 
+    // else{
+    //   dispatch(getProfileUsers({users: profile.users, id, auth}))
+    // }
+  }, [id, auth, dispatch, profile.users]);
   return (
     <div>
-      {profile.loading && <LinearProgress/>}
+      {profile.loading && <LinearProgress />}
       <NavbarLoggedIn />
-      <Info id={id} auth={auth} profile={profile} dispatch={dispatch} />
+      <Info id={id}/>
       <Posts />
     </div>
   );
