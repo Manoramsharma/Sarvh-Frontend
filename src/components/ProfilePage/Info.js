@@ -61,9 +61,6 @@ const Info = ({  id }) => {
   const {  auth, profile } = useSelector(state => state);
   const dispatch = useDispatch();
   const classes = useStyles();
-  const [followers, setFollowers] = useState(-1);
-  const [following, setFollowing] = useState(-1);
-  const [self, setSelf] = useState(false);
   const [values, setValues] = useState({
     avatar: null,
     fullname: "Sarvh User",
@@ -88,21 +85,21 @@ const Info = ({  id }) => {
       });
       console.log(values);
     } else{
-      
-      console.log(profile.users)
-      // setValues({
-      //   ...values,
-      //   load: true
-      // })
-      // setValues({
-      //   ...values,
-      //   avatar: profile.users[0].avatar,
-      //   fullname: profile.users[0].fullname,
-      //   followers: profile.users[0].followers.length,
-      //   following: profile.users[0].following.length,
-      //   self: false,
-      //   load: true,
-      // });
+      try{
+
+        setValues({
+          ...values,
+          avatar: profile.users[0].avatar,
+          fullname: profile.users[0].fullname,
+          username: profile.users[0].username,
+          followers: profile.users[0].followers.length,
+          following: profile.users[0].following.length,
+          self: false,
+          load: true,
+        });
+      } catch (err) {
+        console.log(err)
+      }
     }
 }, [auth, profile.users, dispatch, id]);
     return (
