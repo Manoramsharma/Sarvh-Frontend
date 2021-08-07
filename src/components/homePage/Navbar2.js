@@ -74,7 +74,7 @@ const useStyles = makeStyles( (theme) =>({
 const NavbarLoggedIn = () => {
   
   const classes = useStyles();
-  /* const { auth, theme, notify } = useSelector(state => state); */
+  const { auth } = useSelector(state => state);
   const dispatch = useDispatch();
   const theme = useTheme() ;
   const match= useMediaQuery('(max-width : 960px');
@@ -170,7 +170,7 @@ const NavbarLoggedIn = () => {
               Profile
             </Button> */}
             <Dropdown as={ButtonGroup}>
-              <Link to={"/profile"} style={{ textDecoration: "none" }}>
+              <Link to={"/profile/"+auth.user.username} style={{ textDecoration: "none" }}>
                 <Button
                   startIcon={<PersonIcon color="primary" />}
                   variant="contained"

@@ -23,6 +23,10 @@ const useStyles = makeStyles({
   carousel: {
     backgroundColor: "#E53F3F",
   },
+  home: {
+    width : "100vw",
+    backgroundColor: "#E53F3F",
+  }
 });
 
 const Home = () => {
@@ -34,7 +38,7 @@ const Home = () => {
   }
 
   return (
-    <div>
+    <div className= {classes.home}>
       {loggedIn ? <NavbarLoggedIn /> : <NavbarWithLogin />}
       <CarouselComponent />
       <MainContainerNewProducts />

@@ -34,13 +34,14 @@ export const refreshToken = () => async dispatch => {
   if (firstLogin) {
     dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
     try {
-      const res = await postDataAPI("refresh_token");
+      const res =  await postDataAPI("refresh_token");
       dispatch({
         type: GLOBALTYPES.AUTH,
         payload: { token: res.data.access_token, user: res.data.user },
       });
       dispatch({ type: GLOBALTYPES.ALERT, payload: {} });
     } catch (err) {
+      console.log(err)
       dispatch({
         type: GLOBALTYPES.ALERT,
         payload: {
