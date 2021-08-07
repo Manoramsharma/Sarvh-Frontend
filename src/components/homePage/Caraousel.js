@@ -6,16 +6,32 @@ import { useMediaQuery } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) =>({
   carouselImages: {
-    width: 800,
+    width: "60rem",
     [theme.breakpoints.down("md")]: {
-      width: 500,
+      width: "40rem",
+      height : 300 
     },
+    [theme.breakpoints.down("sm")]:
+    {
+width : "20rem",
+height : 200 
+    },
+    [theme.breakpoints.down("xs")]:
+    {
+width : "10rem",
+height : 150 
+    },
+    
     height: 400,
+    
+
   },
   marginTop: {
     marginTop: "2%",
   },
-  carousel: {
+  carousel: { [theme.breakpoints.down("md")]:
+  {  width : "100%"
+  },
     backgroundColor: "#334257",
     marginTop: 64,
   },
@@ -24,6 +40,9 @@ const useStyles = makeStyles((theme) =>({
     top: "50%",
     transform: "translateY(-50%)",
     left: "60%",
+    [theme.breakpoints.down("md")]:
+    { left : "30%" ,
+  },
     color: "white",
     width: "fit-content",
     height: "60%",
@@ -36,13 +55,40 @@ const useStyles = makeStyles((theme) =>({
   },
   edit : {
     [theme.breakpoints.down("md")]:
-      {
-fontSize : 10
+      { width : "50rem" ,
+fontSize : 30 ,
+[theme.breakpoints.down("sm")]:
+{ width : "50rem" ,
+fontSize : 20 ,
+},
+[theme.breakpoints.down("xs")]:
+{  width : "50rem" ,
+fontSize : 15 ,
+},
+
+      },
+    
+    
+    },
+ 
+  edit1 : {
+    [theme.breakpoints.down("xs")]:
+      { 
+fontSize : 10 ,
       },
     
   },
   button: {
     width: 300,
+    [theme.breakpoints.down("md")]:
+    {
+width : 250 ,
+[theme.breakpoints.down("xs")]:
+{
+width : 140 ,
+},
+    },
+  
     backgroundColor: "#EEEEEE",
   },
 }));
@@ -63,7 +109,7 @@ const CarouselComponent = () => {
           <Carousel.Caption className={classes.carouselCaption}>
             <div>
               <Typography  className={classes.edit} variant="h3">Summer Must Have</Typography>
-              <Typography variant="h6">Starting at Rs. 200</Typography>
+              <Typography  className={classes.edit1} variant="h6">Starting at Rs. 200</Typography>
             </div>
             <Button className={classes.button} variant="outlined" size="large">
               SHOP NOW
@@ -78,8 +124,8 @@ const CarouselComponent = () => {
           />
           <Carousel.Caption className={classes.carouselCaption}>
             <div>
-              <Typography variant="h3">Summer Must Have</Typography>
-              <Typography variant="h6">Starting at Rs. 200</Typography>
+              <Typography  className={classes.edit} variant="h3">Summer Must Have</Typography>
+              <Typography className={classes.edit1} variant="h6">Starting at Rs. 200</Typography>
             </div>
             <Button className={classes.button} variant="outlined" size="large">
               SHOP NOW
@@ -94,8 +140,8 @@ const CarouselComponent = () => {
           />
           <Carousel.Caption className={classes.carouselCaption}>
             <div>
-              <Typography variant="h3">Summer Must Have</Typography>
-              <Typography variant="h6">Starting at Rs. 200</Typography>
+              <Typography  className={classes.edit} variant="h3">Summer Must Have</Typography>
+              <Typography className={classes.edit1} variant="h6">Starting at Rs. 200</Typography>
             </div>
             <Button className={classes.button} variant="outlined" size="large">
               SHOP NOW
