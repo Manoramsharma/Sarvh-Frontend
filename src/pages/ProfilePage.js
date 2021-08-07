@@ -73,20 +73,15 @@ const ProfilePage = () => {
   const [userData, setUserData] = useState([]);
 
   useEffect(() => {
-    console.log("use effect ran in profile page")
-    if(auth.user.username !== id){
-      dispatch(getProfileUsers({ users:profile.users, id, auth }));
-      console.log(profile.users);
-    } 
-    // else{
-    //   dispatch(getProfileUsers({users: profile.users, id, auth}))
-    // }
+    if (profile.users.every(item => item !== id)) {
+      dispatch(getProfileUsers({ users: profile.users, id, auth }));
+    }
   }, [id, auth, dispatch, profile.users]);
   return (
     <div>
       {profile.loading && <LinearProgress />}
       <NavbarLoggedIn />
-      <Info id={id}/>
+      <Info id={id} />
       <Posts />
     </div>
   );
