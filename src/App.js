@@ -10,7 +10,7 @@ import Signup from "./pages/Signup";
 import CategoriesProduct from "./pages/CategoryPage";
 import BuyProductPage from "./pages/BuyProductPage";
 import ProfilePage from "./pages/ProfilePage";
-
+import test from "./pages/test"
 import Alert from "./components/Alert";
 import { useEffect } from "react";
 import {refreshToken} from "./redux/actions/authAction";
@@ -48,6 +48,7 @@ function App() {
             <Route exact path="/profile/:id" component={auth.token ? ProfilePage : Home} />
             <Route exact path="/bycategories" component={CategoriesProduct} />
             <Route exact path="/buyproduct" component={BuyProductPage} />
+            <Route exact path="/test" component={test} />
         </div>
       </Router>
     </ThemeProvider>
