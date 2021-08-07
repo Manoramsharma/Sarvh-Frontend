@@ -57,86 +57,107 @@ const useStyles = makeStyles(theme => ({
     padding: "2%",
   },
 }));
-const Info = ({id,auth,profile,dispatch}) => {
+const Info = ({  id }) => {
+  const {  auth, profile } = useSelector(state => state);
+  const dispatch = useDispatch();
   const classes = useStyles();
-  const [followers, setFollowers] = useState(-1);
-  const [following, setFollowing] = useState(-1);
-  const [userData, setUserData] = useState([]);
-  const [self, setSelf] = useState(false);
+  const [values, setValues] = useState({
+    avatar: null,
+    fullname: "Sarvh User",
+    username: "sarvhuser",
+    followers: -1,
+    following: -1,
+    self: false,
+    load: false
+  });
   useEffect(() => {
-    console.log("use effect ran");
-    if (id === auth.user.username) {
-      setUserData(auth.user);
-      console.log(auth.user)
-      setFollowers(auth.user.followers.length);
-      setFollowing(auth.user.following.length);
-      setSelf(true);
-    } else {
-      dispatch(getProfileUsers({ users:profile.users, id, auth }));
-      const newData = profile.users.filter(users => users.username === id);
-      // console.log(profile.users[0]);
-      console.log(newData)
-      setUserData(profile.users[0]);
-      // setUserData(profile.users[0]);
-      // setFollowers(newData.followers.length);
-      // setFollowing(newData.following.length);
-    }
-  }, [id, auth,dispatch, profile.users]);
-  return (
-    <div>
-      <div className={classes.avatarContainer}>
-        <div className={classes.left}>
-          <Avatar
-            src={userData.avatar}
-            alt="profile image"
-            className={classes.large}
-          />
-          <div className={classes.userInfo}>
-            <Typography className={classes.bold}>
-              {userData.fullname}
-            </Typography>
-            <Typography color="textSecondary" className={classes.fontSize}>
-              {userData.username}
-            </Typography>
-            <StarOutlinedIcon />
-          </div>
-        </div>
-        <div className={classes.right}>
-          <div className={classes.right2}>
-            <div className={classes.followersDiv}>
-              <Typography className={classes.bold}>{userData.followers.length}</Typography>
-              <Typography>Followers</Typography>
-            </div>
-            <div className={classes.followersDiv}>
-              <Typography className={classes.bold}>{userData.following.length}</Typography>
-              <Typography gutterBottom>Following</Typography>
-            </div>
-          </div>
-          {!self && (
-            <Button
-              size="small"
-              color="primary"
-              variant="contained"
-              className={classes.fontSize}
-            >
-              Follow
-            </Button>
-          )}
+    console.log("use effect ran in info")
+    if (auth.user.username === id) {
+      setValues({
+        ...values,
+        avatar: auth.user.avatar,
+        fullname: auth.user.fullname,
+        username: auth.user.username,
+        followers: auth.user.followers.length,
+        following: auth.user.following.length,
+        self: true,
+        load: true
+      });
+      console.log(values);
+    } else{
+      try{
 
-          {self && (
-            <Button
-              size="small"
-              color="primary"
-              variant="contained"
-              className={classes.fontSize}
-            >
-              Edit Profile
-            </Button>
-          )}
+        setValues({
+          ...values,
+          avatar: profile.users[0].avatar,
+          fullname: profile.users[0].fullname,
+          username: profile.users[0].username,
+          followers: profile.users[0].followers.length,
+          following: profile.users[0].following.length,
+          self: false,
+          load: true,
+        });
+      } catch (err) {
+        console.log(err)
+      }
+    }
+}, [auth, profile.users, dispatch, id]);
+    return (
+      // <div></div>
+      <div>
+        <div className={classes.avatarContainer}>
+          <div className={classes.left}>
+            <Avatar
+              src={values.avatar}
+              alt="profile image"
+              className={classes.large}
+            />
+            <div className={classes.userInfo}>
+              <Typography className={classes.bold}>
+                {values.fullname}
+              </Typography>
+              <Typography color="textSecondary" className={classes.fontSize}>
+                {values.username}
+              </Typography>
+              <StarOutlinedIcon />
+            </div>
+          </div>
+          <div className={classes.right}>
+            <div className={classes.right2}>
+              <div className={classes.followersDiv}>
+                <Typography className={classes.bold}>{values.followers}</Typography>
+                <Typography>Followers</Typography>
+              </div>
+              <div className={classes.followersDiv}>
+                <Typography className={classes.bold}>{values.following}</Typography>
+                <Typography gutterBottom>Following</Typography>
+              </div>
+            </div>
+            {!values.self && (
+              <Button
+                size="small"
+                color="primary"
+                variant="contained"
+                className={classes.fontSize}
+              >
+                Follow
+              </Button>
+            )}
+  
+            {values.self && (
+              <Button
+                size="small"
+                color="primary"
+                variant="contained"
+                className={classes.fontSize}
+              >
+                Edit Profile
+              </Button>
+            )}
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
 };
 
 export default Info;

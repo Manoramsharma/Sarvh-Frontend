@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from "react-redux";
 import { Avatar, Button, makeStyles, Typography } from "@material-ui/core";
 import NavbarLoggedIn from "../components/homePage/Navbar2";
 import Info from "../components/ProfilePage/Info";
@@ -8,9 +8,9 @@ import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
 import { ToggleButton, ToggleButtonGroup } from "react-bootstrap";
 import ProfilePageProductDisplayComponent from "../components/ProfilePage/ProfilepageProductDisplayComponent";
 import { useParams } from "react-router";
-import { getProfileUsers } from '../redux/actions/profileAction'
-import { GLOBALTYPES } from '../redux/actions/globalTypes'
-import LinearProgress from '@material-ui/core/LinearProgress';
+import { getProfileUsers } from "../redux/actions/profileAction";
+import { GLOBALTYPES } from "../redux/actions/globalTypes";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 import Footer from "../components/footer";
 
@@ -72,84 +72,18 @@ const ProfilePage = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const classes = useStyles();
-  // useEffect(() => {
-  //   if (profile.ids.every(item => item !== id)) {
-  //     dispatch(getProfileUsers({ id, auth }));
-  //   }
-  // }, [id, auth, dispatch, profile.ids]);
+  const [userData, setUserData] = useState([]);
+
+  useEffect(() => {
+    if (profile.users.every(item => item !== id)) {
+      dispatch(getProfileUsers({ users: profile.users, id, auth }));
+    }
+  }, [id, auth, dispatch, profile.users]);
   return (
     <div>
-      {profile.loading && <LinearProgress/>}
+      {profile.loading && <LinearProgress />}
       <NavbarLoggedIn />
-      <div className={classes.avatarContainer}>
-        <div className={classes.left}>
-          <Avatar
-            src={avatar}
-            alt="profile image"
-            className={classes.large}
-          />
-          <div className={classes.userInfo}>
-            <Typography className={classes.bold}>
-              {name}
-            </Typography>
-            <Typography color="textSecondary" className={classes.fontSize}>
-              {username}
-            </Typography>
-            <StarOutlinedIcon />
-          </div>
-        </div>
-        <div className={classes.right}>
-          <div className={classes.right2}>
-            <div className={classes.followersDiv}>
-              <Typography className={classes.bold}>
-                {followers}
-              </Typography>
-              <Typography>Followers</Typography>
-            </div>
-            <div className={classes.followersDiv}>
-              <Typography className={classes.bold}>
-                {following}
-              </Typography>
-              <Typography gutterBottom>Following</Typography>
-            </div>
-          </div>
-          <Button
-            size="small"
-            color="primary"
-            variant="contained"
-            className={classes.fontSize}
-          >
-            Follow
-          </Button>
-        </div>
-      </div>
-      <div>
-        <ToggleButtonGroup
-          className={classes.toggleButtonGroup}
-          type="radio"
-          name="options"
-          defaultValue={1}
-          radioDisplay={false}
-        >
-          <ToggleButton id="tbg-radio-1" value={1}>
-            ALL
-          </ToggleButton>
-          <ToggleButton id="tbg-radio-2" value={2}>
-            MEN
-          </ToggleButton>
-          <ToggleButton id="tbg-radio-3" value={3}>
-            WOMEN
-          </ToggleButton>
-          <ToggleButton id="tbg-radio-4" value={4}>
-            ACCESSORIES
-          </ToggleButton>
-        </ToggleButtonGroup>
-      </div>
-      <div className={classes.displayDiv}>
-        <ProfilePageProductDisplayComponent />
-      </div>
-      <Footer />
-      <Info id={id} auth={auth} profile={profile} dispatch={dispatch} />
+      <Info id={id} />
       <Posts />
     </div>
   );

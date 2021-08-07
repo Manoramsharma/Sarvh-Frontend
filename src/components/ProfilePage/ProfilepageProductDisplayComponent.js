@@ -30,36 +30,42 @@ const ProfilePageProductDisplayComponent = () => {
   const classes = useStyles();
   let productArray = [
     {
+      id: 1,
       title: "Product Name",
       img: "https://images.bewakoof.com/utter/content/2835/content_biker_jacket_for_men_fashion_10.jpg",
       sellingRate: "Rs. 400",
       MRP: "Rs. 600",
     },
     {
+      id: 2,
       title: "Product Name",
       img: "https://images.bewakoof.com/utter/content/2835/content_biker_jacket_for_men_fashion_10.jpg",
       sellingRate: "Rs. 400",
       MRP: "Rs. 600",
     },
     {
+      id: 3,
       title: "Product Name",
       img: "https://images.bewakoof.com/utter/content/2835/content_biker_jacket_for_men_fashion_10.jpg",
       sellingRate: "Rs. 400",
       MRP: "Rs. 600",
     },
     {
+      id: 4,
       title: "Product Name",
       img: "https://images.bewakoof.com/utter/content/2835/content_biker_jacket_for_men_fashion_10.jpg",
       sellingRate: "Rs. 400",
       MRP: "Rs. 600",
     },
     {
+      id: 5,
       title: "Product Name",
       img: "https://images.bewakoof.com/utter/content/2835/content_biker_jacket_for_men_fashion_10.jpg",
       sellingRate: "Rs. 400",
       MRP: "Rs. 600",
     },
     {
+      id: 6,
       title: "Product Name",
       img: "https://images.bewakoof.com/utter/content/2835/content_biker_jacket_for_men_fashion_10.jpg",
       sellingRate: "Rs. 400",
@@ -69,7 +75,7 @@ const ProfilePageProductDisplayComponent = () => {
   return (
     <div className={classes.mainContainer}>
       {productArray.map(item => (
-        <Card className={classes.cardContainer}>
+        <Card className={classes.cardContainer}> key={item.id}
           <CardActionArea>
             <CardMedia
               component="img"

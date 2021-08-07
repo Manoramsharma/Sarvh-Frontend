@@ -48,7 +48,6 @@ function App() {
             <Route exact path="/signup" render={()=> auth.token? (<Redirect to ="/"/>): (<Signup/>)} />
             <Route exact path="/forgotpassword" component={ForgotPassword} />
             <Route exact path="/resetpass/:resetToken" component={ResetPass} />
-            {/* <Route exact path="/profile" component={auth.token ? ProfilePage : Home} /> */}
             <Route exact path="/profile/:id" component={auth.token ? ProfilePage : Home} />
             <Route exact path="/bycategories" component={CategoriesProduct} />
             <Route exact path="/buyproduct" component={BuyProductPage} />
