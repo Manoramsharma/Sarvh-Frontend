@@ -4,18 +4,19 @@ import { GLOBALTYPES } from "./globalTypes";
 export const PROFILE_TYPES = {
   LOADING: "LOADING",
   GET_USER: "GET_USER",
+  FOLLOW: "FOLLOW",
 };
 export const getProfileUsers =
   ({ users, id, auth }) =>
-  async dispatch => {
-    if (users.every(user => user.username !== id)) {
+  async (dispatch) => {
+    if (users.every((user) => user.username !== id)) {
       try {
         dispatch({ type: PROFILE_TYPES.LOADING, payload: true });
         const res = await getDataAPI(`/user/${id}`, auth.token);
         console.log(res);
         dispatch({
           type: PROFILE_TYPES.GET_USER,
-          payload: res.data
+          payload: res.data,
         });
         dispatch({ type: PROFILE_TYPES.LOADING, payload: false });
       } catch (err) {
@@ -26,4 +27,17 @@ export const getProfileUsers =
         });
       }
     }
+  };
+
+export const follow =
+  ({ users, user, auth }) =>
+  async (dispatch) => {
+    var newUser = { ...user, followers: [...user.followers, auth.user] };
+
+    dispatch({
+      type: PROFILE_TYPES.FOLLOW,
+      payload: newUser,
+    });
+
+    // console.log({ users, user, auth });
   };

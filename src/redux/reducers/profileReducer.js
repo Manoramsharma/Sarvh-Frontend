@@ -1,7 +1,7 @@
 import { PROFILE_TYPES } from "../actions/profileAction";
 const initialState = {
   loading: false,
-  ids:[],
+  ids: [],
   users: [],
   posts: [],
 };
@@ -18,6 +18,9 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         users: [...state.users, action.payload.user],
       };
+    case PROFILE_TYPES.FOLLOW:
+      console.log(action.payload);
+      return state;
     default:
       return state;
   }
