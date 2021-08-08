@@ -4,8 +4,9 @@ import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { getProfileUsers } from "../../redux/actions/profileAction";
+import Followbtn from "./Followbtn";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   large: {
     width: theme.spacing(10),
     height: theme.spacing(10),
@@ -57,8 +58,8 @@ const useStyles = makeStyles(theme => ({
     padding: "2%",
   },
 }));
-const Info = ({  id }) => {
-  const {  auth, profile } = useSelector(state => state);
+const Info = ({ id }) => {
+  const { auth, profile } = useSelector((state) => state);
   const dispatch = useDispatch();
   const classes = useStyles();
   const [values, setValues] = useState({
@@ -68,10 +69,10 @@ const Info = ({  id }) => {
     followers: -1,
     following: -1,
     self: false,
-    load: false
+    load: false,
   });
   useEffect(() => {
-    console.log("use effect ran in info")
+    console.log("use effect ran in info");
     if (auth.user.username === id) {
       setValues({
         ...values,
@@ -81,12 +82,11 @@ const Info = ({  id }) => {
         followers: auth.user.followers.length,
         following: auth.user.following.length,
         self: true,
-        load: true
+        load: true,
       });
       console.log(values);
-    } else{
-      try{
-
+    } else {
+      try {
         setValues({
           ...values,
           avatar: profile.users[0].avatar,
@@ -98,66 +98,59 @@ const Info = ({  id }) => {
           load: true,
         });
       } catch (err) {
-        console.log(err)
+        console.log(err);
       }
     }
-}, [auth, profile.users, dispatch, id]);
-    return (
-      // <div></div>
-      <div>
-        <div className={classes.avatarContainer}>
-          <div className={classes.left}>
-            <Avatar
-              src={values.avatar}
-              alt="profile image"
-              className={classes.large}
-            />
-            <div className={classes.userInfo}>
-              <Typography className={classes.bold}>
-                {values.fullname}
-              </Typography>
-              <Typography color="textSecondary" className={classes.fontSize}>
-                {values.username}
-              </Typography>
-              <StarOutlinedIcon />
-            </div>
-          </div>
-          <div className={classes.right}>
-            <div className={classes.right2}>
-              <div className={classes.followersDiv}>
-                <Typography className={classes.bold}>{values.followers}</Typography>
-                <Typography>Followers</Typography>
-              </div>
-              <div className={classes.followersDiv}>
-                <Typography className={classes.bold}>{values.following}</Typography>
-                <Typography gutterBottom>Following</Typography>
-              </div>
-            </div>
-            {!values.self && (
-              <Button
-                size="small"
-                color="primary"
-                variant="contained"
-                className={classes.fontSize}
-              >
-                Follow
-              </Button>
-            )}
-  
-            {values.self && (
-              <Button
-                size="small"
-                color="primary"
-                variant="contained"
-                className={classes.fontSize}
-              >
-                Edit Profile
-              </Button>
-            )}
+  }, [auth, profile.users, dispatch, id]);
+  return (
+    // <div></div>
+    <div>
+      <div className={classes.avatarContainer}>
+        <div className={classes.left}>
+          <Avatar
+            src={values.avatar}
+            alt="profile image"
+            className={classes.large}
+          />
+          <div className={classes.userInfo}>
+            <Typography className={classes.bold}>{values.fullname}</Typography>
+            <Typography color="textSecondary" className={classes.fontSize}>
+              {values.username}
+            </Typography>
+            <StarOutlinedIcon />
           </div>
         </div>
+        <div className={classes.right}>
+          <div className={classes.right2}>
+            <div className={classes.followersDiv}>
+              <Typography className={classes.bold}>
+                {values.followers}
+              </Typography>
+              <Typography>Followers</Typography>
+            </div>
+            <div className={classes.followersDiv}>
+              <Typography className={classes.bold}>
+                {values.following}
+              </Typography>
+              <Typography gutterBottom>Following</Typography>
+            </div>
+          </div>
+          {!values.self && <Followbtn user={values}></Followbtn>}
+
+          {values.self && (
+            <Button
+              size="small"
+              color="primary"
+              variant="contained"
+              className={classes.fontSize}
+            >
+              Edit Profile
+            </Button>
+          )}
+        </div>
       </div>
-    );
+    </div>
+  );
 };
 
 export default Info;
