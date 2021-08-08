@@ -17,6 +17,8 @@ import { login } from "../redux/actions/authAction";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
+import HomeIcon from "@material-ui/icons/Home";
+
 axios.defaults.withCredentials = true;
 const AppContainer = styled.div`
   width: 100%;
@@ -133,6 +135,9 @@ const Login = () => {
         </div>
         <div className="mainlog">
           <div className="btnup">
+          <Link to={"/"}>
+                <HomeIcon color="secondary" />
+              </Link>
             <button className="singup">LOGIN</button>
 
             <button

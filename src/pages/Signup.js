@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
+
 import styles from "./Signup.css";
 import Signupimg from "../images/Signupimg.jpg";
 import { register } from "../redux/actions/authAction";
@@ -15,6 +16,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import Swal from "sweetalert2";
 import { validateEmail, validatePassword } from "../helper/validator";
+import HomeIcon from "@material-ui/icons/Home";
 
 const useStyles = makeStyles({
   field: {
@@ -87,42 +89,6 @@ function Signup(props) {
             gender,
           };
           dispatch(register(userData));
-          // fetch(`${API}/api/register`, {
-          //   method: "POST",
-          //   headers: {
-          //     "Content-Type": "application/json",
-          //   },
-          //   body: JSON.stringify({
-          //     fullname,
-          //     username,
-          //     email,
-          //     password,
-          //     gender,
-          //   }),
-          // })
-          //   .then(res => res.json())
-          //   .then(data => {
-          //     console.log(data);
-          //     if (data.msg === "this email already exists") {
-          //       Swal.fire({
-          //         icon: "error",
-          //         title: "Email already exists",
-          //         text: "Please sign in instead",
-          //       });
-          //     } else if (data.msg === "this user name already exists") {
-          //       Swal.fire({
-          //         icon: "error",
-          //         title: "Username already exists",
-          //         text: "Please try another username",
-          //       });
-          //     } else if (data.msg === "register success!") {
-          //       Swal.fire({
-          //         icon: "success",
-          //         title: "Success",
-          //         text: "Registration Successfull, Welcome to Sarvh!",
-          //       });
-          //     }
-          //   });
         }
       }
     }
@@ -136,6 +102,9 @@ function Signup(props) {
         </div>
         <div className="mainlog">
           <div className="btnup">
+          <Link to={"/"}>
+                <HomeIcon color="secondary" />
+              </Link>
             <button
               className="singup"
               onClick={() => {
