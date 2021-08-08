@@ -73,7 +73,7 @@ const NavbarLoggedIn = () => {
     } catch (error) {
       console.log(error);
     }
-  });
+  },[auth.user]);
   return (
     <div>
       <AppBar position="fixed" elevation={0} style={{ zIndex: 1251 }}>
