@@ -65,13 +65,7 @@ const NavbarLoggedIn = () => {
   const dispatch = useDispatch();
   // const { pathname } = useLocation();
   const [values, setValues] = useState({
-    avatar: null,
-    fullname: "Sarvh User",
     username: "sarvhuser",
-    followers: -1,
-    following: -1,
-    self: false,
-    load: false,
   });
   useEffect(() => {
     try {
@@ -110,7 +104,10 @@ const NavbarLoggedIn = () => {
               Profile
             </Button> */}
             <Dropdown as={ButtonGroup}>
-              <Link to={"/profile/"+values.username} style={{ textDecoration: "none" }}>
+              <Link
+                to={"/profile/" + values.username}
+                style={{ textDecoration: "none" }}
+              >
                 <Button
                   startIcon={<PersonIcon color="primary" />}
                   variant="contained"
@@ -127,6 +124,11 @@ const NavbarLoggedIn = () => {
                 id="dropdown-split-basic"
               />
               <Dropdown.Menu>
+                <Link to={"/uploadproduct"} style={{ textDecoration: "none" }}>
+                  <Dropdown.Item href="/uploadproduct">
+                    Sell On Sarvh
+                  </Dropdown.Item>
+                </Link>
                 <Dropdown.Item href="#/action-2">Edit profile</Dropdown.Item>
                 <div className="dropdown-divider"></div>
                 <Link
