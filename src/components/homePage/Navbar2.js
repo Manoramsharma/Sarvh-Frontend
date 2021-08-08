@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import {
   AppBar,
   Button,
@@ -63,6 +64,22 @@ const NavbarLoggedIn = () => {
   const { auth } = useSelector(state => state);
   const dispatch = useDispatch();
   // const { pathname } = useLocation();
+  const [values, setValues] = useState({
+    avatar: null,
+    fullname: "Sarvh User",
+    username: "sarvhuser",
+    followers: -1,
+    following: -1,
+    self: false,
+    load: false,
+  });
+  useEffect(() => {
+    try {
+      setValues({ ...values, username: auth.user.username });
+    } catch (error) {
+      console.log(error);
+    }
+  });
   return (
     <div>
       <AppBar position="fixed" elevation={0} style={{ zIndex: 1251 }}>
@@ -93,7 +110,7 @@ const NavbarLoggedIn = () => {
               Profile
             </Button> */}
             <Dropdown as={ButtonGroup}>
-              {/* <Link to={"/profile/"+auth.user.username} style={{ textDecoration: "none" }}>
+              <Link to={"/profile/"+values.username} style={{ textDecoration: "none" }}>
                 <Button
                   startIcon={<PersonIcon color="primary" />}
                   variant="contained"
@@ -103,7 +120,7 @@ const NavbarLoggedIn = () => {
                 >
                   Profile
                 </Button>
-              </Link> */}
+              </Link>
               <Dropdown.Toggle
                 color="secondary"
                 split
@@ -112,7 +129,10 @@ const NavbarLoggedIn = () => {
               <Dropdown.Menu>
                 <Dropdown.Item href="#/action-2">Edit profile</Dropdown.Item>
                 <div className="dropdown-divider"></div>
-                <Link style={{ textDecoration: "none" }} onClick={() => dispatch(logout())}>
+                <Link
+                  style={{ textDecoration: "none" }}
+                  onClick={() => dispatch(logout())}
+                >
                   <Dropdown.Item>Log Out</Dropdown.Item>
                 </Link>
               </Dropdown.Menu>
