@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getProfileUsers } from "../../redux/actions/profileAction";
 import Followbtn from "./Followbtn";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   large: {
     width: theme.spacing(10),
     height: theme.spacing(10),
@@ -59,97 +59,71 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const Info = ({ id }) => {
-  const { auth, profile } = useSelector((state) => state);
+  const { auth, profile } = useSelector(state => state);
   const dispatch = useDispatch();
   const classes = useStyles();
-  const [values, setValues] = useState({
-    avatar: null,
-    fullname: "Sarvh User",
-    username: "sarvhuser",
-    followers: -1,
-    following: -1,
-    self: false,
-    load: false,
-  });
+  const [userData, setUserData] = useState([]);
+  const [load, setLoad]= useState(false);
   useEffect(() => {
-    console.log("use effect ran in info");
     if (auth.user.username === id) {
-      setValues({
-        ...values,
-        avatar: auth.user.avatar,
-        fullname: auth.user.fullname,
-        username: auth.user.username,
-        followers: auth.user.followers.length,
-        following: auth.user.following.length,
-        self: true,
-        load: true,
-      });
-      console.log(values);
+      setUserData([auth.user]);
     } else {
       try {
-        setValues({
-          ...values,
-          avatar: profile.users[0].avatar,
-          fullname: profile.users[0].fullname,
-          username: profile.users[0].username,
-          followers: profile.users[0].followers.length,
-          following: profile.users[0].following.length,
-          self: false,
-          load: true,
-        });
+        const newData = profile.users.filter(user => user.username === id)
+        setUserData(newData);
       } catch (err) {
         console.log(err);
       }
     }
   }, [auth, profile.users, dispatch, id]);
-  return (
-    // <div></div>
+  return (    
     <div>
-      <div className={classes.avatarContainer}>
-        <div className={classes.left}>
-          <Avatar
-            src={values.avatar}
-            alt="profile image"
-            className={classes.large}
-          />
-          <div className={classes.userInfo}>
-            <Typography className={classes.bold}>{values.fullname}</Typography>
-            <Typography color="textSecondary" className={classes.fontSize}>
-              {values.username}
-            </Typography>
-            <StarOutlinedIcon />
-          </div>
-        </div>
-        <div className={classes.right}>
-          <div className={classes.right2}>
-            <div className={classes.followersDiv}>
-              <Typography className={classes.bold}>
-                {values.followers}
+      {userData.map(user => (
+        <div className={classes.avatarContainer} key={user.username}>
+          <div className={classes.left}>
+            <Avatar
+              src={user.avatar}
+              alt="profile image"
+              className={classes.large}
+            />
+            <div className={classes.userInfo}>
+              <Typography className={classes.bold}>{user.fullname}</Typography>
+              <Typography color="textSecondary" className={classes.fontSize}>
+                {user.username}
               </Typography>
-              <Typography>Followers</Typography>
-            </div>
-            <div className={classes.followersDiv}>
-              <Typography className={classes.bold}>
-                {values.following}
-              </Typography>
-              <Typography gutterBottom>Following</Typography>
+              <StarOutlinedIcon />
             </div>
           </div>
-          {!values.self && <Followbtn user={values}></Followbtn>}
-
-          {values.self && (
-            <Button
-              size="small"
-              color="primary"
-              variant="contained"
-              className={classes.fontSize}
-            >
-              Edit Profile
-            </Button>
-          )}
+          <div className={classes.right}>
+            <div className={classes.right2}>
+              <div className={classes.followersDiv}>
+                <Typography className={classes.bold}>
+                  {user.followers.length}
+                </Typography>
+                <Typography>Followers</Typography>
+              </div>
+              <div className={classes.followersDiv}>
+                <Typography className={classes.bold}>
+                  {user.following.length}
+                </Typography>
+                <Typography gutterBottom>Following</Typography>
+              </div>
+            </div>
+            {
+              user.username===auth.user.username? (<Button
+                size="small"
+                color="primary"
+                variant="contained"
+                className={classes.fontSize}
+              >
+                Edit Profile
+              </Button>): (<Followbtn user={user}></Followbtn>)
+            }
+          </div>
         </div>
-      </div>
+      ))}
     </div>
+  
   );
 };
 
