@@ -12,6 +12,8 @@ import { getProfileUsers } from "../redux/actions/profileAction";
 import { GLOBALTYPES } from "../redux/actions/globalTypes";
 import LinearProgress from "@material-ui/core/LinearProgress";
 
+import Footer from "../components/footer";
+
 const useStyles = makeStyles(theme => ({
   large: {
     width: theme.spacing(10),
