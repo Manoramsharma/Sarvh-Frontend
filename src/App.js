@@ -15,12 +15,9 @@ import Alert from "./components/Alert";
 import { useEffect } from "react";
 import { refreshToken } from "./redux/actions/authAction";
 import ForgotPassword from "./pages/forgotPass";
-<<<<<<< HEAD
-=======
 import PageRender from './customRouter/PageRender';
 import PrivateRouter from './customRouter/PrivateRouter';
-
->>>>>>> upstream/main
+import ProductUpload from './pages/productUplaod';
 const Theme = createTheme({
   palette: {
     secondary: {
@@ -51,6 +48,7 @@ function App() {
             <Route exact path="/profile/:id" component={auth.token ? ProfilePage : Home} />
             <Route exact path="/bycategories" component={CategoriesProduct} />
             <Route exact path="/buyproduct" component={BuyProductPage} />
+            <Route exact path="/uploadproduct" component={ProductUpload} />
         </div>
       </Router>
     </ThemeProvider>

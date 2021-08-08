@@ -93,7 +93,7 @@ const NavbarLoggedIn = () => {
               Profile
             </Button> */}
             <Dropdown as={ButtonGroup}>
-              <Link to={"/profile/"+auth.user.username} style={{ textDecoration: "none" }}>
+              {/* <Link to={"/profile/"+auth.user.username} style={{ textDecoration: "none" }}>
                 <Button
                   startIcon={<PersonIcon color="primary" />}
                   variant="contained"
@@ -103,7 +103,7 @@ const NavbarLoggedIn = () => {
                 >
                   Profile
                 </Button>
-              </Link>
+              </Link> */}
               <Dropdown.Toggle
                 color="secondary"
                 split
