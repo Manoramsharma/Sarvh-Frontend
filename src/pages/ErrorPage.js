@@ -1,6 +1,7 @@
 import errorImage from '../images/404.png'
 import {makeStyles} from "@material-ui/core";
 import { Button } from '@material-ui/core';
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles({
     imageContainer: {
@@ -27,7 +28,12 @@ const useStyles = makeStyles({
     }
 })
 
+
 const ErrorPage = () => {
+    const history = useHistory();
+    function handleClick() {
+        history.push("/");
+      }
     const classes = useStyles();
     return (
         <div className={classes.mainContainer}>
@@ -39,6 +45,7 @@ const ErrorPage = () => {
                 variant="contained"
                 size="large"
                 color="primary"
+                onClick={handleClick}
 
             >Continue Shopping
             </Button> 

@@ -52,7 +52,7 @@ function App() {
             <Route exact path="/buyproduct" component={BuyProductPage} />
             <Route exact path="/uploadproduct" component={ProductUpload} />
             <Route exact path="/test" component={test} />
-            <Route exact path="/error" component={ErrorPage} />
+            <Route component={ErrorPage} />
         </div>
       </Router>
     </ThemeProvider>
