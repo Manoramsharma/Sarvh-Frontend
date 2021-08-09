@@ -12,6 +12,7 @@ const Test = () => {
   const [previewSource, setPreviewSource] = useState("");
   const handleFileInput = e => {
     const file = e.target.files[0];
+    console.log(file);
     previewFile(file);
   };
   const previewFile = file => {
@@ -28,15 +29,15 @@ const Test = () => {
   };
   const uploadImage = async base64EncodedImage => {
     console.log(base64EncodedImage);
-    try {
-      await fetch(`${API}/api/uploadfile`, {
-        method: "POST",
-        body: JSON.stringify({ data: base64EncodedImage }),
-        headers: { "Content-type": "application/json" },
-      });
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    //   await fetch(`${API}/api/uploadfile`, {
+    //     method: "POST",
+    //     body: JSON.stringify({ data: base64EncodedImage }),
+    //     headers: { "Content-type": "application/json" },
+    //   });
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
   return (
     <div>
@@ -51,7 +52,9 @@ const Test = () => {
         <button type="submit">Submit</button>
       </form>
       {previewSource && <img src={previewSource} alt="chosen" />}
-      <Image cloudName="sarvh" publicId="wwxiaeoike9y4muewc6j.jpg"><Transformation width="400" height="250" /></Image>
+      <Image cloudName="sarvh" publicId="wwxiaeoike9y4muewc6j.jpg">
+        <Transformation width="400" height="250" />
+      </Image>
       {/* <Video cloudName="sarvh" publicId="samples/sea-turtle">
         <Transformation width="400" height="250" gravity="south" crop="fill" />
       </Video> */}

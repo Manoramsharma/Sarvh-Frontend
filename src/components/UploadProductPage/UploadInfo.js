@@ -5,6 +5,8 @@ import { makeStyles } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import clsx from "clsx";
 import { Form, Button } from "react-bootstrap";
+import imageCompression from "browser-image-compression";
+
 const useStyles = makeStyles({
   uploadInfoContainer: {
     marginLeft: "5%",
@@ -20,48 +22,81 @@ const useStyles = makeStyles({
   twoInputs: {
     width: "45%",
   },
-  selectCategories : {
-    width : "45%"
+  selectCategories: {
+    width: "45%",
   },
-  choosePhotos : {
-    width : "50%",
+  choosePhotos: {
+    width: "50%",
   },
-  choosingContainer : {
+  choosingContainer: {
     display: "flex",
     justifyContent: "space-between",
   },
-  saveButton : {
-    width : "30%"
-  }
+  saveButton: {
+    width: "30%",
+  },
 });
 
 const UploadInfoComponent = () => {
-  const [age, setAge] = useState("men");
+  const options = {
+    maxSizeMB: 0.04,
+    maxWidthOrHeight: 300,
+    useWebWorker: true,
+  };
+  const [values, setValues] = useState({
+    productName: "",
+    price: "",
+    mrp: "",
+    productDescription: "",
+    productFeatures: "",
+    category: "",
+    selectedFile: "",
+    file: "",
+  });
+  const [previewSource, setPreviewSource] = useState("");
+  const [fileInputState, setFileInputState] = useState("");
   const classes = useStyles();
-  const handleChange = (event) => {
-    setAge(event.target.value);
+
+  const handleFileInput = async e => {
+    const file = e.target.files[0];
+    console.log("originalFile instanceof Blob", file instanceof Blob); // true
+    console.log(`originalFile size ${file.size / 1024 / 1024} MB`);
+    console.log(file);
+
+    try {
+      const compressedFile = await imageCompression(file, options);
+      console.log(
+        "compressedFile instanceof Blob",
+        compressedFile instanceof Blob
+      ); // true
+      console.log(
+        `compressedFile size ${compressedFile.size / 1024 / 1024} MB`
+      ); // smaller than maxSizeMB
+      console.log(compressedFile);
+      const reader = new FileReader();
+      reader.readAsDataURL(compressedFile);
+      reader.onloadend = () => {
+        setValues({ ...values, file: reader.result });
+      };
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  // Loading Button
-  function simulateNetworkRequest() {
-    return new Promise((resolve) => setTimeout(resolve, 2000));
-  }
-  
-  const [isLoading, setLoading] = useState(false);
-  useEffect(() => {
-    if (isLoading) {
-      simulateNetworkRequest().then(() => {
-        setLoading(false);
-      });
-    }
-  }, [isLoading]);
-  const handleClick = () => setLoading(true);
-
-
+  const handleFormSubmit = e => {
+    e.preventDefault();
+    console.log("handle form submit");
+    console.log(values);
+  };
   return (
     <div className={classes.uploadInfoContainer}>
-      <Form>
-        <TextField variant="filled" fullWidth label="Product Name" />
+      <form onSubmit={handleFormSubmit}>
+        <TextField
+          variant="filled"
+          fullWidth
+          label="Product Name"
+          onChange={e => setValues({ ...values, productName: e.target.value })}
+        />
         <Typography className={classes.marginTop} variant="h6">
           Pricing
         </Typography>
@@ -71,12 +106,15 @@ const UploadInfoComponent = () => {
             variant="filled"
             halfWidth
             label="Your Price"
+            onChange={e => setValues({ ...values, price: e.target.value })}
           />
           <TextField
             className={clsx(classes.marginTop, classes.twoInputs)}
             variant="filled"
             halfWidth
+            type="number"
             label="MRP of the Product"
+            onChange={e => setValues({ ...values, mrp: e.target.value })}
           />
         </div>
         <Typography className={classes.marginTop} variant="h6">
@@ -89,6 +127,9 @@ const UploadInfoComponent = () => {
           fullWidth
           rows={4}
           variant="filled"
+          onChange={e =>
+            setValues({ ...values, productDescription: e.target.value })
+          }
         />
         <TextField
           label="Product Features"
@@ -97,37 +138,50 @@ const UploadInfoComponent = () => {
           fullWidth
           rows={3}
           variant="filled"
+          onChange={e =>
+            setValues({ ...values, productFeatures: e.target.value })
+          }
         />
-        <InputLabel className={classes.marginTop} id="categories">
-          Category
-        </InputLabel>
         <div className={classes.choosingContainer}>
-        <Select
-        halfWidth
-          onChange={handleChange}
-          labelId="categories"
-          id="categories"
-          value={age}
-          className={clsx(classes.selectCategories, classes.marginTop)}
-        >
-          <MenuItem value="men">Men</MenuItem>
-          <MenuItem value="women">Women</MenuItem>
-          <MenuItem value="accessories">Accessories</MenuItem>
-        </Select>
-        <Form.Group className={clsx(classes.choosePhotos, classes.marginTop)} controlId="formFileMultiple">
-          <Form.Label>Choose Photos</Form.Label>
-          <Form.Control type="file" multiple />
-        </Form.Group>
+          <TextField
+            halfWidth
+            onChange={e => setValues({ ...values, category: e.target.value })}
+            value={values.category}
+            select
+            label="Category"
+            className={clsx(classes.selectCategories, classes.marginTop)}
+          >
+            <MenuItem value="men">Men</MenuItem>
+            <MenuItem value="women">Women</MenuItem>
+            <MenuItem value="accessories">Accessories</MenuItem>
+          </TextField>
+          <Form.Group
+            className={clsx(classes.choosePhotos, classes.marginTop)}
+            controlId="formFileMultiple"
+          >
+            <Form.Label>Choose Photos</Form.Label>
+            <input
+              type="file"
+              name="image"
+              onChange={handleFileInput}
+              id="raised-button-file"
+              // value={fileInputState}
+              // onChange={e => setValues({ ...values, file: e.target.value })}
+              // onChange={handleFileInput}
+              // value={fileInputState}
+            />
+          </Form.Group>
         </div>
-      </Form>
-      <Button
-      className={clsx(classes.marginTop, classes.saveButton)}
-      variant="secondary"
-      disabled={isLoading}
-      onClick={!isLoading ? handleClick : null}
-      >
-        {isLoading ? 'Loading…' : 'SAVE'}
-      </Button>
+
+        <Button
+          type="submit"
+          className={clsx(classes.marginTop, classes.saveButton)}
+          variant="secondary"
+          // disabled={isLoading}
+        >
+          Submit
+        </Button>
+      </form>
     </div>
   );
 };
