@@ -1,9 +1,11 @@
-import { getDataAPI } from "../../utils/fetchData";
-import { GLOBALTYPES } from "./globalTypes";
+import { getDataAPI, patchDataAPI } from "../../utils/fetchData";
+import { GLOBALTYPES, EditData, DeleteData } from "./globalTypes";
 
 export const PROFILE_TYPES = {
   LOADING: "LOADING",
   GET_USER: "GET_USER",
+  FOLLOW: "FOLLOW",
+  UNFOLLOW: "UNFOLLOW",
 };
 export const getProfileUsers =
   ({ users, id, auth }) =>
@@ -15,7 +17,7 @@ export const getProfileUsers =
         console.log(res);
         dispatch({
           type: PROFILE_TYPES.GET_USER,
-          payload: res.data
+          payload: res.data,
         });
         dispatch({ type: PROFILE_TYPES.LOADING, payload: false });
       } catch (err) {
@@ -25,5 +27,72 @@ export const getProfileUsers =
           payload: { error: err.response.data.msg },
         });
       }
+    }
+  };
+
+export const follow =
+  ({ users, user, auth }) =>
+  async dispatch => {
+    console.log(user);
+    var newUser = { ...user, followers: [...user.followers, auth.user] };
+    dispatch({
+      type: PROFILE_TYPES.FOLLOW,
+      payload: newUser,
+    });
+    dispatch({
+      type: GLOBALTYPES.AUTH,
+      payload: {
+        ...auth,
+        user: {
+          ...auth.user,
+          following: [...auth.user.following, newUser],
+        },
+      },
+    });
+    try {
+      const res = await patchDataAPI(
+        `/user/${user._id}/follow`,
+        null,
+        auth.token
+      );
+      console.log(res);
+    } catch (err) {
+      dispatch({
+        type: GLOBALTYPES.ALERT,
+        payload: {
+          error: err.response.data.msg,
+        },
+      });
+    }
+  };
+
+export const unfollow =
+  ({ users, user, auth }) =>
+  async dispatch => {
+    var newUser = {
+      ...user,
+      followers: DeleteData(user.followers, auth.user.username),
+    };
+    console.log(newUser);
+    dispatch({ type: PROFILE_TYPES.UNFOLLOW, payload: newUser });
+    dispatch({
+      type: GLOBALTYPES.AUTH,
+      payload: {
+        ...auth,
+        user: {
+          ...auth.user,
+          following: DeleteData(auth.user.following, newUser.username),
+        },
+      },
+    });
+    try {
+      await patchDataAPI(`/user/${user._id}/unfollow`, null, auth.token);
+    } catch (err) {
+      dispatch({
+        type: GLOBALTYPES.ALERT,
+        payload: {
+          error: err.response.data.msg,
+        },
+      });
     }
   };

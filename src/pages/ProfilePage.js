@@ -68,7 +68,6 @@ const useStyles = makeStyles(theme => ({
 }));
 const ProfilePage = () => {
   const { profile, auth } = useSelector(state => state);
-  console.log(profile);
   const dispatch = useDispatch();
   const { id } = useParams();
   const classes = useStyles();
