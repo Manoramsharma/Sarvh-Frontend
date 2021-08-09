@@ -18,6 +18,7 @@ import { refreshToken } from "./redux/actions/authAction";
 import ForgotPassword from "./pages/forgotPass";
 import PageRender from './customRouter/PageRender';
 import PrivateRouter from './customRouter/PrivateRouter';
+import ErrorPage from "./pages/ErrorPage";
 import ProductUpload from './pages/productUplaod';
 const Theme = createTheme({
   palette: {
@@ -51,6 +52,7 @@ function App() {
             <Route exact path="/buyproduct" component={BuyProductPage} />
             <Route exact path="/uploadproduct" component={ProductUpload} />
             <Route exact path="/test" component={test} />
+            <Route exact path="/error" component={ErrorPage} />
         </div>
       </Router>
     </ThemeProvider>
