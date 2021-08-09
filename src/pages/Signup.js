@@ -27,6 +27,17 @@ const useStyles = makeStyles({
     //   margin: theme.spacing(1),
     // },
   },
+  mainContainer: {
+    width: "50%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    marginTop: "6%",
+  },
+  btn : {
+    marginTop : "5%",
+    fontSize : "1rem"
+  }
 });
 
 function Signup(props) {
@@ -115,9 +126,9 @@ function Signup(props) {
             </button>
             <button className="login">SIGN UP</button>
           </div>
-          <Container size="sm">
+          <Container className={classes.mainContainer}>
             <Typography
-              variant="h6"
+              variant="h5"
               color="textPrimary"
               component="h2"
               gutterBottom
@@ -129,7 +140,7 @@ function Signup(props) {
                 className={classes.field}
                 id="outlined-basic"
                 label="Full Name"
-                variant="outlined"
+                variant="standard"
                 color="secondary"
                 fullWidth
                 required
@@ -140,7 +151,7 @@ function Signup(props) {
               <TextField
                 className={classes.field}
                 label="Username"
-                variant="outlined"
+                variant="standard"
                 color="secondary"
                 fullWidth
                 required
@@ -149,7 +160,7 @@ function Signup(props) {
               <TextField
                 className={classes.field}
                 label="Email"
-                variant="outlined"
+                variant="standard"
                 color="secondary"
                 fullWidth
                 required
@@ -159,7 +170,7 @@ function Signup(props) {
               <TextField
                 className={classes.field}
                 label="Password"
-                variant="outlined"
+                variant="standard"
                 color="secondary"
                 fullWidth
                 required
@@ -172,7 +183,7 @@ function Signup(props) {
               <TextField
                 className={classes.field}
                 label="Confirm Password"
-                variant="outlined"
+                variant="standard"
                 color="secondary"
                 fullWidth
                 required
@@ -183,6 +194,7 @@ function Signup(props) {
                 label="Gender"
                 value={gender}
                 select
+                fullWidth
                 onChange={e => setGender(e.target.value)}
               >
                 <MenuItem value={"male"}>Male</MenuItem>
@@ -191,8 +203,10 @@ function Signup(props) {
               </TextField>
               <Button
                 type="submit"
-                color="secondary"
+                color="primary"
+                size="large"
                 variant="contained"
+                className={classes.btn}
                 endIcon={<KeyboardArrowRightIcon />}
               >
                 Sign Up
