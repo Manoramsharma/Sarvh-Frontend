@@ -6,9 +6,9 @@ export const categoryConstansts = {
   GET_ALL_CATEGORY_FAILURE: "GET_ALL_CATEGORY_FAILURE",
 };
 
-const getAllCategory = () => {
+export const getAllCategory = () => {
   return async (dispatch) => {
-    dispatch({ type: categoryConstansts.GET_ALL_CATEGORIES_REQUEST });
+    dispatch({ type: categoryConstansts.GET_ALL_CATEGORY_REQUEST });
     const res = await axios.get(
       `http://localhost:8000/api/category/getcategory`
     );
@@ -17,16 +17,14 @@ const getAllCategory = () => {
       const { categoryList } = res.data;
 
       dispatch({
-        type: categoryConstansts.GET_ALL_CATEGORIES_SUCCESS,
+        type: categoryConstansts.GET_ALL_CATEGORY_SUCCESS,
         payload: { categories: categoryList },
       });
     } else {
       dispatch({
-        type: categoryConstansts.GET_ALL_CATEGORIES_FAILURE,
+        type: categoryConstansts.GET_ALL_CATEGORY_FAILURE,
         payload: { error: res.data.error },
       });
     }
   };
 };
-
-export { getAllCategory };
