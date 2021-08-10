@@ -8,8 +8,8 @@ import CarouselComponent from "../components/homePage/Caraousel";
 import MainContainerNewProducts from "../components/homePage/MainWhatsNew";
 import MainContainerCategories from "../components/homePage/MainCategories";
 import MainContainerTrendingProducts from "../components/homePage/MainTrending";
-import Footer from "../components/footer";
-
+ import Footer from "../components/footer";
+ 
 const useStyles = makeStyles({
   marginTop: {
     marginTop: "2%",
@@ -23,6 +23,10 @@ const useStyles = makeStyles({
   carousel: {
     backgroundColor: "#E53F3F",
   },
+  home: {
+    width : "100vw",
+    backgroundColor: "#E53F3F",
+  }
 });
 
 const Home = () => {
@@ -34,13 +38,13 @@ const Home = () => {
   }
 
   return (
-    <div>
+    <div className= {classes.home}>
       {loggedIn ? <NavbarLoggedIn /> : <NavbarWithLogin />}
       <CarouselComponent />
       <MainContainerNewProducts />
       <MainContainerCategories />
       <MainContainerTrendingProducts />
-      <Footer />
+    <Footer /> 
     </div>
   );
 };

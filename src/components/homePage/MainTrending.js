@@ -4,11 +4,13 @@ import {
   ImageListItemBar,
   Typography,
   IconButton,
+  useTheme,
+  useMediaQuery
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import StorefrontIcon from "@material-ui/icons/Storefront";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles( (theme) => ({
   root: {
     display: "flex",
     flexWrap: "wrap",
@@ -31,11 +33,15 @@ const useStyles = makeStyles({
     fontWeight: "bold",
     marginTop: "4%",
     textAlign: "center",
+    [theme.breakpoints.down("sm")]:
+    { 
+fontSize : 20 ,
+    },
   },
   iconButton: {
     color: "white",
   },
-});
+}));
 
 let itemData = [
   {
@@ -83,12 +89,47 @@ let itemData = [
 
 const MainContainerTrendingProducts = () => {
   const classes = useStyles();
+  const theme = useTheme() ;
+  
+  const match = useMediaQuery(theme.breakpoints.down('sm'));
+  const match1 = useMediaQuery('(max-width : 960px');
   return (
     <div>
       <Typography className={classes.typography} variant="h5">
         TRENDING
       </Typography>
-      <div className={classes.root}>
+      
+
+
+      { match1 ? <>  <div className={classes.root}>
+        
+        <ImageList
+          className={classes.imageList}
+          cols={3}
+          gap={20}
+          rowHeight={220}
+        >
+          {itemData.map((item) => (
+            <ImageListItem key={item.id}>
+              <img src={item.img} alt={item.title} />
+              <ImageListItemBar
+                title={item.title}
+                actionIcon={
+                  <IconButton
+                    className={classes.iconButton}
+                    aria-label={`star ${item.title}`}
+                  >
+                    <StorefrontIcon />
+                  </IconButton>
+                }
+              />
+            </ImageListItem>
+          ))}
+        </ImageList>
+      </div> </> : <> </>}
+     
+     { match ?  <>  </>: <>   <div className={classes.root}>
+        
         <ImageList
           className={classes.imageList}
           cols={4.5}
@@ -112,7 +153,8 @@ const MainContainerTrendingProducts = () => {
             </ImageListItem>
           ))}
         </ImageList>
-      </div>
+      </div></> }
+  
     </div>
   );
 };
