@@ -17,6 +17,8 @@ import { Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../redux/actions/authAction";
 import { GLOBALTYPES } from "../../redux/actions/globalTypes";
+import Category from "../../pages/Category";
+
 const useStyles = makeStyles({
   navbar: {
     backgroundColor: "#ffffff",
@@ -61,7 +63,7 @@ const useStyles = makeStyles({
 
 const NavbarLoggedIn = () => {
   const classes = useStyles();
-  const { auth } = useSelector(state => state);
+  const { auth } = useSelector((state) => state);
   const dispatch = useDispatch();
   // const { pathname } = useLocation();
   const [values, setValues] = useState({
@@ -73,15 +75,15 @@ const NavbarLoggedIn = () => {
     } catch (error) {
       console.log(error);
     }
-  },[auth.user]);
+  }, [auth.user]);
   return (
     <div>
       <AppBar position="fixed" elevation={0} style={{ zIndex: 1251 }}>
         <Toolbar className={classes.navbar}>
           <img src={logo} alt="logo" className={classes.logo} />
-          <Button>MALE</Button>
-          <Button>FEMALE</Button>
-          <Button>ACCESSORIES</Button>
+          <div>
+            <Category></Category>
+          </div>
           <div className={classes.input}>
             <SearchIcon color="secondary" />
             <InputBase
