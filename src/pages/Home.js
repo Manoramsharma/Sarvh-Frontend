@@ -8,8 +8,8 @@ import CarouselComponent from "../components/homePage/Caraousel";
 import MainContainerNewProducts from "../components/homePage/MainWhatsNew";
 import MainContainerCategories from "../components/homePage/MainCategories";
 import MainContainerTrendingProducts from "../components/homePage/MainTrending";
-import Footer from "../components/footer";
-
+ import Footer from "../components/footer";
+ 
 const useStyles = makeStyles({
   marginTop: {
     marginTop: "2%",
@@ -44,7 +44,7 @@ const Home = () => {
       <MainContainerNewProducts />
       <MainContainerCategories />
       <MainContainerTrendingProducts />
-      <Footer />
+    <Footer /> 
     </div>
   );
 };

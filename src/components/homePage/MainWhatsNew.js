@@ -10,7 +10,7 @@ import {
 import { makeStyles } from "@material-ui/core";
 import StorefrontIcon from "@material-ui/icons/Storefront";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexWrap: "wrap",
@@ -34,11 +34,16 @@ const useStyles = makeStyles({
     fontWeight: "bold",
     marginTop: "4%",
     textAlign: "center",
+    [theme.breakpoints.down("sm")]:
+    { 
+fontSize : 20 ,
+    },
   },
   iconButton: {
     color: "white",
   },
-});
+})
+);
 
 let itemData = [
   {
@@ -99,8 +104,8 @@ const MainContainerNewProducts = () => {
         <ImageList
           className={classes.imageList}
           cols={3}
-          gap={60}
-          rowHeight={250}
+          gap={20}
+          rowHeight={220}
         >
           {itemData.map((item) => (
             <ImageListItem key={item.id}>

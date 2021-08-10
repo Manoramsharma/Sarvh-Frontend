@@ -62,7 +62,7 @@ const NavbarWithLogin = () => {
           <Button>FEMALE</Button>
           <Button>ACCESSORIES</Button>
           <div className={classes.input}>
-            <SearchIcon color="primary" />
+            <SearchIcon color="primary" /> 
             <InputBase
               placeholder="Search for product and more"
               className={classes.inputBase}

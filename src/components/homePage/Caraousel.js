@@ -6,7 +6,29 @@ import { useMediaQuery } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) =>({
   carouselImages: {
-    width: "60rem",
+    [theme.breakpoints.down("lg")]:
+    { width : "50vw" ,
+    height : "60vh"
+
+},
+[theme.breakpoints.down("md")]:
+{ width : "50vw" ,
+height : "50vh"
+
+},
+[theme.breakpoints.down("sm")]:
+{ width : "45vw" ,
+height : "40vh"
+
+},
+
+[theme.breakpoints.down("xs")]:
+{ 
+height : "35vh"
+
+},
+    
+   /*  width: "60rem",
     [theme.breakpoints.down("md")]: {
       width: "40rem",
       height : 300 
@@ -23,15 +45,17 @@ height : 150
     },
     
     height: 400,
-    
+     */
 
   },
   marginTop: {
     marginTop: "2%",
   },
-  carousel: { [theme.breakpoints.down("md")]:
-  {  width : "100%"
-  },
+  carousel:{
+    [theme.breakpoints.down("sm")]:
+{ width : "100vw" ,
+
+},
     backgroundColor: "#334257",
     marginTop: 64,
   },
@@ -39,10 +63,14 @@ height : 150
     position: "absolute",
     top: "50%",
     transform: "translateY(-50%)",
-    left: "60%",
+    left: "30%",
     [theme.breakpoints.down("md")]:
-    { left : "30%" ,
-  },
+    { left : "40%" ,
+    
+    },
+    [theme.breakpoints.down("sm")]:
+{ left : "50%"
+},
     color: "white",
     width: "fit-content",
     height: "60%",
@@ -54,27 +82,36 @@ height : 150
     
   },
   edit : {
-    [theme.breakpoints.down("md")]:
-      { width : "50rem" ,
-fontSize : 30 ,
+    
+    [theme.breakpoints.down("lg")]:
+      { width : "80vw" ,
+fontSize : 50 ,},
+ [theme.breakpoints.down("md")]:
+{ width : "60vw" ,
+fontSize : 40 ,
+},
 [theme.breakpoints.down("sm")]:
-{ width : "50rem" ,
+{ width : "40vw" ,
 fontSize : 20 ,
 },
 [theme.breakpoints.down("xs")]:
-{  width : "50rem" ,
-fontSize : 15 ,
+{ 
+fontSize : 14 ,
 },
-
-      },
+ 
+    
     
     
     },
  
   edit1 : {
+    [theme.breakpoints.down("md")]:
+    { 
+fontSize : 10 ,
+    },
     [theme.breakpoints.down("xs")]:
       { 
-fontSize : 10 ,
+fontSize : 8 ,
       },
     
   },
@@ -85,7 +122,8 @@ fontSize : 10 ,
 width : 250 ,
 [theme.breakpoints.down("xs")]:
 {
-width : 140 ,
+width : 100 ,
+height : 30
 },
     },
   
@@ -108,7 +146,7 @@ const CarouselComponent = () => {
           />
           <Carousel.Caption className={classes.carouselCaption}>
             <div>
-              <Typography  className={classes.edit} variant="h3">Summer Must Have</Typography>
+              <Typography  className={classes.edit} noWrap={true} variant="h3">Summer Must Have</Typography>
               <Typography  className={classes.edit1} variant="h6">Starting at Rs. 200</Typography>
             </div>
             <Button className={classes.button} variant="outlined" size="large">
@@ -124,7 +162,7 @@ const CarouselComponent = () => {
           />
           <Carousel.Caption className={classes.carouselCaption}>
             <div>
-              <Typography  className={classes.edit} variant="h3">Summer Must Have</Typography>
+              <Typography  className={classes.edit} noWrap={true} variant="h3">Summer Must Have</Typography>
               <Typography className={classes.edit1} variant="h6">Starting at Rs. 200</Typography>
             </div>
             <Button className={classes.button} variant="outlined" size="large">
@@ -140,7 +178,7 @@ const CarouselComponent = () => {
           />
           <Carousel.Caption className={classes.carouselCaption}>
             <div>
-              <Typography  className={classes.edit} variant="h3">Summer Must Have</Typography>
+              <Typography  className={classes.edit} noWrap={true} variant="h3">Summer Must Have</Typography>
               <Typography className={classes.edit1} variant="h6">Starting at Rs. 200</Typography>
             </div>
             <Button className={classes.button} variant="outlined" size="large">

@@ -4,11 +4,13 @@ import {
   ImageListItem,
   ImageListItemBar,
   Typography,
+  useMediaQuery,
+  useTheme
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import StorefrontIcon from "@material-ui/icons/Storefront";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles( (theme) => ({
   root: {
     display: "flex",
     flexWrap: "wrap",
@@ -30,11 +32,16 @@ const useStyles = makeStyles({
     fontWeight: "bold",
     marginTop: "4%",
     textAlign: "center",
+    [theme.breakpoints.down("sm")]:
+    { 
+fontSize : 20 ,
+    },
   },
   iconButton: {
     color: "white",
   },
-});
+})
+);
 
 let itemData = [
   {
@@ -60,21 +67,28 @@ let itemData = [
 ];
 
 const MainContainerCategories = () => {
+  const theme = useTheme() ;
   const classes = useStyles();
+  const match = useMediaQuery(theme.breakpoints.down('sm'));
+  const match1 = useMediaQuery('(max-width : 960px');
   return (
     <div>
       <Typography className={classes.typography} variant="h5">
         Categories For You
       </Typography>
-      <div className={classes.root}>
+
+
+
+      { match1 ? <>  <div className={classes.root}>
+        
         <ImageList
           className={classes.imageList}
-          cols={4.5}
-          gap={80}
-          rowHeight={320}
+          cols={3}
+          gap={20}
+          rowHeight={220}
         >
           {itemData.map((item) => (
-            <ImageListItem key={item.img}>
+            <ImageListItem key={item.id}>
               <img src={item.img} alt={item.title} />
               <ImageListItemBar
                 title={item.title}
@@ -90,7 +104,35 @@ const MainContainerCategories = () => {
             </ImageListItem>
           ))}
         </ImageList>
-      </div>
+      </div> </> : <> </>}
+     
+     { match ?  <>  </>: <>   <div className={classes.root}>
+        
+        <ImageList
+          className={classes.imageList}
+          cols={4.5}
+          gap={80}
+          rowHeight={320}
+        >
+          {itemData.map((item) => (
+            <ImageListItem key={item.id}>
+              <img src={item.img} alt={item.title} />
+              <ImageListItemBar
+                title={item.title}
+                actionIcon={
+                  <IconButton
+                    className={classes.iconButton}
+                    aria-label={`star ${item.title}`}
+                  >
+                    <StorefrontIcon />
+                  </IconButton>
+                }
+              />
+            </ImageListItem>
+          ))}
+        </ImageList>
+      </div></> }
+  
     </div>
   );
 };
