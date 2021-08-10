@@ -13,12 +13,13 @@ import logo from "../../images/logo.png";
 import SearchIcon from "@material-ui/icons/Search";
 import { useHistory } from "react-router-dom";
 import  Navbar from "./Drawer";
+import Category from "../../pages/Category";
 const useStyles = makeStyles({
   navbar: {
     backgroundColor: "#ffffff",
     borderBottom: "1px solid #A9A9A9",
     display: "flex",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
   },
   logo: {
     maxWidth: 35,
@@ -58,9 +59,9 @@ const NavbarWithLogin = () => {
       <AppBar position="fixed" elevation={0} style={{ zIndex: 1251 }}>
         <Toolbar className={classes.navbar}> 
           {match ? < Navbar/> : <> <img src={logo} alt="logo" className={classes.logo} />
-          <Button>MALE</Button>
-          <Button>FEMALE</Button>
-          <Button>ACCESSORIES</Button>
+          <div>
+            <Category></Category>
+          </div>
           <div className={classes.input}>
             <SearchIcon color="primary" /> 
             <InputBase

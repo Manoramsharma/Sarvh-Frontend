@@ -12,6 +12,8 @@ import { getProfileUsers } from "../redux/actions/profileAction";
 import { GLOBALTYPES } from "../redux/actions/globalTypes";
 import LinearProgress from "@material-ui/core/LinearProgress";
 
+import Footer from "../components/footer";
+
 const useStyles = makeStyles(theme => ({
   large: {
     width: theme.spacing(10),
@@ -66,7 +68,6 @@ const useStyles = makeStyles(theme => ({
 }));
 const ProfilePage = () => {
   const { profile, auth } = useSelector(state => state);
-  console.log(profile);
   const dispatch = useDispatch();
   const { id } = useParams();
   const classes = useStyles();

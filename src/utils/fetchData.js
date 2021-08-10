@@ -1,5 +1,5 @@
 import axios from "axios";
-import {API} from "../Backend";
+import { API } from "../Backend";
 export const getDataAPI = async (url, token) => {
   const res = await axios.get(`/api/${url}`, {
     headers: { Authorization: token },
