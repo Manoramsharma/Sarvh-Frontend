@@ -129,6 +129,22 @@ button {
   border-style: none;
 }
 
+@media (max-width: 520px) {
+.imghere {
+  display: none;
+}
+
+.main {
+  grid-template-columns: 0fr 2fr;
+}
+
+
+
+.btnup {
+  width: "60%";
+}  
+}
+
 @media (max-width: 1070px) {
   .imghere {
     display: none;
