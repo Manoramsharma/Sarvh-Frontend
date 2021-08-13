@@ -126,7 +126,7 @@ const NavbarLoggedIn = () => {
                 id="dropdown-split-basic"
               />
               <Dropdown.Menu>
-                <Link to={"/uploadproduct"} style={{ textDecoration: "none" }}>
+                <Link to={"/sellonsarvh"} style={{ textDecoration: "none" }}>
                   <Dropdown.Item href="/uploadproduct">
                     Sell On Sarvh
                   </Dropdown.Item>
