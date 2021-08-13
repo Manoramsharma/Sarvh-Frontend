@@ -9,7 +9,7 @@ import { WrapText } from "@material-ui/icons";
 const useStyles = makeStyles( (theme)=> ( {
     footer : {
         
-        height : "50vh",
+        height : "30vh",
         backgroundColor : "rgba(196, 196, 196, 0.19)",
         display : "flex",
        justifyContent : "space-evenly", 
