@@ -17,18 +17,28 @@ import TextField from "@material-ui/core/TextField";
 import Swal from "sweetalert2";
 import { validateEmail, validatePassword } from "../helper/validator";
 import HomeIcon from "@material-ui/icons/Home";
+import { useTheme } from "@material-ui/styles";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles( (theme) => ({
   field: {
     marginTop: 20,
     marginBottom: 20,
     display: "block",
+    
     // '& > *': {
     //   margin: theme.spacing(1),
     // },
   },
   mainContainer: {
     width: "50%",
+    [theme.breakpoints.down("sm")]:
+{ width : "80%" ,
+
+
+},
+ edit : {
+fontSize : 2
+ },
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -37,8 +47,26 @@ const useStyles = makeStyles({
   btn : {
     marginTop : "5%",
     fontSize : "1rem"
-  }
-});
+  },
+  imghere : {
+    fontSize : "1rem"
+  } ,
+ /*  inputRoot: {
+    fontSize: 30
+  }, */
+  labelRoot: {
+   /*  [theme.breakpoints.down("sm")]:
+    {
+      fontSize: 30,
+    
+    }, */
+   /* color: "red",
+     "&$labelFocused": {
+      color: "purple"
+    } */
+  },
+  labelFocused: {}
+}));
 
 function Signup(props) {
   const { auth, alert } = useSelector(state => state);
@@ -108,9 +136,9 @@ function Signup(props) {
   return (
     <div>
       <div className="main">
-        <div className="imgbg">
+      <div className="imgbg">
           <img src={Signupimg} alt="" className="imghere" />
-        </div>
+        </div> 
         <div className="mainlog">
           <div className="btnup">
           <Link to={"/"}>
@@ -138,9 +166,17 @@ function Signup(props) {
             <form noValidate autoComplete="off" onSubmit={signUpForm}>
               <TextField
                 className={classes.field}
+                className={classes.edit}
                 id="outlined-basic"
                 label="Full Name"
                 variant="standard"
+                InputProps={{ classes: { root: classes.inputRoot } }}
+                InputLabelProps={{
+                  classes: {
+                    root: classes.labelRoot,
+                    focused: classes.labelFocused
+                  }
+                }}
                 color="secondary"
                 fullWidth
                 required

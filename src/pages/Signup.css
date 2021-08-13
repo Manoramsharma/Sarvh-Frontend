@@ -33,6 +33,7 @@
   align-items: center;
 }
 button {
+  
   cursor: pointer;
 }
 /* .btnup button:first-child {
@@ -129,6 +130,7 @@ button {
   border-style: none;
 }
 
+
 @media (max-width: 1070px) {
   .imghere {
     display: none;
@@ -151,4 +153,9 @@ button {
   .btnup {
     width: 60%;
   }
+
+  .btnup button{
+    font-size: 1.2rem;
+  }
 }
+
