@@ -60,8 +60,8 @@ fontSize : 2
       fontSize: 30,
     
     }, */
-    color: "red",
-   /*  "&$labelFocused": {
+   /* color: "red",
+     "&$labelFocused": {
       color: "purple"
     } */
   },
