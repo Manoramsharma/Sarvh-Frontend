@@ -28,7 +28,7 @@
   border-style: none;
   display: flex;
   justify-content: space-evenly;
-  width : 30%;
+  width: 30%;
   margin-top: 1rem;
   align-items: center;
 }
@@ -136,5 +136,19 @@ button {
 
   .main {
     grid-template-columns: 0fr 2fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .imghere {
+    display: none;
+  }
+
+  .main {
+    grid-template-columns: 0fr 2fr;
+  }
+
+  .btnup {
+    width: 60%;
   }
 }
