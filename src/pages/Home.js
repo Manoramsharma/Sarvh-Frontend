@@ -25,7 +25,6 @@ const useStyles = makeStyles({
   },
   home: {
     width : "100vw",
-    backgroundColor: "#E53F3F",
   }
 });
 
