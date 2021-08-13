@@ -1,3 +1,4 @@
+import { useHistory, Link } from "react-router-dom";
 import NavbarLoggedIn from "../components/homePage/Navbar2";
 import { makeStyles, Typography, Button } from "@material-ui/core";
 import clsx from "clsx";
@@ -56,16 +57,16 @@ const useStyles = makeStyles({
   sellContainer: {
     display: "flex",
     justifyContent: "space-evenly",
-    marginTop : "2%",
-    marginBottom : "2%",
+    marginTop: "2%",
+    marginBottom: "2%",
   },
-  card : {
-    width : "19%",
-    padding : "2%"
+  card: {
+    width: "19%",
+    padding: "2%",
   },
-  image : {
-    height : "50%"
-  }
+  image: {
+    height: "50%",
+  },
 });
 
 const SellPage = () => {
@@ -80,14 +81,16 @@ const SellPage = () => {
             Sell your products and connect with large audience on our social
             commerce. Start your great beginnings today.
           </Typography>
-          <Button
-            size="large"
-            color="secondary"
-            variant="outlined"
-            className={clsx(classes.btn)}
-          >
-            REGISTER NOW
-          </Button>
+          <Link to="/signup" style={{ textDecoration: "none" }}>
+            <Button
+              size="large"
+              color="secondary"
+              variant="outlined"
+              className={clsx(classes.btn)}
+            >
+              REGISTER NOW
+            </Button>
+          </Link>
         </div>
         <div className={classes.rightTopContainer}>
           <img
@@ -125,28 +128,28 @@ const SellPage = () => {
       </Typography>
       <div className={classes.sellContainer}>
         <Card className={classes.card}>
-          <Card.Img variant="top" src={Image4} className={classes.image}/>
+          <Card.Img variant="top" src={Image4} className={classes.image} />
           <Card.Body>
             <Card.Title>Register</Card.Title>
             <Card.Text>Fill in form and get your documents verified</Card.Text>
           </Card.Body>
         </Card>
         <Card className={classes.card}>
-          <Card.Img variant="top" src={Image5} className={classes.image}/>
+          <Card.Img variant="top" src={Image5} className={classes.image} />
           <Card.Body>
             <Card.Title>List</Card.Title>
             <Card.Text>Upload your products </Card.Text>
           </Card.Body>
         </Card>
         <Card className={classes.card}>
-          <Card.Img variant="top" src={Image6} className={classes.image}/>
+          <Card.Img variant="top" src={Image6} className={classes.image} />
           <Card.Body>
             <Card.Title>Sell</Card.Title>
             <Card.Text>Get orders from your large customer base</Card.Text>
           </Card.Body>
         </Card>
         <Card className={classes.card}>
-          <Card.Img variant="top" src={Image7} className={classes.image}/>
+          <Card.Img variant="top" src={Image7} className={classes.image} />
           <Card.Body>
             <Card.Title>Deliver</Card.Title>
             <Card.Text>
@@ -155,7 +158,7 @@ const SellPage = () => {
           </Card.Body>
         </Card>
         <Card className={classes.card}>
-          <Card.Img variant="top" src={Image8} className={classes.image}/>
+          <Card.Img variant="top" src={Image8} className={classes.image} />
           <Card.Body>
             <Card.Title>Get Paid</Card.Title>
             <Card.Text>Payments will be transferred to your account</Card.Text>

@@ -127,7 +127,7 @@ const NavbarLoggedIn = () => {
               />
               <Dropdown.Menu>
                 <Link to={"/sellonsarvh"} style={{ textDecoration: "none" }}>
-                  <Dropdown.Item href="/uploadproduct">
+                  <Dropdown.Item href="/sellonsarvh">
                     Sell On Sarvh
                   </Dropdown.Item>
                 </Link>

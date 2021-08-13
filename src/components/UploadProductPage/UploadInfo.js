@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import clsx from "clsx";
 import { Form, Button } from "react-bootstrap";
 import imageCompression from "browser-image-compression";
+import { API } from "../../Backend";
+import Swal from "sweetalert2";
 
 const useStyles = makeStyles({
   uploadInfoContainer: {
@@ -51,7 +53,7 @@ const UploadInfoComponent = () => {
     productFeatures: "",
     category: "",
     selectedFile: "",
-    file: "",
+    file: [],
   });
   const [previewSource, setPreviewSource] = useState("");
   const [fileInputState, setFileInputState] = useState("");
@@ -59,34 +61,44 @@ const UploadInfoComponent = () => {
 
   const handleFileInput = async e => {
     const file = e.target.files[0];
-    console.log("originalFile instanceof Blob", file instanceof Blob); // true
-    console.log(`originalFile size ${file.size / 1024 / 1024} MB`);
-    console.log(file);
-
-    try {
-      const compressedFile = await imageCompression(file, options);
-      console.log(
-        "compressedFile instanceof Blob",
-        compressedFile instanceof Blob
-      ); // true
-      console.log(
-        `compressedFile size ${compressedFile.size / 1024 / 1024} MB`
-      ); // smaller than maxSizeMB
-      console.log(compressedFile);
+    var images = [];
+    for (var i = 0; i < e.target.files.length; i++) {
+      console.log(e.target.files[i]);
+      const compressedFile = await imageCompression(e.target.files[i], options);
       const reader = new FileReader();
       reader.readAsDataURL(compressedFile);
       reader.onloadend = () => {
-        setValues({ ...values, file: reader.result });
+        images.push(reader.result);
       };
-    } catch (error) {
-      console.log(error);
     }
+    setValues({ ...values, file: images });
   };
 
-  const handleFormSubmit = e => {
+  const handleFormSubmit = async e => {
     e.preventDefault();
     console.log("handle form submit");
     console.log(values);
+    console.log(values.file.length);
+    if (values.file.length === 0) {
+      Swal.fire({
+        icon: "error",
+        title: "Image",
+        text: "Please select a file...",
+      });
+    } else if (values.file.length > 4) {
+      Swal.fire({
+        icon: "error",
+        title: "Image",
+        text: "You can select upto 4 files only...",
+      });
+    } else {
+      await fetch(`${API}/api/uploadfile`, {
+        method: "POST",
+        body: values,
+        body: JSON.stringify({ values }),
+        headers: { "Content-type": "application/json" },
+      });
+    }
   };
   return (
     <div className={classes.uploadInfoContainer}>
@@ -160,7 +172,6 @@ const UploadInfoComponent = () => {
             controlId="formFileMultiple"
           >
             <Form.Label>Choose Photos</Form.Label>
-            <input type="file" multiple/>
             <input
               type="file"
               name="image"
