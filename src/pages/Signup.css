@@ -28,11 +28,12 @@
   border-style: none;
   display: flex;
   justify-content: space-evenly;
-  width : 30%;
+  width: 30%;
   margin-top: 1rem;
   align-items: center;
 }
 button {
+  
   cursor: pointer;
 }
 /* .btnup button:first-child {
@@ -129,6 +130,7 @@ button {
   border-style: none;
 }
 
+
 @media (max-width: 1070px) {
   .imghere {
     display: none;
@@ -138,3 +140,22 @@ button {
     grid-template-columns: 0fr 2fr;
   }
 }
+
+@media (max-width: 520px) {
+  .imghere {
+    display: none;
+  }
+
+  .main {
+    grid-template-columns: 0fr 2fr;
+  }
+
+  .btnup {
+    width: 60%;
+  }
+
+  .btnup button{
+    font-size: 1.2rem;
+  }
+}
+

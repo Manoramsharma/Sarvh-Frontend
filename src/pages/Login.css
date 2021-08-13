@@ -112,6 +112,7 @@ button {
   width: 100rem;
   height: fit-content;
   text-align: center;
+  padding-left: 5vw;
 }
 .mainbtn >  button {
   height: 2.8rem;
@@ -136,6 +137,7 @@ button {
   border-style: none;
   font-size: 1.5rem;
   color: white;
+  
 }
 
 @media (max-width: 1070px) {
@@ -145,5 +147,41 @@ button {
 
   .main {
     grid-template-columns: 0fr 2fr;
+  }
+}
+
+
+@media (max-width: 520px) {
+  .imghere {
+    display: none;
+  }
+
+  .main {
+    grid-template-columns: 0fr 2fr;
+  }
+
+  .btnup{
+    width: 60%;
+  }
+}
+
+@media (max-width: 400px) {
+  .imghere {
+    display: none;
+  }
+
+  .main {
+    grid-template-columns: 0fr 2fr;
+  }
+
+  .btnup{
+    width: 60%;
+  }
+
+  .mainbtn{
+    padding-left: 15vw;
+  }
+  .mainbtn button:last-child {
+    width: 75vw;
   }
 }
