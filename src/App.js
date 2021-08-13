@@ -21,6 +21,7 @@ import PageRender from './customRouter/PageRender';
 import PrivateRouter from './customRouter/PrivateRouter';
 import ProductUpload from './pages/productUplaod';
 import ErrorPage from "./pages/ErrorPage";
+import SellPage from "./pages/sellOnSarvhPage";
 const Theme = createTheme({
   palette: {
     secondary: {
@@ -43,6 +44,7 @@ function App() {
       <Router>
         <Alert />
         <div className="App">
+          <Switch>
             <Route exact path="/" component={Home} />
             <Route exact path="/login" render={()=> auth.token? (<Redirect to ="/"/>): (<Login/>)} />
             <Route exact path="/signup" render={()=> auth.token? (<Redirect to ="/"/>): (<Signup/>)} />
@@ -53,7 +55,10 @@ function App() {
             <Route exact path="/buyproduct" component={BuyProductPage} />
             <Route exact path="/uploadproduct" component={ProductUpload} />
             <Route exact path="/test" component={test} />
+            <Route exact path="/sellonsarvh" component={SellPage} />
             <Route component={ErrorPage} />
+
+            </Switch>
         </div>
       </Router>
     </ThemeProvider>

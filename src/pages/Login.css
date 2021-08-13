@@ -147,3 +147,18 @@ button {
     grid-template-columns: 0fr 2fr;
   }
 }
+
+
+@media (max-width: 520px) {
+  .imghere {
+    display: none;
+  }
+
+  .main {
+    grid-template-columns: 0fr 2fr;
+  }
+
+  .btnup{
+    width: 60%;
+  }
+}
