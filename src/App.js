@@ -50,6 +50,7 @@ function App() {
             <Route exact path="/resetpass/:resetToken" component={ResetPass} />
             <Route exact path="/profile/:id" component={auth.token ? ProfilePage : Home} />
             <Route exact path="/bycategories" component={CategoriesProduct} />
+            <Route exact path="/category" component={Category} />
             <Route exact path="/buyproduct" component={BuyProductPage} />
             <Route exact path="/uploadproduct" component={ProductUpload} />
             <Route exact path="/test" component={test} />

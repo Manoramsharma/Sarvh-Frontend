@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import clsx from "clsx";
 import { Form, Button } from "react-bootstrap";
 import imageCompression from "browser-image-compression";
-import Category, { ArrayCategory } from "../../pages/Category";
 
 const useStyles = makeStyles({
   uploadInfoContainer: {
@@ -40,7 +39,7 @@ const useStyles = makeStyles({
 
 const UploadInfoComponent = () => {
   const options = {
-    maxSizeMB: 0.04,
+    maxSizeMB: 1,
     maxWidthOrHeight: 300,
     useWebWorker: true,
   };
@@ -58,7 +57,7 @@ const UploadInfoComponent = () => {
   const [fileInputState, setFileInputState] = useState("");
   const classes = useStyles();
 
-  const handleFileInput = async (e) => {
+  const handleFileInput = async e => {
     const file = e.target.files[0];
     console.log("originalFile instanceof Blob", file instanceof Blob); // true
     console.log(`originalFile size ${file.size / 1024 / 1024} MB`);
@@ -84,7 +83,7 @@ const UploadInfoComponent = () => {
     }
   };
 
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = e => {
     e.preventDefault();
     console.log("handle form submit");
     console.log(values);
@@ -96,9 +95,7 @@ const UploadInfoComponent = () => {
           variant="filled"
           fullWidth
           label="Product Name"
-          onChange={(e) =>
-            setValues({ ...values, productName: e.target.value })
-          }
+          onChange={e => setValues({ ...values, productName: e.target.value })}
         />
         <Typography className={classes.marginTop} variant="h6">
           Pricing
@@ -109,7 +106,7 @@ const UploadInfoComponent = () => {
             variant="filled"
             halfWidth
             label="Your Price"
-            onChange={(e) => setValues({ ...values, price: e.target.value })}
+            onChange={e => setValues({ ...values, price: e.target.value })}
           />
           <TextField
             className={clsx(classes.marginTop, classes.twoInputs)}
@@ -117,7 +114,7 @@ const UploadInfoComponent = () => {
             halfWidth
             type="number"
             label="MRP of the Product"
-            onChange={(e) => setValues({ ...values, mrp: e.target.value })}
+            onChange={e => setValues({ ...values, mrp: e.target.value })}
           />
         </div>
         <Typography className={classes.marginTop} variant="h6">
@@ -130,7 +127,7 @@ const UploadInfoComponent = () => {
           fullWidth
           rows={4}
           variant="filled"
-          onChange={(e) =>
+          onChange={e =>
             setValues({ ...values, productDescription: e.target.value })
           }
         />
@@ -141,31 +138,35 @@ const UploadInfoComponent = () => {
           fullWidth
           rows={3}
           variant="filled"
-          onChange={(e) =>
+          onChange={e =>
             setValues({ ...values, productFeatures: e.target.value })
           }
         />
         <div className={classes.choosingContainer}>
-         
-            <ArrayCategory onChange={(e) => setValues({ ...values, category: e.target.value })}
-            value={values.category} className={clsx(classes.selectCategories, classes.marginTop)}></ArrayCategory>
-            {/* <MenuItem value="women">Women</MenuItem>
-            <MenuItem value="accessories">Accessories</MenuItem> */}
-         
+          <TextField
+            halfWidth
+            onChange={e => setValues({ ...values, category: e.target.value })}
+            value={values.category}
+            select
+            label="Category"
+            className={clsx(classes.selectCategories, classes.marginTop)}
+          >
+            <MenuItem value="men">Men</MenuItem>
+            <MenuItem value="women">Women</MenuItem>
+            <MenuItem value="accessories">Accessories</MenuItem>
+          </TextField>
           <Form.Group
             className={clsx(classes.choosePhotos, classes.marginTop)}
             controlId="formFileMultiple"
           >
             <Form.Label>Choose Photos</Form.Label>
+            <input type="file" multiple/>
             <input
               type="file"
               name="image"
+              multiple="multiple"
               onChange={handleFileInput}
               id="raised-button-file"
-              // value={fileInputState}
-              // onChange={e => setValues({ ...values, file: e.target.value })}
-              // onChange={handleFileInput}
-              // value={fileInputState}
             />
           </Form.Group>
         </div>
