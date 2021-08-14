@@ -8,6 +8,8 @@ import { Form, Button } from "react-bootstrap";
 import imageCompression from "browser-image-compression";
 import { API } from "../../Backend";
 import Swal from "sweetalert2";
+import { uploadProduct } from "../../redux/actions/productAction";
+import { useSelector, useDispatch } from "react-redux";
 
 const useStyles = makeStyles({
   uploadInfoContainer: {
@@ -40,6 +42,8 @@ const useStyles = makeStyles({
 });
 
 const UploadInfoComponent = () => {
+  const {auth, product } = useSelector(state => state);
+  const dispatch = useDispatch();
   const options = {
     maxSizeMB: 1,
     maxWidthOrHeight: 300,
@@ -82,22 +86,23 @@ const UploadInfoComponent = () => {
     if (values.file.length === 0) {
       Swal.fire({
         icon: "error",
-        title: "Image",
+        // title: "Image",
         text: "Please select a file...",
       });
     } else if (values.file.length > 4) {
       Swal.fire({
         icon: "error",
-        title: "Image",
+        // title: "Image",
         text: "You can select upto 4 files only...",
       });
     } else {
-      await fetch(`${API}/api/uploadfile`, {
-        method: "POST",
-        body: values,
-        body: JSON.stringify({ values }),
-        headers: { "Content-type": "application/json" },
-      });
+      dispatch(uploadProduct(auth,values));
+      // await fetch(`${API}/api/uploadfile`, {
+      //   method: "POST",
+      //   body: values,
+      //   body: JSON.stringify({ values }),
+      //   headers: { "Content-type": "application/json" },
+      // });
     }
   };
   return (
