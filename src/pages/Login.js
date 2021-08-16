@@ -13,11 +13,12 @@ import Swal from "sweetalert2";
 import { API } from "../Backend";
 import { validateEmail, validatePassword } from "../helper/validator";
 import GoogleButton from "react-google-button";
-import { login } from "../redux/actions/authAction";
+import { login, googlelogin } from "../redux/actions/authAction";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
 import HomeIcon from "@material-ui/icons/Home";
+import { GoogleLogin } from "react-google-login";
 
 axios.defaults.withCredentials = true;
 const AppContainer = styled.div`
@@ -68,35 +69,13 @@ const fetchAuthUser = () => {
 };
 
 const Login = () => {
-  // const user = useSelector((state: any) => state.app.authUser as any) as any;
-  // const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  function googleAuth() {
-    console.log("clicking on gogole auth");
-    // fetchAuthUser();
-    // axios.get(`${API}/auth/google`,{withCredentials: true})
-    // let timer: NodeJS.Timeout | null = null;
-    const googleLoginURL = API + "/auth/google";
-    const newWindow = window.open(
-      googleLoginURL,
-      "_blank",
-      "width=500,height=600"
-    );
 
-    if (newWindow) {
-      console.log("in new windows");
-      if (newWindow.closed) {
-        console.log("in new window ");
-        fetchAuthUser();
-        console.log("Yay we're authenticated");
-      }
-    }
-  }
   async function loginAPI(e) {
     e.preventDefault();
     if (!validateEmail(email)) {
@@ -118,15 +97,12 @@ const Login = () => {
         password: password,
       };
       dispatch(login(userData));
-      // axios.post(`${API}/api/login`, { email, password }).then(res => {
-      //   console.log(res.data);
-      //   const data = res.data;
-      //   if (data.msg === "Login Sucess!") {
-      //     setAuthFunc(true, data.access_token, data.user.fullname, data.user.avatar);
-      //   }
-      // });
     }
   }
+  const responseGoogle = response => {
+    console.log(response);
+    dispatch(googlelogin(response))
+  };
   return (
     <div>
       <div className="main" id="left-sidebar">
@@ -135,9 +111,9 @@ const Login = () => {
         </div>
         <div className="mainlog">
           <div className="btnup">
-          <Link to={"/"}>
-                <HomeIcon color="secondary" />
-              </Link>
+            <Link to={"/"}>
+              <HomeIcon color="secondary" />
+            </Link>
             <button className="singup">LOGIN</button>
 
             <button
@@ -196,13 +172,13 @@ const Login = () => {
 
           <div className="mainbtn">
             <Typography gutterBottom>Or Log in with</Typography>
-            {/* <a href="http:localhost:8000/auth/google"><GoogleButton  /></a> */}
-            <Link to={{ pathname: "http://localhost:8000/auth/google/" }} target="_parent" ><GoogleButton  /></Link>
-
-            <Link target="_blank" to={"http://localhost:8000/auth/google/"} ><GoogleButton  /> </Link>
-            {/* <a href={"//http:localhost:8000/auth/google"}><GoogleButton /></a> */}
-            {/* <GoogleButton onClick={googleAuth} /> */}
-            <button className={classes.facebook}>FACEBOOK</button>
+            <GoogleLogin
+              clientId="240650313405-8u85vv2auaabjq44cle3126gbnm3mi12.apps.googleusercontent.com"
+              buttonText="Google"
+              onSuccess={responseGoogle}
+              onFailure={responseGoogle}
+              cookiePolicy={"single_host_origin"}
+            />
           </div>
         </div>
       </div>

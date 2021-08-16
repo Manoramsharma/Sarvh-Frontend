@@ -7,5 +7,11 @@ export const uploadProduct = (auth, data) => async dispatch => {
     dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
     const res = await postDataAPI(`uploadfile`, data, auth.token);
     console.log(res);
+    dispatch({
+      type: GLOBALTYPES.ALERT,
+      payload: {
+        success: res.data.msg,
+      },
+    });
   } catch (err) {}
 };

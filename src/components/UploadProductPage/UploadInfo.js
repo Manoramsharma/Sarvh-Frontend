@@ -56,6 +56,7 @@ const UploadInfoComponent = () => {
     productDescription: "",
     productFeatures: "",
     category: "",
+    subCategory: "",
     selectedFile: "",
     file: [],
   });
@@ -168,9 +169,21 @@ const UploadInfoComponent = () => {
             label="Category"
             className={clsx(classes.selectCategories, classes.marginTop)}
           >
-            <MenuItem value="men">Men</MenuItem>
-            <MenuItem value="women">Women</MenuItem>
-            <MenuItem value="accessories">Accessories</MenuItem>
+            <MenuItem value="Men">Men</MenuItem>
+            <MenuItem value="Women">Women</MenuItem>
+            <MenuItem value="Accessories">Accessories</MenuItem>
+          </TextField>
+          <TextField
+            halfWidth
+            onChange={e => setValues({ ...values, subCategory: e.target.value })}
+            value={values.subCategory}
+            select
+            label="Sub Category"
+            className={clsx(classes.selectCategories, classes.marginTop)}
+          >
+            <MenuItem value="Shirt">Shirt</MenuItem>
+            <MenuItem value="T-Shirt">T-Shirt</MenuItem>
+            <MenuItem value="Jeans">Jeans</MenuItem>
           </TextField>
           <Form.Group
             className={clsx(classes.choosePhotos, classes.marginTop)}
