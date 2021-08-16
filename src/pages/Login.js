@@ -13,12 +13,13 @@ import Swal from "sweetalert2";
 import { API } from "../Backend";
 import { validateEmail, validatePassword } from "../helper/validator";
 import GoogleButton from "react-google-button";
-import { login, googlelogin } from "../redux/actions/authAction";
+import { login, googlelogin, facebooklogin } from "../redux/actions/authAction";
 import { useDispatch } from "react-redux";
 import axios from "axios";
 import styled from "styled-components";
 import HomeIcon from "@material-ui/icons/Home";
 import { GoogleLogin } from "react-google-login";
+import FacebookLogin from "react-facebook-login";
 
 axios.defaults.withCredentials = true;
 const AppContainer = styled.div`
@@ -75,7 +76,6 @@ const Login = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-
   async function loginAPI(e) {
     e.preventDefault();
     if (!validateEmail(email)) {
@@ -101,8 +101,13 @@ const Login = () => {
   }
   const responseGoogle = response => {
     console.log(response);
-    dispatch(googlelogin(response))
+    dispatch(googlelogin(response));
   };
+  const responseFacebook = (response) => {
+    console.log(response);
+    dispatch(facebooklogin(response));
+
+  }
   return (
     <div>
       <div className="main" id="left-sidebar">
@@ -178,6 +183,12 @@ const Login = () => {
               onSuccess={responseGoogle}
               onFailure={responseGoogle}
               cookiePolicy={"single_host_origin"}
+            />
+            <FacebookLogin
+              appId="558674212075076"
+              autoLoad={false}
+              fields="name,email,picture"
+              callback={responseFacebook}
             />
           </div>
         </div>
