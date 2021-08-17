@@ -1,17 +1,17 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { makeStyles } from '@material-ui/core/styles';
-import LinearProgress from '@material-ui/core/LinearProgress';
+import { makeStyles } from "@material-ui/core/styles";
+import LinearProgress from "@material-ui/core/LinearProgress";
 import Loading from "./Loading";
 import Toast from "./Toast";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { GLOBALTYPES } from "../redux/actions/globalTypes";
 toast.configure();
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
-    width: '100%',
-    '& > * + *': {
+    width: "100%",
+    "& > * + *": {
       marginTop: theme.spacing(2),
     },
   },
@@ -25,18 +25,16 @@ const Notify = () => {
       {alert.loading && <LinearProgress />}
       {alert.error && (
         <Toast
-        type="error"
-          msg={alert.error}
-          position="top-right"
+          msg={{ title: "Error", body: alert.error }}
           handleShow={() => dispatch({ type: GLOBALTYPES.ALERT, payload: {} })}
+          bgColor="bg-danger"
         />
       )}
       {alert.success && (
         <Toast
-        type="success"
-          msg={alert.success}
-          position="top-right"
+          msg={{ title: "Success", body: alert.success }}
           handleShow={() => dispatch({ type: GLOBALTYPES.ALERT, payload: {} })}
+          bgColor="bg-success"
         />
       )}
       {/* <ToastContainer /> */}
