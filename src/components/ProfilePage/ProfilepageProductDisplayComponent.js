@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import {
   Card,
   CardActionArea,
@@ -6,6 +7,8 @@ import {
   Typography,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router";
 
 const useStyles = makeStyles({
   media: {
@@ -28,77 +31,40 @@ const useStyles = makeStyles({
 
 const ProfilePageProductDisplayComponent = () => {
   const classes = useStyles();
-  let productArray = [
-    {
-      id: 1,
-      title: "Product Name",
-      img: "https://images.bewakoof.com/utter/content/2835/content_biker_jacket_for_men_fashion_10.jpg",
-      sellingRate: "Rs. 400",
-      MRP: "Rs. 600",
-    },
-    {
-      id: 2,
-      title: "Product Name",
-      img: "https://images.bewakoof.com/utter/content/2835/content_biker_jacket_for_men_fashion_10.jpg",
-      sellingRate: "Rs. 400",
-      MRP: "Rs. 600",
-    },
-    {
-      id: 3,
-      title: "Product Name",
-      img: "https://images.bewakoof.com/utter/content/2835/content_biker_jacket_for_men_fashion_10.jpg",
-      sellingRate: "Rs. 400",
-      MRP: "Rs. 600",
-    },
-    {
-      id: 4,
-      title: "Product Name",
-      img: "https://images.bewakoof.com/utter/content/2835/content_biker_jacket_for_men_fashion_10.jpg",
-      sellingRate: "Rs. 400",
-      MRP: "Rs. 600",
-    },
-    {
-      id: 5,
-      title: "Product Name",
-      img: "https://images.bewakoof.com/utter/content/2835/content_biker_jacket_for_men_fashion_10.jpg",
-      sellingRate: "Rs. 400",
-      MRP: "Rs. 600",
-    },
-    {
-      id: 6,
-      title: "Product Name",
-      img: "https://images.bewakoof.com/utter/content/2835/content_biker_jacket_for_men_fashion_10.jpg",
-      sellingRate: "Rs. 400",
-      MRP: "Rs. 600",
-    },
-  ];
+  const { auth, profile } = useSelector(state => state);
+  const dispatch = useDispatch();
+
+  const [userData, setUserData] = useState([]);
+
+  const { id } = useParams();
+  useEffect(() => {
+    try {
+      function filter_data(product) {
+        var newData = product.filter(temp => temp.user.username === id);
+        setUserData(newData);
+      }
+      profile.product.forEach(filter_data);
+
+    } catch (err) {
+      console.log(err);
+    }
+  }, [auth, profile.product, dispatch, id]);
+  
   return (
     <div className={classes.mainContainer}>
-      {productArray.map(item => (
-        <Card className={classes.cardContainer}> key={item.id}
-          <CardActionArea>
-            <CardMedia
-              component="img"
-              className={classes.media}
-              image={item.img}
-              title={item.title}
-            />
-            <CardContent>
-              <Typography variant="body2" color="textSecondary" component="p">
-                {item.sellingRate}
-              </Typography>
-              <Typography
-                className={classes.strikeThrough}
-                variant="body2"
-                color="textSecondary"
-                component="p"
-              >
-                {item.MRP}
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
+      {userData.map(user => (
+        <div key={user._id}>
+          {user.images.map(image=>(
+            <img src={image}></img>
+          ))}
+
+            <div>Product Name: {user.productName}</div>
+            <div>Price: {user.price}</div>
+            <div>Description: {user.productDescription}</div>
+            <div>Features: {user.productFeatures}</div>
+        </div>
       ))}
+      
     </div>
   );
 };

@@ -22,7 +22,7 @@ const Notify = () => {
   const classes = useStyles();
   return (
     <div>
-      {alert.loading && <LinearProgress />}
+      {alert.loading && <LinearProgress style={{zIndex: 2000}} />}
       {alert.error && (
         <Toast
           msg={{ title: "Error", body: alert.error }}

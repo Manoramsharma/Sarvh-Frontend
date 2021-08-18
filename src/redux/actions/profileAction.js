@@ -6,6 +6,7 @@ export const PROFILE_TYPES = {
   GET_USER: "GET_USER",
   FOLLOW: "FOLLOW",
   UNFOLLOW: "UNFOLLOW",
+  GETPRODUCT: 'GETPRODUCT'
 };
 export const getProfileUsers =
   ({ users, id, auth }) =>
@@ -14,11 +15,17 @@ export const getProfileUsers =
       try {
         dispatch({ type: PROFILE_TYPES.LOADING, payload: true });
         const res = await getDataAPI(`/user/${id}`, auth.token);
-        console.log(res);
+        const res2 = await getDataAPI(`/product/${id}`, auth.token);
+        console.log(res)
+        console.log(res2)
         dispatch({
           type: PROFILE_TYPES.GET_USER,
           payload: res.data,
         });
+        dispatch({
+          type: PROFILE_TYPES.GETPRODUCT,
+          payload: res2.data,
+        })
         dispatch({ type: PROFILE_TYPES.LOADING, payload: false });
       } catch (err) {
         console.log(err);

@@ -4,7 +4,7 @@ const initialState = {
   loading: false,
   ids: [],
   users: [],
-  posts: [],
+  product: [],
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -29,6 +29,12 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         users: EditData(state.users, action.payload.username, action.payload),
       };
+    case PROFILE_TYPES.GETPRODUCT:
+      return {
+        ...state,
+        product: [...state.product, action.payload.product]
+
+      }
     default:
       return state;
   }

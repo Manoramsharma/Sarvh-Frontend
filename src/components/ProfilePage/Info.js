@@ -63,20 +63,20 @@ const Info = ({ id }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [userData, setUserData] = useState([]);
-  const [load, setLoad]= useState(false);
+  const [load, setLoad] = useState(false);
   useEffect(() => {
     if (auth.user.username === id) {
       setUserData([auth.user]);
     } else {
       try {
-        const newData = profile.users.filter(user => user.username === id)
+        const newData = profile.users.filter(user => user.username === id);
         setUserData(newData);
       } catch (err) {
         console.log(err);
       }
     }
   }, [auth, profile.users, dispatch, id]);
-  return (    
+  return (
     <div>
       {userData.map(user => (
         <div className={classes.avatarContainer} key={user.username}>
@@ -109,21 +109,22 @@ const Info = ({ id }) => {
                 <Typography gutterBottom>Following</Typography>
               </div>
             </div>
-            {
-              user.username===auth.user.username? (<Button
+            {user.username === auth.user.username ? (
+              <Button
                 size="small"
                 color="primary"
                 variant="contained"
                 className={classes.fontSize}
               >
                 Edit Profile
-              </Button>): (<Followbtn user={user}></Followbtn>)
-            }
+              </Button>
+            ) : (
+              <Followbtn user={user}></Followbtn>
+            )}
           </div>
         </div>
       ))}
     </div>
-  
   );
 };
 

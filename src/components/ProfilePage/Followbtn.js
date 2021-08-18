@@ -10,7 +10,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Followbtn = ({ user }) => {
-  console.log(user);
   const classes = useStyles();
   const [followed, setFollowed] = useState(false);
   const { auth, profile } = useSelector(state => state);
