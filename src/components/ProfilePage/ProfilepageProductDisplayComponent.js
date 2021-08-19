@@ -22,12 +22,20 @@ const useStyles = makeStyles({
   mainContainer: {
     display: "grid",
     gridTemplateColumns: "1fr 1fr 1fr 1fr",
-    gap: "20px 20px",
+    gap: "40px 40px",
     marginTop: "2%",
   },
   strikeThrough: {
     textDecorationLine: "line-through",
   },
+  itemContainer : {
+    textAlign : "center",
+    height : 300,
+  },
+  productImage : {
+    width : "100%",
+    height : "100%",
+  }
 });
 
 const ProfilePageProductDisplayComponent = () => {
@@ -54,10 +62,10 @@ const ProfilePageProductDisplayComponent = () => {
     <div className={classes.mainContainer}>
       {userData.map(user => (
         <div>
-          <Carousel>
+          <Carousel className={classes.carouselContainer}>
             {user.images.map(image => (
-              <Carousel.Item>
-                <img src={image}></img>
+              <Carousel.Item className={classes.itemContainer}>
+                <img className={classes.productImage} src={image}></img>
               </Carousel.Item>
             ))}
           </Carousel>
