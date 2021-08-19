@@ -9,6 +9,7 @@ import {
 import { makeStyles } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router";
+import { Carousel } from "react-bootstrap";
 
 const useStyles = makeStyles({
   media: {
@@ -44,27 +45,29 @@ const ProfilePageProductDisplayComponent = () => {
         setUserData(newData);
       }
       profile.product.forEach(filter_data);
-
     } catch (err) {
       console.log(err);
     }
   }, [auth, profile.product, dispatch, id]);
-  
+
   return (
     <div className={classes.mainContainer}>
       {userData.map(user => (
-        <div key={user._id}>
-          {user.images.map(image=>(
-            <img src={image}></img>
-          ))}
+        <div>
+          <Carousel>
+            {user.images.map(image => (
+              <Carousel.Item>
+                <img src={image}></img>
+              </Carousel.Item>
+            ))}
+          </Carousel>
 
-            <div>Product Name: {user.productName}</div>
-            <div>Price: {user.price}</div>
-            <div>Description: {user.productDescription}</div>
-            <div>Features: {user.productFeatures}</div>
+          <div>Product Name: {user.productName}</div>
+          <div>Price: {user.price}</div>
+          <div>Description: {user.productDescription}</div>
+          <div>Features: {user.productFeatures}</div>
         </div>
       ))}
-      
     </div>
   );
 };
