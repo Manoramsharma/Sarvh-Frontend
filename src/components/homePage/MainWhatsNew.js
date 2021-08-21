@@ -109,7 +109,7 @@ const MainContainerNewProducts = () => {
     } catch (err) {
       console.log(err);
     }
-  }, [product.whatsnew]);
+  }, [product.whatsnew, dispatch]);
 
   const getData = () => {
     axios.get(`${API}/api/product`).then(data => {
@@ -122,79 +122,39 @@ const MainContainerNewProducts = () => {
       <Typography className={classes.typography} variant="h5">
         What's New In The Store!
       </Typography>
-      {match1 ? (
-        <>
-          {" "}
-          <div className={classes.root}>
-            <ImageList
-              className={classes.imageList}
-              cols={3}
-              gap={20}
-              rowHeight={220}
-            >
-              {whatsNew.map(item => (
-                <ImageListItem key={item.id}>
-                  <Carousel>
-                    {item.images.map(image => (
-                      <Carousel.Item>
-                        <img src={image}></img>
-                      </Carousel.Item>
-                    ))}
-                  </Carousel>
-                  {/* <img src={item.img} alt={item.title} /> */}
-                  <ImageListItemBar
-                    // title={item.title}
-                    title={item.productName}
-                    actionIcon={
-                      <IconButton
-                        className={classes.iconButton}
-                        // aria-label={`star ${item.title}`}
-                      >
-                        <StorefrontIcon />
-                      </IconButton>
-                    }
-                  />
-                </ImageListItem>
-              ))}
-            </ImageList>
-          </div>{" "}
-        </>
-      ) : (
-        <> </>
-      )}
-
-      {match ? (
-        <> </>
-      ) : (
-        <>
-          {" "}
-          <div className={classes.root}>
-            <ImageList
-              className={classes.imageList}
-              cols={4.5}
-              gap={80}
-              rowHeight={320}
-            >
-              {itemData.map(item => (
-                <ImageListItem key={item.id}>
-                  <img src={item.img} alt={item.title} />
-                  <ImageListItemBar
-                    title={item.title}
-                    actionIcon={
-                      <IconButton
-                        className={classes.iconButton}
-                        aria-label={`star ${item.title}`}
-                      >
-                        <StorefrontIcon />
-                      </IconButton>
-                    }
-                  />
-                </ImageListItem>
-              ))}
-            </ImageList>
-          </div>
-        </>
-      )}
+      <div className={classes.root}>
+        <ImageList
+          className={classes.imageList}
+          cols={3}
+          gap={20}
+          rowHeight={220}
+        >
+          {whatsNew.map(item => (
+            <ImageListItem key={item.id}>
+              <Carousel>
+                {item.images.map(image => (
+                  <Carousel.Item>
+                    <img src={image}></img>
+                  </Carousel.Item>
+                ))}
+              </Carousel>
+              {/* <img src={item.img} alt={item.title} /> */}
+              <ImageListItemBar
+                // title={item.title}
+                title={item.productName}
+                actionIcon={
+                  <IconButton
+                    className={classes.iconButton}
+                    // aria-label={`star ${item.title}`}
+                  >
+                    <StorefrontIcon />
+                  </IconButton>
+                }
+              />
+            </ImageListItem>
+          ))}
+        </ImageList>
+      </div>
     </div>
   );
 };
