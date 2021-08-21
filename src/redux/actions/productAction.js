@@ -1,6 +1,8 @@
 import { GLOBALTYPES } from "./globalTypes";
-import { postDataAPI } from "../../utils/fetchData";
-
+import { postDataAPI, getDataAPI } from "../../utils/fetchData";
+export const PRODUCT_TYPES = {
+  WHATSNEW: "WHATSNEW",
+};
 export const uploadProduct = (auth, data) => async dispatch => {
   try {
     console.log(data);
@@ -14,4 +16,17 @@ export const uploadProduct = (auth, data) => async dispatch => {
       },
     });
   } catch (err) {}
+};
+export const getProduct = data => async dispatch => {
+  try {
+    const res = await getDataAPI(`product`);
+    console.log(res);
+    console.log(res.data.product);
+    dispatch({
+      type: PRODUCT_TYPES.WHATSNEW,
+      payload: res.data.product,
+    });
+  } catch (error) {
+    console.log(error);
+  }
 };

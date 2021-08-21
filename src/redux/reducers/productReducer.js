@@ -1,9 +1,15 @@
-import { GLOBALTYPES } from "../actions/globalTypes";
-const initialState={}
+import { PRODUCT_TYPES } from "../actions/productAction";
+const initialState = {
+  whatsnew: [],
+};
 const productReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GLOBALTYPES.PRODUCT:
-      return action.payload;
+    case PRODUCT_TYPES.WHATSNEW:
+      return {
+        ...state,
+        whatsnew: action.payload,
+      };
+
     default:
       return state;
   }
