@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Component } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   ImageList,
@@ -101,15 +101,21 @@ const MainContainerNewProducts = () => {
 
   useEffect(() => {
     try {
-      axios.get(`${API}/api/product`).then(data => {
-        setWhatsNew(data.data.product);
-      });
-      // dispatch(getProduct(null));
-      // setWhatsNew(product.whatsnew);
+      console.log(whatsNew.length);
+      if (product.whatsnew.length === 0) {
+        dispatch(getProduct(null));
+      }
+      setWhatsNew(product.whatsnew);
     } catch (err) {
       console.log(err);
     }
-  }, []);
+  }, [product.whatsnew]);
+
+  const getData = () => {
+    axios.get(`${API}/api/product`).then(data => {
+      setWhatsNew(data.data.product);
+    });
+  };
 
   return (
     <div>
