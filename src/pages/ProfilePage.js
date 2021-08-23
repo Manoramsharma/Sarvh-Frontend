@@ -1,18 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Avatar, Button, makeStyles, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import NavbarLoggedIn from "../components/homePage/Navbar2";
 import Info from "../components/ProfilePage/Info";
 import Posts from "../components/ProfilePage/Posts";
-import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
-import { ToggleButton, ToggleButtonGroup } from "react-bootstrap";
-import ProfilePageProductDisplayComponent from "../components/ProfilePage/ProfilepageProductDisplayComponent";
 import { useParams } from "react-router";
 import { getProfileUsers } from "../redux/actions/profileAction";
-import { GLOBALTYPES } from "../redux/actions/globalTypes";
 import LinearProgress from "@material-ui/core/LinearProgress";
-
-import Footer from "../components/footer";
 
 const useStyles = makeStyles(theme => ({
   large: {
@@ -70,8 +64,6 @@ const ProfilePage = () => {
   const { profile, auth } = useSelector(state => state);
   const dispatch = useDispatch();
   const { id } = useParams();
-  const classes = useStyles();
-  const [userData, setUserData] = useState([]);
 
   useEffect(() => {
     if (profile.users.every(item => item !== id)) {

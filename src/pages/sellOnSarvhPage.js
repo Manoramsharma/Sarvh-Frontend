@@ -1,10 +1,9 @@
-import { useHistory, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import NavbarLoggedIn from "../components/homePage/Navbar2";
 import { makeStyles, Typography, Button } from "@material-ui/core";
 import clsx from "clsx";
 import Image1 from "../images/undraw_Online_shopping_re_k1sv.svg";
 import Image2 from "../images/undraw_stepping_up_g6oo.svg";
-// import Image3 from "../images/undraw_Online_messaging_re_qft3.svg";
 import Image4 from "../images/undraw_Mobile_payments_re_7udl.svg";
 import Image5 from "../images/undraw_Add_post_re_174w.svg";
 import Image6 from "../images/undraw_social_friends_nsbv.svg";
@@ -101,7 +100,6 @@ const SellPage = () => {
             className={clsx(classes.images, classes.marginLeft)}
             src={Image2}
           />
-          {/* <img className={clsx(classes.images, classes.imageLeft)} src={Image3} /> */}
         </div>
       </div>
       <Typography

@@ -7,24 +7,24 @@ import FooterForCategory from "../components/FooterForCategory";
 import NavbarLoggedIn from "../components/homePage/Navbar2";
 
 const useStyles = makeStyles({
-  centerAlign : {
-    textAlign : "center",
-    marginTop : 90,
+  centerAlign: {
+    textAlign: "center",
+    marginTop: 90,
   },
-  
-})
+});
 
 const CategoriesProduct = () => {
-  const [accessories, setAccessories] = useState("male");
   const classes = useStyles();
   return (
     <div>
       <NavbarLoggedIn />
       <div>
-      <DrawerComponent />
-      <div>
-      <Typography className={classes.centerAlign} variant="h4">MEN</Typography>
-      </div>
+        <DrawerComponent />
+        <div>
+          <Typography className={classes.centerAlign} variant="h4">
+            MEN
+          </Typography>
+        </div>
         <ProductDisplayComponent />
       </div>
 

@@ -1,12 +1,12 @@
 import { getDataAPI, patchDataAPI } from "../../utils/fetchData";
-import { GLOBALTYPES, EditData, DeleteData } from "./globalTypes";
+import { GLOBALTYPES, DeleteData } from "./globalTypes";
 
 export const PROFILE_TYPES = {
   LOADING: "LOADING",
   GET_USER: "GET_USER",
   FOLLOW: "FOLLOW",
   UNFOLLOW: "UNFOLLOW",
-  GETPRODUCT: 'GETPRODUCT'
+  GETPRODUCT: "GETPRODUCT",
 };
 export const getProfileUsers =
   ({ users, id, auth }) =>
@@ -16,8 +16,8 @@ export const getProfileUsers =
         dispatch({ type: PROFILE_TYPES.LOADING, payload: true });
         const res = await getDataAPI(`/user/${id}`, auth.token);
         const res2 = await getDataAPI(`/product/${id}`, auth.token);
-        console.log(res)
-        console.log(res2)
+        console.log(res);
+        console.log(res2);
         dispatch({
           type: PROFILE_TYPES.GET_USER,
           payload: res.data,
@@ -25,7 +25,7 @@ export const getProfileUsers =
         dispatch({
           type: PROFILE_TYPES.GETPRODUCT,
           payload: res2.data,
-        })
+        });
         dispatch({ type: PROFILE_TYPES.LOADING, payload: false });
       } catch (err) {
         console.log(err);

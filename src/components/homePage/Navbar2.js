@@ -13,10 +13,9 @@ import PersonIcon from "@material-ui/icons/Person";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import { Dropdown, ButtonGroup } from "react-bootstrap";
 import HomeIcon from "@material-ui/icons/Home";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../redux/actions/authAction";
-import { GLOBALTYPES } from "../../redux/actions/globalTypes";
 import Category from "../../pages/Category";
 
 const useStyles = makeStyles({
@@ -63,7 +62,7 @@ const useStyles = makeStyles({
 
 const NavbarLoggedIn = () => {
   const classes = useStyles();
-  const { auth } = useSelector((state) => state);
+  const { auth } = useSelector(state => state);
   const dispatch = useDispatch();
   // const { pathname } = useLocation();
   const [values, setValues] = useState({

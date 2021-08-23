@@ -10,27 +10,16 @@ import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import { makeStyles } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Swal from "sweetalert2";
-import { API } from "../Backend";
 import { validateEmail, validatePassword } from "../helper/validator";
-import GoogleButton from "react-google-button";
 import { login, googlelogin, facebooklogin } from "../redux/actions/authAction";
 import { useDispatch } from "react-redux";
 import axios from "axios";
-import styled from "styled-components";
 import HomeIcon from "@material-ui/icons/Home";
 import { GoogleLogin } from "react-google-login";
 import FacebookLogin from "react-facebook-login";
 
 axios.defaults.withCredentials = true;
-const AppContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  font-size: 31px;
-`;
+
 const useStyles = makeStyles({
   field: {
     marginTop: 20,
@@ -54,20 +43,6 @@ const useStyles = makeStyles({
     textDecoration: "none",
   },
 });
-
-const fetchAuthUser = () => {
-  console.log("in fetch auth user");
-  axios
-    .get("http://localhost:8000/auth/user", {
-      withCredentials: true,
-    })
-    .then(res => {
-      console.log(res);
-    })
-    .catch(err => {
-      console.log(err);
-    });
-};
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -103,11 +78,10 @@ const Login = () => {
     console.log(response);
     dispatch(googlelogin(response));
   };
-  const responseFacebook = (response) => {
+  const responseFacebook = response => {
     console.log(response);
     dispatch(facebooklogin(response));
-
-  }
+  };
   return (
     <div>
       <div className="main" id="left-sidebar">

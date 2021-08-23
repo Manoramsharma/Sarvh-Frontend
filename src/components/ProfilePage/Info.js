@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Avatar, Button, makeStyles, Typography } from "@material-ui/core";
 import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
-import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { getProfileUsers } from "../../redux/actions/profileAction";
 import Followbtn from "./Followbtn";
 
 const useStyles = makeStyles(theme => ({
@@ -63,7 +61,6 @@ const Info = ({ id }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const [userData, setUserData] = useState([]);
-  const [load, setLoad] = useState(false);
   useEffect(() => {
     if (auth.user.username === id) {
       setUserData([auth.user]);

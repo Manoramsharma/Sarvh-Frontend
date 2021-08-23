@@ -1,9 +1,9 @@
-import React from 'react';
-import clsx from 'clsx';
-import GradeIcon from '@material-ui/icons/Grade';
-import StarOutlineIcon from '@material-ui/icons/StarOutline';
-import InfoIcon from '@material-ui/icons/Info';
-import ContactsOutlinedIcon from '@material-ui/icons/ContactsOutlined';
+import React from "react";
+import clsx from "clsx";
+import GradeIcon from "@material-ui/icons/Grade";
+import StarOutlineIcon from "@material-ui/icons/StarOutline";
+import InfoIcon from "@material-ui/icons/Info";
+import ContactsOutlinedIcon from "@material-ui/icons/ContactsOutlined";
 import {
   AppBar,
   Button,
@@ -13,67 +13,53 @@ import {
   Toolbar,
   alpha,
   useTheme,
-  useMediaQuery,
-  Typography
+  Typography,
 } from "@material-ui/core";
 
-import SearchIcon from '@material-ui/icons/Search';
+import SearchIcon from "@material-ui/icons/Search";
 import { useHistory } from "react-router-dom";
-import Drawer from '@material-ui/core/Drawer';
+import Drawer from "@material-ui/core/Drawer";
 
-import CssBaseline from '@material-ui/core/CssBaseline';
-import List from '@material-ui/core/List';
+import CssBaseline from "@material-ui/core/CssBaseline";
+import List from "@material-ui/core/List";
 
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import  { useState } from "react";
+import Divider from "@material-ui/core/Divider";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
 
 import logo from "../../images/logo.png";
-import {
-  FaFacebookSquare,
-  FaInstagramSquare,
-  FaYoutubeSquare,
-} from "react-icons/fa";
-import { GiHamburgerMenu } from "react-icons/gi";
-
-import { NavLink } from "react-router-dom";
-
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
-    display: 'flex',
+    display: "flex",
   },
-  logo : {
-    [theme.breakpoints.up('md')]: {
-      marginLeft: "2%"
-      
+  logo: {
+    [theme.breakpoints.up("md")]: {
+      marginLeft: "2%",
     },
-width : "5vw" ,
-height : "5vh"
+    width: "5vw",
+    height: "5vh",
   },
-  color :{
-backgroundColor : "white" ,
-color : "black"
+  color: {
+    backgroundColor: "white",
+    color: "black",
   },
   appBar: {
-    transition: theme.transitions.create(['margin', 'width'], {
+    transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['margin', 'width'], {
+    transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
@@ -83,7 +69,7 @@ color : "black"
     flexGrow: 1,
   },
   hide: {
-    display: 'none',
+    display: "none",
   },
   drawer: {
     width: drawerWidth,
@@ -93,91 +79,84 @@ color : "black"
     width: drawerWidth,
   },
   drawerHeader: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: theme.spacing(0, 1), 
+    display: "flex",
+    alignItems: "center",
+    padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
-    justifyContent: 'flex-start',
+    justifyContent: "flex-start",
   },
   content: {
     flexGrow: 1,
-   /*  padding: theme.spacing(3), */
-    transition: theme.transitions.create('margin', {
+    /*  padding: theme.spacing(3), */
+    transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginRight: -drawerWidth,
   },
   contentShift: {
-    transition: theme.transitions.create('margin', {
+    transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
     marginRight: 0,
   },
   search: {
-    position: 'relative',
+    position: "relative",
     borderRadius: theme.shape.borderRadius,
     backgroundColor: alpha(theme.palette.common.black, 0.15),
-    '&:hover': {
+    "&:hover": {
       backgroundColor: alpha(theme.palette.common.black, 0.25),
     },
     marginRight: theme.spacing(5),
     marginLeft: 0,
-    
-    [theme.breakpoints.up('sm')]: {
+
+    [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(1),
-      width: '35vw',
+      width: "35vw",
     },
-    [theme.breakpoints.up('xs')]: {
+    [theme.breakpoints.up("xs")]: {
       marginLeft: theme.spacing(0.5),
-      width: '25vw',
-      height : '5vh'
+      width: "25vw",
+      height: "5vh",
     },
   },
   searchIcon: {
     padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
   grow: {
     flexGrow: 0.5,
   },
   inputRoot: {
-    color: 'inherit',
+    color: "inherit",
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create('width'),
-    width: '100%',
-    [theme.breakpoints.up('md')]: {
-      width: '20ch',
+    transition: theme.transitions.create("width"),
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "20ch",
     },
   },
-  loginButton : {
-  
-    [theme.breakpoints.up('sm')]: {
-      
+  loginButton: {
+    [theme.breakpoints.up("sm")]: {
       width: "20vw",
-      height : "10vh",
-
-      
+      height: "10vh",
     },
-   
-    [theme.breakpoints.up('xs')]: {
-    
-      width: "15vw",
-      height : "5vh",
-      fontSize : 10
 
+    [theme.breakpoints.up("xs")]: {
+      width: "15vw",
+      height: "5vh",
+      fontSize: 10,
     },
   },
 }));
@@ -194,7 +173,6 @@ export default function Navbar() {
     history.push("/signup");
   };
 
-
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -205,7 +183,7 @@ export default function Navbar() {
 
   return (
     <div className={classes.root}>
-    <CssBaseline/>
+      <CssBaseline />
       <AppBar
         position="fixed"
         className={clsx(classes.appBar, {
@@ -213,25 +191,24 @@ export default function Navbar() {
         })}
       >
         <Toolbar className={classes.color}>
-        
-           <Typography variant="h6" noWrap className={classes.title}>
+          <Typography variant="h6" noWrap className={classes.title}>
             <img src={logo} alt="logo" className={classes.logo} />
-          </Typography> 
+          </Typography>
           <div className={classes.grow}>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ "aria-label": "search" }}
+              />
             </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
-          <div className={classes.grow} />
+            <div className={classes.grow} />
           </div>
           <ButtonGroup>
             <Button
@@ -239,7 +216,6 @@ export default function Navbar() {
               color="secondary"
               className={classes.loginButton}
               onClick={signUpButton}
-            
             >
               SIGN UP
             </Button>
@@ -258,56 +234,60 @@ export default function Navbar() {
             edge="end"
             onClick={handleDrawerOpen}
             className={clsx(open && classes.hide)}
-            
           >
             <MenuIcon />
           </IconButton>
         </Toolbar>
       </AppBar>
-      
-  <main
-  className={clsx(classes.content, {
-    [classes.contentShift]: open,
-  })}
->
-  <div className={classes.drawerHeader} />
- 
-</main>
-<Drawer
-  className={classes.drawer}
-  variant="persistent"
-  anchor="right"
-  open={open}
-  classes={{
-    paper: classes.drawerPaper,
-  }}
->
-  <div className={classes.drawerHeader}>
-    <IconButton onClick={handleDrawerClose}>
-      {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-    </IconButton>
-  </div>
-  <Divider />
-  <List>
-    {['Men', 'Women', 'Accessories'].map((text, index) => (
-      <ListItem button key={text}>
-        <ListItemIcon>{index % 2 === 0 ? <GradeIcon /> : < StarOutlineIcon />}</ListItemIcon>
-        <ListItemText primary={text} />
-      </ListItem>
-    ))}
-  </List>
-  <Divider />
-  <List>
-    {['Contact Us', 'About'].map((text, index) => (
-      <ListItem button key={text}>
-        <ListItemIcon>{index % 2 === 0 ? < ContactsOutlinedIcon /> : < InfoIcon/>}</ListItemIcon>
-        <ListItemText primary={text} />
-      </ListItem>
-    ))}
-  </List>
-</Drawer>
-</div>
-);
- };
 
-
+      <main
+        className={clsx(classes.content, {
+          [classes.contentShift]: open,
+        })}
+      >
+        <div className={classes.drawerHeader} />
+      </main>
+      <Drawer
+        className={classes.drawer}
+        variant="persistent"
+        anchor="right"
+        open={open}
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
+        <div className={classes.drawerHeader}>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === "rtl" ? (
+              <ChevronLeftIcon />
+            ) : (
+              <ChevronRightIcon />
+            )}
+          </IconButton>
+        </div>
+        <Divider />
+        <List>
+          {["Men", "Women", "Accessories"].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>
+                {index % 2 === 0 ? <GradeIcon /> : <StarOutlineIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {["Contact Us", "About"].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>
+                {index % 2 === 0 ? <ContactsOutlinedIcon /> : <InfoIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+    </div>
+  );
+}

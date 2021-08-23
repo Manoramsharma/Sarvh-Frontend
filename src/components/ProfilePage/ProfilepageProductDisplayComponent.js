@@ -1,11 +1,4 @@
 import React, { useState, useEffect } from "react";
-import {
-  Card,
-  CardActionArea,
-  CardContent,
-  CardMedia,
-  Typography,
-} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router";
@@ -28,14 +21,14 @@ const useStyles = makeStyles({
   strikeThrough: {
     textDecorationLine: "line-through",
   },
-  itemContainer : {
-    textAlign : "center",
-    height : 300,
+  itemContainer: {
+    textAlign: "center",
+    height: 300,
   },
-  productImage : {
-    width : "100%",
-    height : "100%",
-  }
+  productImage: {
+    width: "100%",
+    height: "100%",
+  },
 });
 
 const ProfilePageProductDisplayComponent = () => {
@@ -65,7 +58,11 @@ const ProfilePageProductDisplayComponent = () => {
           <Carousel className={classes.carouselContainer}>
             {user.images.map(image => (
               <Carousel.Item className={classes.itemContainer}>
-                <img className={classes.productImage} src={image}></img>
+                <img
+                  className={classes.productImage}
+                  src={image}
+                  alt={"productimage"}
+                ></img>
               </Carousel.Item>
             ))}
           </Carousel>

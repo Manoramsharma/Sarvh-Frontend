@@ -1,12 +1,10 @@
-import { InputLabel, MenuItem, TextField } from "@material-ui/core";
-import { Select } from "@material-ui/core";
+import { MenuItem, TextField } from "@material-ui/core";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import clsx from "clsx";
 import { Form, Button } from "react-bootstrap";
 import imageCompression from "browser-image-compression";
-import { API } from "../../Backend";
 import Swal from "sweetalert2";
 import { uploadProduct } from "../../redux/actions/productAction";
 import { useSelector, useDispatch } from "react-redux";
@@ -42,7 +40,7 @@ const useStyles = makeStyles({
 });
 
 const UploadInfoComponent = () => {
-  const {auth, product } = useSelector(state => state);
+  const { auth } = useSelector(state => state);
   const dispatch = useDispatch();
   const options = {
     maxSizeMB: 1,
@@ -60,12 +58,9 @@ const UploadInfoComponent = () => {
     selectedFile: "",
     file: [],
   });
-  const [previewSource, setPreviewSource] = useState("");
-  const [fileInputState, setFileInputState] = useState("");
   const classes = useStyles();
 
   const handleFileInput = async e => {
-    const file = e.target.files[0];
     var images = [];
     for (var i = 0; i < e.target.files.length; i++) {
       console.log(e.target.files[i]);
@@ -87,23 +82,15 @@ const UploadInfoComponent = () => {
     if (values.file.length === 0) {
       Swal.fire({
         icon: "error",
-        // title: "Image",
         text: "Please select a file...",
       });
     } else if (values.file.length > 4) {
       Swal.fire({
         icon: "error",
-        // title: "Image",
         text: "You can select upto 4 files only...",
       });
     } else {
-      dispatch(uploadProduct(auth,values));
-      // await fetch(`${API}/api/uploadfile`, {
-      //   method: "POST",
-      //   body: values,
-      //   body: JSON.stringify({ values }),
-      //   headers: { "Content-type": "application/json" },
-      // });
+      dispatch(uploadProduct(auth, values));
     }
   };
   return (
@@ -175,7 +162,9 @@ const UploadInfoComponent = () => {
           </TextField>
           <TextField
             halfWidth
-            onChange={e => setValues({ ...values, subCategory: e.target.value })}
+            onChange={e =>
+              setValues({ ...values, subCategory: e.target.value })
+            }
             value={values.subCategory}
             select
             label="Sub Category"
@@ -204,7 +193,6 @@ const UploadInfoComponent = () => {
           type="submit"
           className={clsx(classes.marginTop, classes.saveButton)}
           variant="secondary"
-          // disabled={isLoading}
         >
           Submit
         </Button>

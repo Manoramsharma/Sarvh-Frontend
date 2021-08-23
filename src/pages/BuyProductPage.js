@@ -1,13 +1,7 @@
 import { useState } from "react";
 import CarouselComponent from "../components/BuyProductPage/Caraousel";
 import NavbarLoggedIn from "../components/homePage/Navbar2";
-import {
-  Avatar,
-  Button,
-  Divider,
-  makeStyles,
-  Typography,
-} from "@material-ui/core";
+import { Avatar, Button, makeStyles, Typography } from "@material-ui/core";
 import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
@@ -16,7 +10,7 @@ import { ButtonGroup } from "@material-ui/core";
 import { FormControl, InputGroup } from "react-bootstrap";
 import ThingsYouMayLikeComponent from "../components/BuyProductPage/ThingsYouMayLike";
 import Footer from "../components/footer";
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   carousel: {
     height: 600,
     display: "flex",
@@ -41,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
   rightMain: {
     width: 250,
-    marginLeft: "5%"
+    marginLeft: "5%",
   },
   icons: {
     display: "flex",
@@ -80,15 +74,15 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: 20,
     fontSize: 18,
   },
-  description : {
-      fontSize: 10
+  description: {
+    fontSize: 10,
   },
-  thingsText : {
-    transform : "translateX(50%)",
-    marginTop : "3%",
-    marginLeft : "-5%",
-    fontWeight : "bold",
-  }
+  thingsText: {
+    transform: "translateX(50%)",
+    marginTop: "3%",
+    marginLeft: "-5%",
+    fontWeight: "bold",
+  },
 }));
 
 const productInfo = {
@@ -97,11 +91,7 @@ const productInfo = {
 };
 const BuyProductPage = () => {
   const classes = useStyles();
-  const [small, setSmall] = useState(false);
-  const [medium, setMedium] = useState(false);
-  const [large, setLarge] = useState(false);
-  const [xl, setXL] = useState(true);
-  const [xxl, setXXL] = useState(false);
+
   return (
     <div>
       <NavbarLoggedIn />
@@ -172,7 +162,6 @@ const BuyProductPage = () => {
             delivery might be available Easy 30 days returns and exchanges
           </Typography>
         </div>
-        
       </div>
       <ThingsYouMayLikeComponent />
       <Footer />

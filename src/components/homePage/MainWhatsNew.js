@@ -1,4 +1,5 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   ImageList,
@@ -6,15 +7,11 @@ import {
   ImageListItemBar,
   Typography,
   IconButton,
-  useMediaQuery,
-  useTheme,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import StorefrontIcon from "@material-ui/icons/Storefront";
 import { getProduct } from "../../redux/actions/productAction";
 import { Carousel } from "react-bootstrap";
-import axios from "axios";
-import { API } from "../../Backend";
 const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
@@ -27,7 +24,6 @@ const useStyles = makeStyles(theme => ({
   },
   imageList: {
     flexWrap: "nowrap",
-    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: "translateZ(0)",
     overflowX: "scroll",
   },
@@ -44,59 +40,17 @@ const useStyles = makeStyles(theme => ({
   iconButton: {
     color: "white",
   },
+  productImage: {
+    width: "100%",
+    height: "100%",
+  },
 }));
-
-let itemData = [
-  {
-    img: "https://res.cloudinary.com/webstore/image/fetch/w_450,c_limit,c_fit,f_auto,e_trim/https%3A%2F%2Fae01.alicdn.com%2Fkf%2FH6d133e21bd094c1ea8db61f0868d029aU%2FLuxury-Male-Pajamas-Solid-Elastic-Royal-Blue-Plus-Size-Sleepwear-V-Neck-Top-Fashion-Home-Clothes.jpg",
-    title: "KalaSaga",
-    id: 1,
-  },
-  {
-    img: "https://res.cloudinary.com/webstore/image/fetch/w_450,c_limit,c_fit,f_auto,e_trim/https%3A%2F%2Fae01.alicdn.com%2Fkf%2FH6d133e21bd094c1ea8db61f0868d029aU%2FLuxury-Male-Pajamas-Solid-Elastic-Royal-Blue-Plus-Size-Sleepwear-V-Neck-Top-Fashion-Home-Clothes.jpg",
-    title: "KalaSaga",
-    id: 2,
-  },
-  {
-    img: "https://res.cloudinary.com/webstore/image/fetch/w_450,c_limit,c_fit,f_auto,e_trim/https%3A%2F%2Fae01.alicdn.com%2Fkf%2FH6d133e21bd094c1ea8db61f0868d029aU%2FLuxury-Male-Pajamas-Solid-Elastic-Royal-Blue-Plus-Size-Sleepwear-V-Neck-Top-Fashion-Home-Clothes.jpg",
-    title: "KalaSaga",
-    id: 3,
-  },
-  {
-    img: "https://res.cloudinary.com/webstore/image/fetch/w_450,c_limit,c_fit,f_auto,e_trim/https%3A%2F%2Fae01.alicdn.com%2Fkf%2FH6d133e21bd094c1ea8db61f0868d029aU%2FLuxury-Male-Pajamas-Solid-Elastic-Royal-Blue-Plus-Size-Sleepwear-V-Neck-Top-Fashion-Home-Clothes.jpg",
-    title: "KalaSaga",
-    id: 4,
-  },
-  {
-    img: "https://res.cloudinary.com/webstore/image/fetch/w_450,c_limit,c_fit,f_auto,e_trim/https%3A%2F%2Fae01.alicdn.com%2Fkf%2FH6d133e21bd094c1ea8db61f0868d029aU%2FLuxury-Male-Pajamas-Solid-Elastic-Royal-Blue-Plus-Size-Sleepwear-V-Neck-Top-Fashion-Home-Clothes.jpg",
-    title: "KalaSaga",
-    id: 5,
-  },
-  {
-    img: "https://res.cloudinary.com/webstore/image/fetch/w_450,c_limit,c_fit,f_auto,e_trim/https%3A%2F%2Fae01.alicdn.com%2Fkf%2FH6d133e21bd094c1ea8db61f0868d029aU%2FLuxury-Male-Pajamas-Solid-Elastic-Royal-Blue-Plus-Size-Sleepwear-V-Neck-Top-Fashion-Home-Clothes.jpg",
-    title: "KalaSaga",
-    id: 6,
-  },
-  {
-    img: "https://res.cloudinary.com/webstore/image/fetch/w_450,c_limit,c_fit,f_auto,e_trim/https%3A%2F%2Fae01.alicdn.com%2Fkf%2FH6d133e21bd094c1ea8db61f0868d029aU%2FLuxury-Male-Pajamas-Solid-Elastic-Royal-Blue-Plus-Size-Sleepwear-V-Neck-Top-Fashion-Home-Clothes.jpg",
-    title: "KalaSaga",
-    id: 7,
-  },
-  {
-    img: "https://res.cloudinary.com/webstore/image/fetch/w_450,c_limit,c_fit,f_auto,e_trim/https%3A%2F%2Fae01.alicdn.com%2Fkf%2FH6d133e21bd094c1ea8db61f0868d029aU%2FLuxury-Male-Pajamas-Solid-Elastic-Royal-Blue-Plus-Size-Sleepwear-V-Neck-Top-Fashion-Home-Clothes.jpg",
-    title: "KalaSaga",
-    id: 8,
-  },
-];
 
 const MainContainerNewProducts = () => {
   const { product } = useSelector(state => state);
   const dispatch = useDispatch();
   const [whatsNew, setWhatsNew] = useState([]);
 
-  const theme = useTheme();
-  const match = useMediaQuery(theme.breakpoints.down("sm"));
-  const match1 = useMediaQuery("(max-width : 960px");
   const classes = useStyles();
 
   useEffect(() => {
@@ -110,12 +64,6 @@ const MainContainerNewProducts = () => {
       console.log(err);
     }
   }, [product.whatsnew, dispatch]);
-
-  const getData = () => {
-    axios.get(`${API}/api/product`).then(data => {
-      setWhatsNew(data.data.product);
-    });
-  };
 
   return (
     <div>
@@ -134,11 +82,20 @@ const MainContainerNewProducts = () => {
               <Carousel>
                 {item.images.map(image => (
                   <Carousel.Item>
-                    <img src={image}></img>
+                    <Link
+                      to={"/profile/" + item.user.username}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <img
+                        src={image}
+                        className={classes.productImage}
+                        alt={"whatsnew"}
+                      ></img>
+                    </Link>
                   </Carousel.Item>
                 ))}
               </Carousel>
-              {/* <img src={item.img} alt={item.title} /> */}
+
               <ImageListItemBar
                 // title={item.title}
                 title={item.productName}

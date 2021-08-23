@@ -15,10 +15,13 @@ export const uploadProduct = (auth, data) => async dispatch => {
         success: res.data.msg,
       },
     });
+    dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: false } });
   } catch (err) {}
 };
 export const getProduct = data => async dispatch => {
   try {
+    dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
+
     const res = await getDataAPI(`product`);
     console.log(res);
     console.log(res.data.product);
@@ -26,6 +29,7 @@ export const getProduct = data => async dispatch => {
       type: PRODUCT_TYPES.WHATSNEW,
       payload: res.data.product,
     });
+    dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: false } });
   } catch (error) {
     console.log(error);
   }

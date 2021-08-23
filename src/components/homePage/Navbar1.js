@@ -7,12 +7,11 @@ import {
   Toolbar,
   useTheme,
   useMediaQuery,
-  Typography
 } from "@material-ui/core";
 import logo from "../../images/logo.png";
 import SearchIcon from "@material-ui/icons/Search";
 import { useHistory } from "react-router-dom";
-import  Navbar from "./Drawer";
+import Navbar from "./Drawer";
 import Category from "../../pages/Category";
 const useStyles = makeStyles({
   navbar: {
@@ -52,43 +51,49 @@ const NavbarWithLogin = () => {
     history.push("/signup");
   };
 
-  const theme = useTheme() ;
-  const match = useMediaQuery(theme.breakpoints.down('sm'));
+  const theme = useTheme();
+  const match = useMediaQuery(theme.breakpoints.down("sm"));
   return (
     <div>
       <AppBar position="fixed" elevation={0} style={{ zIndex: 1251 }}>
-        <Toolbar className={classes.navbar}> 
-          {match ? < Navbar/> : <> <img src={logo} alt="logo" className={classes.logo} />
-          <div>
-            <Category></Category>
-          </div>
-          <div className={classes.input}>
-            <SearchIcon color="primary" /> 
-            <InputBase
-              placeholder="Search for product and more"
-              className={classes.inputBase}
-            ></InputBase>
-          </div>
-          <ButtonGroup>
-            <Button
-              variant="contained"
-              color="secondary"
-              className={classes.loginButton}
-              onClick={signUpButton}
-            >
-              SIGN UP
-            </Button>
-            <Button
-              variant="outlined"
-              color="secondary"
-              className={classes.loginButton}
-              onClick={loginButton}
-            >
-              LOGIN
-            </Button>
-          </ButtonGroup>
-          </>}
-        {/*   <img src={logo} alt="logo" className={classes.logo} />
+        <Toolbar className={classes.navbar}>
+          {match ? (
+            <Navbar />
+          ) : (
+            <>
+              {" "}
+              <img src={logo} alt="logo" className={classes.logo} />
+              <div>
+                <Category></Category>
+              </div>
+              <div className={classes.input}>
+                <SearchIcon color="primary" />
+                <InputBase
+                  placeholder="Search for product and more"
+                  className={classes.inputBase}
+                ></InputBase>
+              </div>
+              <ButtonGroup>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  className={classes.loginButton}
+                  onClick={signUpButton}
+                >
+                  SIGN UP
+                </Button>
+                <Button
+                  variant="outlined"
+                  color="secondary"
+                  className={classes.loginButton}
+                  onClick={loginButton}
+                >
+                  LOGIN
+                </Button>
+              </ButtonGroup>
+            </>
+          )}
+          {/*   <img src={logo} alt="logo" className={classes.logo} />
           <Button>MALE</Button>
           <Button>FEMALE</Button>
           <Button>ACCESSORIES</Button>

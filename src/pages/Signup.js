@@ -1,75 +1,66 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, Link } from "react-router-dom";
-
-import styles from "./Signup.css";
 import Signupimg from "../images/Signupimg.jpg";
 import { register } from "../redux/actions/authAction";
-
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Container from "@material-ui/core/Container";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import { makeStyles } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
-
 import TextField from "@material-ui/core/TextField";
 import Swal from "sweetalert2";
 import { validateEmail, validatePassword } from "../helper/validator";
 import HomeIcon from "@material-ui/icons/Home";
-import { useTheme } from "@material-ui/styles";
 
-const useStyles = makeStyles( (theme) => ({
+const useStyles = makeStyles(theme => ({
   field: {
     marginTop: 20,
     marginBottom: 20,
     display: "block",
-    
+
     // '& > *': {
     //   margin: theme.spacing(1),
     // },
   },
   mainContainer: {
     width: "50%",
-    [theme.breakpoints.down("sm")]:
-{ width : "80%" ,
-
-
-},
- edit : {
-fontSize : 2
- },
+    [theme.breakpoints.down("sm")]: { width: "80%" },
+    edit: {
+      fontSize: 2,
+    },
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     marginTop: "6%",
   },
-  btn : {
-    marginTop : "5%",
-    fontSize : "1rem"
+  btn: {
+    marginTop: "5%",
+    fontSize: "1rem",
   },
-  imghere : {
-    fontSize : "1rem"
-  } ,
- /*  inputRoot: {
+  imghere: {
+    fontSize: "1rem",
+  },
+  /*  inputRoot: {
     fontSize: 30
   }, */
   labelRoot: {
-   /*  [theme.breakpoints.down("sm")]:
+    /*  [theme.breakpoints.down("sm")]:
     {
       fontSize: 30,
     
     }, */
-   /* color: "red",
+    /* color: "red",
      "&$labelFocused": {
       color: "purple"
     } */
   },
-  labelFocused: {}
+  labelFocused: {},
 }));
 
 function Signup(props) {
-  const { auth, alert } = useSelector(state => state);
+  const { auth } = useSelector(state => state);
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
@@ -136,14 +127,14 @@ function Signup(props) {
   return (
     <div>
       <div className="main">
-      <div className="imgbg">
+        <div className="imgbg">
           <img src={Signupimg} alt="" className="imghere" />
-        </div> 
+        </div>
         <div className="mainlog">
           <div className="btnup">
-          <Link to={"/"}>
-                <HomeIcon color="secondary" />
-              </Link>
+            <Link to={"/"}>
+              <HomeIcon color="secondary" />
+            </Link>
             <button
               className="singup"
               onClick={() => {
@@ -174,8 +165,8 @@ function Signup(props) {
                 InputLabelProps={{
                   classes: {
                     root: classes.labelRoot,
-                    focused: classes.labelFocused
-                  }
+                    focused: classes.labelFocused,
+                  },
                 }}
                 color="secondary"
                 fullWidth
