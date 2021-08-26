@@ -91,7 +91,11 @@ const productInfo = {
 };
 const BuyProductPage = () => {
   const classes = useStyles();
-
+  const [small, setSmall] = useState(false);
+  const [medium, setMedium] = useState(false);
+  const [large, setLarge] = useState(false);
+  const [xl, setXL] = useState(true);
+  const [xxl, setXXL] = useState(false);
   return (
     <div>
       <NavbarLoggedIn />
