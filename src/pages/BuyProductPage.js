@@ -109,15 +109,12 @@ const BuyProductPage = () => {
   const [values, setValues] = useState([]);
   useEffect(async () => {
     try {
-      if (product.buyproduct.length === 0) {
-        dispatch(byProductId(id));
-      }
-      setValues(product.buyproduct);
-      console.log(values);
+      const res = await getDataAPI(`byproductid/${id}`, null);
+      setValues(res.data.product);
     } catch (error) {
       console.log(error);
     }
-  }, [product.buyproduct, dispatch]);
+  }, []);
   const classes = useStyles();
   const [small, setSmall] = useState(false);
   const [medium, setMedium] = useState(false);
@@ -127,6 +124,7 @@ const BuyProductPage = () => {
 
   return (
     <div>
+      <NavbarLoggedIn />
       {values.map((item, i) => (
         <div key={i}>
           <Carousel>

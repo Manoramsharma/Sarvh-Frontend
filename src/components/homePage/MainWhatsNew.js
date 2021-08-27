@@ -83,7 +83,7 @@ const MainContainerNewProducts = () => {
                 {item.images.map(image => (
                   <Carousel.Item>
                     <Link
-                      to={"/profile/" + item.user.username}
+                      to={"/buyproduct/" + item._id}
                       style={{ textDecoration: "none" }}
                     >
                       <img

@@ -4,6 +4,8 @@ import { ToggleButton, ToggleButtonGroup } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { useParams } from "react-router";
 import { Carousel } from "react-bootstrap";
+import { Link } from "react-router-dom";
+
 const useStyles = makeStyles(theme => ({
   media: {
     height: 350,
@@ -142,11 +144,16 @@ const Posts = () => {
             <Carousel className={classes.carouselContainer}>
               {user.images.map(image => (
                 <Carousel.Item className={classes.itemContainer}>
-                  <img
-                    className={classes.productImage}
-                    src={image}
-                    alt={"productimage"}
-                  ></img>
+                  <Link
+                    to={"/buyproduct/" + user._id}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <img
+                      className={classes.productImage}
+                      src={image}
+                      alt={"productimage"}
+                    ></img>
+                  </Link>
                 </Carousel.Item>
               ))}
             </Carousel>
