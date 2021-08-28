@@ -107,10 +107,12 @@ const BuyProductPage = () => {
   const dispatch = useDispatch();
 
   const [values, setValues] = useState([]);
+  const [loading, setLoading] = useState(false);
   useEffect(async () => {
     try {
       const res = await getDataAPI(`byproductid/${id}`, null);
-      setValues(res.data.product);
+      setValues(res.data.product[0]);
+      setLoading(true);
     } catch (error) {
       console.log(error);
     }
@@ -124,26 +126,89 @@ const BuyProductPage = () => {
 
   return (
     <div>
-      <NavbarLoggedIn />
-      {values.map((item, i) => (
-        <div key={i}>
-          <Carousel>
-            {item.images.map((image, j) => (
-              <Carousel.Item key={j}>
-                <img src={image}></img>
-              </Carousel.Item>
-            ))}
-          </Carousel>
-
-          <img src={item.user.avatar}></img>
-          <span>{item.user.fullname}</span>
-          <span>{item.productName}</span>
-          <span>{item.category}</span>
-          <span>{item.subCategory}</span>
-          <span>{item.price}</span>
-          <span>{item.mrp}</span>
-        </div>
-      ))}
+      {loading && (
+        <>
+          <div>
+            <NavbarLoggedIn />
+            <div className={classes.carousel}>
+              {/* <CarouselComponent /> */}
+              <img src={values.images[0]} alt="productImages" />
+              <div className={classes.rightMain}>
+                <div className={classes.left}>
+                  <Avatar
+                    src={values.user.avatar}
+                    alt="profile image"
+                    className={classes.large}
+                  />
+                  <div className={classes.userInfo}>
+                    <Typography className={classes.bold}>
+                      {values.user.fullname}
+                    </Typography>
+                    <StarOutlinedIcon />
+                  </div>
+                </div>
+                <div className={classes.icons}>
+                  <Button>
+                    <FavoriteBorderIcon />
+                  </Button>
+                  <Button>
+                    <BookmarkBorderIcon />
+                  </Button>
+                  <Button>
+                    <SendIcon />
+                  </Button>
+                </div>
+                <div className={classes.divider}></div>
+                <Typography>{values.productName}</Typography>
+                <Typography>{values.category}</Typography>
+                <Typography>{values.subCategory}</Typography>
+                <div className={classes.rateContainer}>
+                  <Typography variant="h6" className={classes.bold}>
+                    Rs. {values.price}
+                  </Typography>
+                  <Typography gutterBottom variant="h6" className={classes.MRP}>
+                    Rs. {values.mrp}
+                  </Typography>
+                </div>
+                <Typography gutterBottom className={classes.marginTop}>
+                  SELECT SIZE
+                </Typography>
+                <ButtonGroup color="primary">
+                  <Button disabled={small}>S</Button>
+                  <Button disabled={medium}>M</Button>
+                  <Button disabled={large}>L</Button>
+                  <Button disabled={xl}>XL</Button>
+                  <Button disabled={xxl}>XXL</Button>
+                </ButtonGroup>
+                <div className={classes.marginTop}>
+                  <Button size="large" className={classes.btn1}>
+                    Buy Now
+                  </Button>
+                  <Button size="large" className={classes.btn2}>
+                    Add to Cart
+                  </Button>
+                </div>
+                <InputGroup className={classes.marginTop}>
+                  <FormControl
+                    placeholder="Enter Pincode"
+                    aria-label="Recipient's username"
+                    aria-describedby="basic-addon2"
+                  />
+                  <Button variant="outlined">CHECK</Button>
+                </InputGroup>
+                <div className={classes.divider}></div>
+                <Typography className={classes.description}>
+                  100% Original Products Free Delivery on order above Rs. 799
+                  Pay on delivery might be available Easy 30 days returns and
+                  exchanges
+                </Typography>
+              </div>
+            </div>
+            <ThingsYouMayLikeComponent />
+            <Footer />
+          </div>
+        </>
+      )}
     </div>
   );
 };

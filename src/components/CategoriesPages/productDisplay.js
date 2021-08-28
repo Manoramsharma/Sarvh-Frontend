@@ -274,7 +274,7 @@ const ProductDisplayComponent = () => {
               </Carousel>
               <CardContent>
                 <Typography variant="body2" color="textSecondary" component="p">
-                  {item.price}
+                  Rs. {item.price}
                 </Typography>
                 <Typography
                   className={classes.strikeThrough}
@@ -282,7 +282,7 @@ const ProductDisplayComponent = () => {
                   color="textSecondary"
                   component="p"
                 >
-                  {item.mrp}
+                  Rs. {item.mrp}
                 </Typography>
               </CardContent>
             </CardActionArea>
