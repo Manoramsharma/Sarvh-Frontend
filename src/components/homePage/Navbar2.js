@@ -130,7 +130,9 @@ const NavbarLoggedIn = () => {
                     Sell On Sarvh
                   </Dropdown.Item>
                 </Link>
-                <Dropdown.Item href="/editprofile">Edit profile</Dropdown.Item>
+                <Link to={"/editprofile"} style={{ textDecoration: "none" }}>
+                  <Dropdown.Item>Edit profile</Dropdown.Item>
+                </Link>
                 <div className="dropdown-divider"></div>
                 <Link
                   style={{ textDecoration: "none" }}

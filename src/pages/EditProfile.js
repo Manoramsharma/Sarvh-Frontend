@@ -1,3 +1,5 @@
+import { useSelector, useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
 import NavbarLoggedIn from "../components/homePage/Navbar2";
 import {
   Avatar,
@@ -11,15 +13,14 @@ import image from "../images/editProfile.svg";
 import clsx from "clsx";
 import { Dropdown, Form } from "react-bootstrap";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
-import PhoneIcon from '@material-ui/icons/Phone';
-import BusinessIcon from '@material-ui/icons/Business';
-import RoomIcon from '@material-ui/icons/Room';
-import { useState } from "react";
+import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
+import PhoneIcon from "@material-ui/icons/Phone";
+import BusinessIcon from "@material-ui/icons/Business";
+import RoomIcon from "@material-ui/icons/Room";
 import { Button } from "@material-ui/core";
 const profileImage =
   "https://i0.wp.com/post.medicalnewstoday.com/wp-content/uploads/sites/3/2020/03/GettyImages-1092658864_hero-1024x575.jpg?w=1155&h=1528";
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   left: {
     backgroundColor: "#00BFA6",
     width: "40%",
@@ -61,58 +62,65 @@ const useStyles = makeStyles((theme) => ({
   inputField: {
     width: "45%",
   },
-  marginTop : {
-      marginTop : "6%"
+  marginTop: {
+    marginTop: "6%",
   },
-  inputFields : {
-      display: "flex",
-      justifyContent: "space-between",
+  inputFields: {
+    display: "flex",
+    justifyContent: "space-between",
   },
-  btnContainer :{
-      display: "flex",
+  btnContainer: {
+    display: "flex",
     justifyContent: "center",
   },
-  button : {
-      width : "50%",
-      marginTop : "4%"
-  }
+  button: {
+    width: "50%",
+    marginTop: "4%",
+  },
 }));
 const EditProfilePage = () => {
-  const classes = useStyles();
-  const [value, setValue] = useState('Write Your Bio');
+  const { auth } = useSelector(state => state);
 
-  const handleChange = (event) => {
+  const classes = useStyles();
+  const [value, setValue] = useState("Write Your Bio");
+  const [userData, setUserData] = useState([]);
+  useEffect(() => {
+    setUserData(auth.user);
+  }, [auth.user]);
+  const handleChange = event => {
     setValue(event.target.value);
   };
-  return (
-    <div>
-      <NavbarLoggedIn />
-      <div className={classes.mainContainer}>
-        <div className={clsx(classes.left)}>
-          <Typography variant="h3" className={clsx(classes.heading)}>
-            Edit Your Profile
-          </Typography>
-          <img src={image} className={classes.image} />
-        </div>
-        <div className={clsx(classes.right)}>
-          <Form>
-            <div className={classes.rightAvatarEdit}>
-              <Avatar
-                alt="Remy Sharp"
-                src={profileImage}
-                className={classes.large}
-              />
-              <div className={classes.marginLeft}>
-                <Form.Group controlId="formFile" className="mb-3">
-                  <Form.Label>Change Profile Picture</Form.Label>
-                  <Form.Control type="file" />
-                </Form.Group>
+  if (userData) {
+    console.log(userData);
+    return (
+      <div>
+        <NavbarLoggedIn />
+        <div className={classes.mainContainer}>
+          <div className={clsx(classes.left)}>
+            <Typography variant="h3" className={clsx(classes.heading)}>
+              Edit Your Profile
+            </Typography>
+            <img src={image} className={classes.image} />
+          </div>
+          <div className={clsx(classes.right)}>
+            <Form>
+              <div className={classes.rightAvatarEdit}>
+                <Avatar
+                  alt="Remy Sharp"
+                  src={userData.avatar}
+                  className={classes.large}
+                />
+                <div className={classes.marginLeft}>
+                  <Form.Group controlId="formFile" className="mb-3">
+                    <Form.Label>Change Profile Picture</Form.Label>
+                    <Form.Control type="file" />
+                  </Form.Group>
+                </div>
               </div>
-            </div>
-            <div className={clsx(classes.inputFields, classes.marginTop)}>
+              <div className={clsx(classes.inputFields, classes.marginTop)}>
                 <TextField
                   className={classes.inputField}
-                  placeholder="Swahim Namdev"
+                  placeholder={userData.fullname}
                   id="full-name"
                   label="Full Name"
                   InputProps={{
@@ -125,7 +133,7 @@ const EditProfilePage = () => {
                 />
                 <TextField
                   className={classes.inputField}
-                  placeholder="swahimn"
+                  placeholder={userData.username}
                   id="username"
                   label="UserName"
                   InputProps={{
@@ -136,11 +144,11 @@ const EditProfilePage = () => {
                     ),
                   }}
                 />
-            </div>
-            <div className={clsx(classes.inputFields, classes.marginTop)}>
+              </div>
+              <div className={clsx(classes.inputFields, classes.marginTop)}>
                 <TextField
                   className={classes.inputField}
-                  placeholder="XXXX909078"
+                  placeholder={userData.mobile}
                   id="mobile-number"
                   type="tel"
                   label="Phone Number"
@@ -154,7 +162,7 @@ const EditProfilePage = () => {
                 />
                 <TextField
                   className={classes.inputField}
-                  placeholder="A20 London Street, London"
+                  placeholder={userData.address}
                   id="address"
                   label="Address"
                   InputProps={{
@@ -165,30 +173,26 @@ const EditProfilePage = () => {
                     ),
                   }}
                 />
-            </div>
-            <div className={clsx(classes.inputFields, classes.marginTop)}>
-                <TextField 
-                    id="bio"
-                    label="Your Bio"
-                    multiline
-                    rows={4}
-                    fullWidth
-                    value={value}
-                    onChange={handleChange}
-                    variant="filled"
+              </div>
+              <div className={clsx(classes.inputFields, classes.marginTop)}>
+                <TextField
+                  id="bio"
+                  label="Your Bio"
+                  multiline
+                  rows={4}
+                  fullWidth
+                  value={value}
+                  onChange={handleChange}
+                  variant="filled"
                 />
-            </div>
-            <div className={clsx(classes.inputFields, classes.marginTop)}>
-            <TextField
-            select
-            halfWidth
-            label="Gender"
-          >
-            <MenuItem value="male">Male</MenuItem>
-            <MenuItem value="female">Female</MenuItem>
-            <MenuItem value="others">Others</MenuItem>
-          </TextField>
-          <TextField
+              </div>
+              <div className={clsx(classes.inputFields, classes.marginTop)}>
+                <TextField select halfWidth label="Gender">
+                  <MenuItem value="male">Male</MenuItem>
+                  <MenuItem value="female">Female</MenuItem>
+                  <MenuItem value="others">Others</MenuItem>
+                </TextField>
+                <TextField
                   className={classes.inputField}
                   placeholder="452012"
                   id="pincode"
@@ -201,22 +205,29 @@ const EditProfilePage = () => {
                     ),
                   }}
                 />
-          </div>
-          <div className={clsx(classes.inputFields, classes.marginTop,classes.btnContainer)}>
-          <Button
-            className={clsx(classes.button)}
-            color="secondary"
-            variant="contained"
-            
-          >
-              Save Changes
-              </Button>
               </div>
-          </Form>
+              <div
+                className={clsx(
+                  classes.inputFields,
+                  classes.marginTop,
+                  classes.btnContainer
+                )}
+              >
+                <Button
+                  className={clsx(classes.button)}
+                  color="secondary"
+                  variant="contained"
+                >
+                  Save Changes
+                </Button>
+              </div>
+            </Form>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
+  return null;
 };
 
 export default EditProfilePage;

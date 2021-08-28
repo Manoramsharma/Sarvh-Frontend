@@ -66,7 +66,11 @@ function App() {
             <Route exact path="/uploadproduct" component={ProductUpload} />
             <Route exact path="/test" component={test} />
             <Route exact path="/sellonsarvh" component={SellPage} />
-            <Route exact path="/editprofile" component={EditProfilePage} />
+            <Route
+              exact
+              path="/editprofile"
+              component={auth.token ? EditProfilePage : Home}
+            />
             <Route component={ErrorPage} />
           </Switch>
         </div>
