@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import NavbarLoggedIn from "../components/homePage/Navbar2";
+import { postDataAPI } from "../utils/fetchData";
 import {
   Avatar,
   makeStyles,
@@ -20,7 +21,7 @@ import RoomIcon from "@material-ui/icons/Room";
 import { Button } from "@material-ui/core";
 const profileImage =
   "https://i0.wp.com/post.medicalnewstoday.com/wp-content/uploads/sites/3/2020/03/GettyImages-1092658864_hero-1024x575.jpg?w=1155&h=1528";
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   left: {
     backgroundColor: "#00BFA6",
     width: "40%",
@@ -79,17 +80,35 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 const EditProfilePage = () => {
-  const { auth } = useSelector(state => state);
+  const { auth } = useSelector((state) => state);
 
   const classes = useStyles();
-  const [value, setValue] = useState("Write Your Bio");
+
   const [userData, setUserData] = useState([]);
   useEffect(() => {
     setUserData(auth.user);
   }, [auth.user]);
-  const handleChange = event => {
+  const handleChange = (event) => {
     setValue(event.target.value);
+    console.log(value);
   };
+  const [value, setValue] = useState({
+    fullName: userData.fullName,
+    userName: userData.username,
+    phoneNumber: userData.mobile,
+    address: userData.address,
+    gender: userData.gender,
+    bio: "Hello World",
+    pincode: 34342,
+  });
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    console.log("ada");
+    console.log(value);
+    postDataAPI(value);
+  };
+
   if (userData) {
     console.log(userData);
     return (
@@ -103,7 +122,7 @@ const EditProfilePage = () => {
             <img src={image} className={classes.image} />
           </div>
           <div className={clsx(classes.right)}>
-            <Form>
+            <form onSubmit={handleFormSubmit}>
               <div className={classes.rightAvatarEdit}>
                 <Avatar
                   alt="Remy Sharp"
@@ -119,6 +138,9 @@ const EditProfilePage = () => {
               </div>
               <div className={clsx(classes.inputFields, classes.marginTop)}>
                 <TextField
+                  onChange={(e) =>
+                    setValue({ ...value, fullName: e.target.value })
+                  }
                   className={classes.inputField}
                   placeholder={userData.fullname}
                   id="full-name"
@@ -134,6 +156,9 @@ const EditProfilePage = () => {
                 <TextField
                   className={classes.inputField}
                   placeholder={userData.username}
+                  onChange={(e) =>
+                    setValue({ ...value, userName: e.target.value })
+                  }
                   id="username"
                   label="UserName"
                   InputProps={{
@@ -150,6 +175,9 @@ const EditProfilePage = () => {
                   className={classes.inputField}
                   placeholder={userData.mobile}
                   id="mobile-number"
+                  onChange={(e) =>
+                    setValue({ ...value, phoneNumber: e.target.value })
+                  }
                   type="tel"
                   label="Phone Number"
                   InputProps={{
@@ -164,6 +192,9 @@ const EditProfilePage = () => {
                   className={classes.inputField}
                   placeholder={userData.address}
                   id="address"
+                  onChange={(e) =>
+                    setValue({ ...value, address: e.target.value })
+                  }
                   label="Address"
                   InputProps={{
                     startAdornment: (
@@ -178,23 +209,33 @@ const EditProfilePage = () => {
                 <TextField
                   id="bio"
                   label="Your Bio"
+                  onChange={(e) => setValue({ ...value, bio: e.target.value })}
                   multiline
                   rows={4}
                   fullWidth
-                  value={value}
-                  onChange={handleChange}
+                  value={value.bio}
                   variant="filled"
                 />
               </div>
               <div className={clsx(classes.inputFields, classes.marginTop)}>
-                <TextField select halfWidth label="Gender">
+                <TextField
+                  select
+                  halfWidth
+                  label="Gender"
+                  onChange={(e) =>
+                    setValue({ ...value, gender: e.target.value })
+                  }
+                >
                   <MenuItem value="male">Male</MenuItem>
                   <MenuItem value="female">Female</MenuItem>
                   <MenuItem value="others">Others</MenuItem>
                 </TextField>
                 <TextField
                   className={classes.inputField}
-                  placeholder="452012"
+                  placeholder={value.pincode}
+                  onChange={(e) =>
+                    setValue({ ...value, pincode: e.target.value })
+                  }
                   id="pincode"
                   label="Pincode"
                   InputProps={{
@@ -206,22 +247,16 @@ const EditProfilePage = () => {
                   }}
                 />
               </div>
-              <div
-                className={clsx(
-                  classes.inputFields,
-                  classes.marginTop,
-                  classes.btnContainer
-                )}
+
+              <Button
+                type="submit"
+                className={clsx(classes.button)}
+                color="secondary"
+                variant="contained"
               >
-                <Button
-                  className={clsx(classes.button)}
-                  color="secondary"
-                  variant="contained"
-                >
-                  Save Changes
-                </Button>
-              </div>
-            </Form>
+                Save Changes
+              </Button>
+            </form>
           </div>
         </div>
       </div>
