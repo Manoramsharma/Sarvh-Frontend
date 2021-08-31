@@ -19,8 +19,10 @@ import PhoneIcon from "@material-ui/icons/Phone";
 import BusinessIcon from "@material-ui/icons/Business";
 import RoomIcon from "@material-ui/icons/Room";
 import { Button } from "@material-ui/core";
-const profileImage =
-  "https://i0.wp.com/post.medicalnewstoday.com/wp-content/uploads/sites/3/2020/03/GettyImages-1092658864_hero-1024x575.jpg?w=1155&h=1528";
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import imageCompression from "browser-image-compression";
+
 const useStyles = makeStyles(theme => ({
   left: {
     backgroundColor: "#00BFA6",
@@ -80,38 +82,53 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 const EditProfilePage = () => {
+  
   const { auth } = useSelector(state => state);
 
   const classes = useStyles();
 
   const [userData, setUserData] = useState([]);
-  useEffect(() => {
-    setUserData(auth.user);
-  }, [auth.user]);
-  const handleChange = event => {
-    setValue(event.target.value);
-    console.log(value);
+  const options = {
+    maxSizeMB: 1,
+    maxWidthOrHeight: 300,
+    useWebWorker: true,
   };
   const [value, setValue] = useState({
-    fullName: userData.fullName,
-    userName: userData.username,
-    phoneNumber: userData.mobile,
+    fullname: userData.fullName,
+    username: userData.username,
+    mobile: userData.mobile,
     address: userData.address,
     gender: userData.gender,
     bio: "Hello World",
     pincode: 34342,
+    file: ""
   });
-
+useEffect(() => {
+    setUserData(auth.user);
+    try {
+      
+    setValue({...value, fullname: auth.user.fullname, username: auth.user.username, mobile: auth.user.mobile, gender: auth.user.gender})
+    } catch (error) {
+      console.log(error)
+    }
+  }, [auth.user]);
+  const handleFileInput = async e => {
+      const compressedFile = await imageCompression(e.target.files[0], options);
+      const reader = new FileReader();
+      reader.readAsDataURL(compressedFile);
+      reader.onloadend = () => {
+    setValue({ ...value, file: reader.result });
+    }
+  };
   const handleFormSubmit = async e => {
     e.preventDefault();
-    console.log("ada");
-    console.log(value);
     patchDataAPI("user", value, auth.token);
   };
 
-  if (userData) {
-    console.log(userData);
-    return (
+  return(
+    <div>
+    {userData && (
+      <>
       <div>
         <NavbarLoggedIn />
         <div className={classes.mainContainer}>
@@ -119,27 +136,29 @@ const EditProfilePage = () => {
             <Typography variant="h3" className={clsx(classes.heading)}>
               Edit Your Profile
             </Typography>
+            {/* {value.file ? (<img src={value.file} className={classes.image} alt="chosen" />) : (<img src={image} className={classes.image} />)} */}
             <img src={image} className={classes.image} />
           </div>
           <div className={clsx(classes.right)}>
             <form onSubmit={handleFormSubmit}>
               <div className={classes.rightAvatarEdit}>
-                <Avatar
-                  alt="Remy Sharp"
-                  src={userData.avatar}
-                  className={classes.large}
-                />
+            {value.file ? (<Avatar src={value.file} className={classes.large}  />) : (<Avatar src={userData.avatar} className={classes.large} />)}
                 <div className={classes.marginLeft}>
                   <Form.Group controlId="formFile" className="mb-3">
                     <Form.Label>Change Profile Picture</Form.Label>
-                    <Form.Control type="file" />
+                    <input
+              type="file"
+              name="image"
+              onChange={handleFileInput}
+              id="raised-button-file"
+            />
                   </Form.Group>
                 </div>
               </div>
               <div className={clsx(classes.inputFields, classes.marginTop)}>
                 <TextField
                   onChange={e =>
-                    setValue({ ...value, fullName: e.target.value })
+                    setValue({ ...value, fullname: e.target.value })
                   }
                   className={classes.inputField}
                   placeholder={userData.fullname}
@@ -157,10 +176,10 @@ const EditProfilePage = () => {
                   className={classes.inputField}
                   placeholder={userData.username}
                   onChange={e =>
-                    setValue({ ...value, userName: e.target.value })
+                    setValue({ ...value, username: e.target.value })
                   }
                   id="username"
-                  label="UserName"
+                  label="User Name"
                   InputProps={{
                     startAdornment: (
                       <InputAdornment position="start">
@@ -176,9 +195,10 @@ const EditProfilePage = () => {
                   placeholder={userData.mobile}
                   id="mobile-number"
                   onChange={e =>
-                    setValue({ ...value, phoneNumber: e.target.value })
+                    setValue({ ...value, mobile: e.target.value })
                   }
-                  type="tel"
+            type="number"
+                  
                   label="Phone Number"
                   InputProps={{
                     startAdornment: (
@@ -213,21 +233,23 @@ const EditProfilePage = () => {
                   multiline
                   rows={4}
                   fullWidth
-                  value={value.bio}
+                  placeholder={value.bio}
                   variant="filled"
                 />
               </div>
               <div className={clsx(classes.inputFields, classes.marginTop)}>
-                <TextField
+              <InputLabel id="demo-simple-select-label">Gender</InputLabel>
+                <Select
                   select
                   halfWidth
                   label="Gender"
+                  value={auth.user.gender}
                   onChange={e => setValue({ ...value, gender: e.target.value })}
                 >
                   <MenuItem value="male">Male</MenuItem>
                   <MenuItem value="female">Female</MenuItem>
                   <MenuItem value="others">Others</MenuItem>
-                </TextField>
+                </Select>
                 <TextField
                   className={classes.inputField}
                   placeholder={value.pincode}
@@ -258,9 +280,11 @@ const EditProfilePage = () => {
           </div>
         </div>
       </div>
-    );
-  }
-  return null;
+      </>
+    )}
+    </div>
+  )
+  
 };
 
 export default EditProfilePage;

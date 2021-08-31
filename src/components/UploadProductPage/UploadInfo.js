@@ -110,6 +110,8 @@ const UploadInfoComponent = () => {
             className={clsx(classes.marginTop, classes.twoInputs)}
             variant="filled"
             halfWidth
+            type="number"
+
             label="Your Price"
             onChange={e => setValues({ ...values, price: e.target.value })}
           />
