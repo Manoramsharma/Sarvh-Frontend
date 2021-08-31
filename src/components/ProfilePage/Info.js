@@ -3,6 +3,7 @@ import { Avatar, Button, makeStyles, Typography } from "@material-ui/core";
 import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
 import { useSelector, useDispatch } from "react-redux";
 import Followbtn from "./Followbtn";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   large: {
@@ -107,14 +108,16 @@ const Info = ({ id }) => {
               </div>
             </div>
             {user.username === auth.user.username ? (
-              <Button
-                size="small"
-                color="primary"
-                variant="contained"
-                className={classes.fontSize}
-              >
-                Edit Profile
-              </Button>
+              <Link to={"/editprofile/"} style={{ textDecoration: "none" }}>
+                <Button
+                  size="small"
+                  color="primary"
+                  variant="contained"
+                  className={classes.fontSize}
+                >
+                  Edit Profile
+                </Button>
+              </Link>
             ) : (
               <Followbtn user={user}></Followbtn>
             )}

@@ -2,6 +2,8 @@ import { GLOBALTYPES } from "./globalTypes";
 import { postDataAPI, getDataAPI } from "../../utils/fetchData";
 export const PRODUCT_TYPES = {
   WHATSNEW: "WHATSNEW",
+  ALLPRODUCTS: "ALLPRODUCTS",
+  BUYPRODUCT: "BUYPRODUCT",
 };
 export const uploadProduct = (auth, data) => async dispatch => {
   try {
@@ -23,10 +25,34 @@ export const getProduct = data => async dispatch => {
     dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
 
     const res = await getDataAPI(`product`);
-    console.log(res);
-    console.log(res.data.product);
     dispatch({
       type: PRODUCT_TYPES.WHATSNEW,
+      payload: res.data.product,
+    });
+    dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: false } });
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const getAllProducts = data => async dispatch => {
+  try {
+    dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
+    const res = await getDataAPI(`allproducts`);
+    dispatch({
+      type: PRODUCT_TYPES.ALLPRODUCTS,
+      payload: res.data.result,
+    });
+    dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: false } });
+  } catch (error) {
+    console.log(error);
+  }
+};
+export const byProductId = data => async dispatch => {
+  try {
+    dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
+    const res = await getDataAPI(`byproductid/${data}`);
+    dispatch({
+      type: PRODUCT_TYPES.BUYPRODUCT,
       payload: res.data.product,
     });
     dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: false } });

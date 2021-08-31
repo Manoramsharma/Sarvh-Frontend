@@ -18,6 +18,8 @@ import Category from "./pages/Category";
 import ProductUpload from "./pages/productUplaod";
 import ErrorPage from "./pages/ErrorPage";
 import SellPage from "./pages/sellOnSarvhPage";
+import EditProfilePage from "./pages/EditProfile";
+import Cart from "./pages/Cart";
 const Theme = createTheme({
   palette: {
     secondary: {
@@ -61,10 +63,16 @@ function App() {
             />
             <Route exact path="/bycategories" component={CategoriesProduct} />
             <Route exact path="/category" component={Category} />
-            <Route exact path="/buyproduct" component={BuyProductPage} />
+            <Route exact path="/buyproduct/:id" component={BuyProductPage} />
             <Route exact path="/uploadproduct" component={ProductUpload} />
             <Route exact path="/test" component={test} />
             <Route exact path="/sellonsarvh" component={SellPage} />
+            <Route exact path="/cart" component={Cart} />
+            <Route
+              exact
+              path="/editprofile"
+              component={auth.token ? EditProfilePage : Home}
+            />
             <Route component={ErrorPage} />
           </Switch>
         </div>

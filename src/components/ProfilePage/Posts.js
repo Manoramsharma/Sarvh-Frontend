@@ -1,8 +1,36 @@
-import React from "react";
-import {makeStyles } from "@material-ui/core";
+import React, { useState, useEffect } from "react";
+import { makeStyles } from "@material-ui/core";
 import { ToggleButton, ToggleButtonGroup } from "react-bootstrap";
-import ProfilePageProductDisplayComponent from "./ProfilepageProductDisplayComponent";
+import { useSelector, useDispatch } from "react-redux";
+import { useParams } from "react-router";
+import { Carousel } from "react-bootstrap";
+import { Link } from "react-router-dom";
+
 const useStyles = makeStyles(theme => ({
+  media: {
+    height: 350,
+  },
+  cardContainer: {
+    width: "100%",
+    padding: "3%",
+  },
+  mainContainer: {
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr 1fr 1fr",
+    gap: "40px 40px",
+    marginTop: "2%",
+  },
+  strikeThrough: {
+    textDecorationLine: "line-through",
+  },
+  itemContainer: {
+    textAlign: "center",
+    height: 300,
+  },
+  productImage: {
+    width: "100%",
+    height: "100%",
+  },
   large: {
     width: theme.spacing(10),
     height: theme.spacing(10),
@@ -55,6 +83,34 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 const Posts = () => {
+  const [button, setButton] = useState("");
+  const { auth, profile } = useSelector(state => state);
+  const dispatch = useDispatch();
+
+  const [userData, setUserData] = useState([]);
+  const [filterData, setFilterData] = useState([]);
+  const { id } = useParams();
+  useEffect(() => {
+    try {
+      function filter_data(product) {
+        var newData = product.filter(temp => temp.user.username === id);
+        setUserData(newData);
+        setFilterData(newData);
+      }
+      profile.product.forEach(filter_data);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [auth, profile.product, dispatch, id]);
+  function handleFormat(event, newFormats) {
+    if (event === "All") {
+      setFilterData(userData);
+    } else {
+      const newData = userData.filter(temp => temp.category === event);
+
+      setFilterData(newData);
+    }
+  }
   const classes = useStyles();
   return (
     <div className={classes.displayDiv}>
@@ -63,24 +119,52 @@ const Posts = () => {
           className={classes.toggleButtonGroup}
           type="radio"
           name="options"
-          defaultValue={1}
+          value={button}
           radioDisplay={false}
+          onChange={handleFormat}
         >
-          <ToggleButton id="tbg-radio-1" value={1}>
+          <ToggleButton id="tbg-radio-1" value="All">
             ALL
           </ToggleButton>
-          <ToggleButton id="tbg-radio-2" value={2}>
+          <ToggleButton id="tbg-radio-2" value="Men">
             MEN
           </ToggleButton>
-          <ToggleButton id="tbg-radio-3" value={3}>
+          <ToggleButton id="tbg-radio-3" value="Women">
             WOMEN
           </ToggleButton>
-          <ToggleButton id="tbg-radio-4" value={4}>
+          <ToggleButton id="tbg-radio-4" value="Accessories">
             ACCESSORIES
           </ToggleButton>
         </ToggleButtonGroup>
       </div>
-      <ProfilePageProductDisplayComponent />
+
+      <div className={classes.mainContainer}>
+        {filterData.map(user => (
+          <div>
+            <Carousel className={classes.carouselContainer}>
+              {user.images.map(image => (
+                <Carousel.Item className={classes.itemContainer}>
+                  <Link
+                    to={"/buyproduct/" + user._id}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <img
+                      className={classes.productImage}
+                      src={image}
+                      alt={"productimage"}
+                    ></img>
+                  </Link>
+                </Carousel.Item>
+              ))}
+            </Carousel>
+
+            <div>Product Name: {user.productName}</div>
+            <div>Price: {user.price}</div>
+            <div>Description: {user.productDescription}</div>
+            <div>Features: {user.productFeatures}</div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

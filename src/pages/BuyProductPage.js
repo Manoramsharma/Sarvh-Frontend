@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
 import CarouselComponent from "../components/BuyProductPage/Caraousel";
 import NavbarLoggedIn from "../components/homePage/Navbar2";
 import { Avatar, Button, makeStyles, Typography } from "@material-ui/core";
@@ -11,6 +13,11 @@ import { FormControl, InputGroup } from "react-bootstrap";
 import ThingsYouMayLikeComponent from "../components/BuyProductPage/ThingsYouMayLike";
 import Footer from "../components/footer";
 
+import { useParams } from "react-router";
+import { getDataAPI } from "../utils/fetchData";
+import { Carousel } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { byProductId } from "../redux/actions/productAction";
 const useStyles = makeStyles(theme => ({
   carousel: {
     height: 600,
@@ -90,87 +97,119 @@ const productInfo = {
   rate: "Rs. 599",
   MRP: "Rs. 899",
 };
+async function getData(id) {
+  const res = await getDataAPI(`byproductid/${id}`);
+  console.log(res);
+}
 const BuyProductPage = () => {
+  const { product } = useSelector(state => state);
+
+  const { id } = useParams();
+  const dispatch = useDispatch();
+
+  const [values, setValues] = useState([]);
+  const [loading, setLoading] = useState(false);
+  useEffect(async () => {
+    try {
+      const res = await getDataAPI(`byproductid/${id}`, null);
+      setValues(res.data.product[0]);
+      setLoading(true);
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
   const classes = useStyles();
   const [small, setSmall] = useState(false);
   const [medium, setMedium] = useState(false);
   const [large, setLarge] = useState(false);
   const [xl, setXL] = useState(true);
-  const [xxl, setXXL] = useState(false)
+  const [xxl, setXXL] = useState(false);
 
   return (
     <div>
-      <NavbarLoggedIn />
-      <div className={classes.carousel}>
-        <CarouselComponent />
-        <div className={classes.rightMain}>
-          <div className={classes.left}>
-            <Avatar
-              src="https://i0.wp.com/post.medicalnewstoday.com/wp-content/uploads/sites/3/2020/03/GettyImages-1092658864_hero-1024x575.jpg?w=1155&h=1528"
-              alt="profile image"
-              className={classes.large}
-            />
-            <div className={classes.userInfo}>
-              <Typography className={classes.bold}>Swahim Namdev</Typography>
-              <StarOutlinedIcon />
+      {loading && (
+        <>
+          <div>
+            <NavbarLoggedIn />
+            <div className={classes.carousel}>
+              {/* <CarouselComponent /> */}
+              <img src={values.images[0]} alt="productImages" />
+              <div className={classes.rightMain}>
+                <div className={classes.left}>
+                  <Avatar
+                    src={values.user.avatar}
+                    alt="profile image"
+                    className={classes.large}
+                  />
+                  <div className={classes.userInfo}>
+                    <Typography className={classes.bold}>
+                      {values.user.fullname}
+                    </Typography>
+                    <StarOutlinedIcon />
+                  </div>
+                </div>
+                <div className={classes.icons}>
+                  <Button>
+                    <FavoriteBorderIcon />
+                  </Button>
+                  <Button>
+                    <BookmarkBorderIcon />
+                  </Button>
+                  <Button>
+                    <SendIcon />
+                  </Button>
+                </div>
+                <div className={classes.divider}></div>
+                <Typography>{values.productName}</Typography>
+                <Typography>{values.category}</Typography>
+                <Typography>{values.subCategory}</Typography>
+                <div className={classes.rateContainer}>
+                  <Typography variant="h6" className={classes.bold}>
+                    Rs. {values.price}
+                  </Typography>
+                  <Typography gutterBottom variant="h6" className={classes.MRP}>
+                    Rs. {values.mrp}
+                  </Typography>
+                </div>
+                <Typography gutterBottom className={classes.marginTop}>
+                  SELECT SIZE
+                </Typography>
+                <ButtonGroup color="primary">
+                  <Button disabled={small}>S</Button>
+                  <Button disabled={medium}>M</Button>
+                  <Button disabled={large}>L</Button>
+                  <Button disabled={xl}>XL</Button>
+                  <Button disabled={xxl}>XXL</Button>
+                </ButtonGroup>
+                <div className={classes.marginTop}>
+                  <Button size="large" className={classes.btn1}>
+                    Buy Now
+                  </Button>
+                  <Button size="large" className={classes.btn2}>
+                    Add to Cart
+                  </Button>
+                </div>
+                <InputGroup className={classes.marginTop}>
+                  <FormControl
+                    placeholder="Enter Pincode"
+                    aria-label="Recipient's username"
+                    aria-describedby="basic-addon2"
+                  />
+                  <Button variant="outlined">CHECK</Button>
+                </InputGroup>
+                <div className={classes.divider}></div>
+                <Typography className={classes.description}>
+                  100% Original Products Free Delivery on order above Rs. 799
+                  Pay on delivery might be available Easy 30 days returns and
+                  exchanges
+                </Typography>
+              </div>
             </div>
+            <ThingsYouMayLikeComponent />
+            <Footer />
           </div>
-          <div className={classes.icons}>
-            <Button>
-              <FavoriteBorderIcon />
-            </Button>
-            <Button>
-              <BookmarkBorderIcon />
-            </Button>
-            <Button>
-              <SendIcon />
-            </Button>
-          </div>
-          <div className={classes.divider}></div>
-          <Typography>Dress Name</Typography>
-          <div className={classes.rateContainer}>
-            <Typography variant="h6" className={classes.bold}>
-              {productInfo.rate}
-            </Typography>
-            <Typography gutterBottom variant="h6" className={classes.MRP}>
-              {productInfo.MRP}
-            </Typography>
-          </div>
-          <Typography gutterBottom className={classes.marginTop}>
-            SELECT SIZE
-          </Typography>
-          <ButtonGroup color="primary">
-            <Button disabled={small}>S</Button>
-            <Button disabled={medium}>M</Button>
-            <Button disabled={large}>L</Button>
-            <Button disabled={xl}>XL</Button>
-            <Button disabled={xxl}>XXL</Button>
-          </ButtonGroup>
-          <div className={classes.marginTop}>
-            <Button size="large" className={classes.btn1}>
-              Buy Now
-            </Button>
-            <Button size="large" className={classes.btn2}>
-              Add to Cart
-            </Button>
-          </div>
-          <InputGroup className={classes.marginTop}>
-            <FormControl
-              placeholder="Enter Pincode"
-              aria-label="Recipient's username"
-              aria-describedby="basic-addon2"
-            />
-            <Button variant="outlined">CHECK</Button>
-          </InputGroup>
-          <div className={classes.divider}></div>
-          <Typography className={classes.description}>
-            100% Original Products Free Delivery on order above Rs. 799 Pay on
-            delivery might be available Easy 30 days returns and exchanges
-          </Typography>
-        </div>
-      </div>
-      <ThingsYouMayLikeComponent />
-      <Footer />
+        </>
+      )}
     </div>
   );
 };
