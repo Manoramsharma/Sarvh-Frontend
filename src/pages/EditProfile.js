@@ -106,7 +106,7 @@ const EditProfilePage = () => {
     e.preventDefault();
     console.log("ada");
     console.log(value);
-    patchDataAPI(value);
+    patchDataAPI("user", value, auth.token);
   };
 
   if (userData) {
