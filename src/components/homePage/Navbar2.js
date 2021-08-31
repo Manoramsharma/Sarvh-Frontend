@@ -146,7 +146,7 @@ const NavbarLoggedIn = () => {
                   </Dropdown.Item>
                 </Link>
                 <Link to={"/editprofile"} style={{ textDecoration: "none" }}>
-                  <Dropdown.Item>Edit profile</Dropdown.Item>
+                  <Dropdown.Item href="/editprofile">Edit profile</Dropdown.Item>
                 </Link>
                 <div className="dropdown-divider"></div>
                 <Link
