@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import NavbarLoggedIn from "../components/homePage/Navbar2";
-import { postDataAPI } from "../utils/fetchData";
+import { patchDataAPI } from "../utils/fetchData";
 import {
   Avatar,
   makeStyles,
@@ -106,7 +106,7 @@ const EditProfilePage = () => {
     e.preventDefault();
     console.log("ada");
     console.log(value);
-    postDataAPI(value);
+    patchDataAPI(value);
   };
 
   if (userData) {
