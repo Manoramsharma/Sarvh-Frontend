@@ -29,7 +29,7 @@ import {
       marginLeft: "1%",
       fontFamily: "SourceSansPro",
       fontWeight: "bold",
-      marginTop: "4%",
+      marginTop: "10%",
       textAlign: "center",
     },
     iconButton: {
