@@ -124,7 +124,7 @@ const MainContainerCategories = () => {
                     className={classes.iconButton}
                     aria-label={`star ${item.title}`}
                   >
-                    <StorefrontIcon />
+                  
                   </IconButton>
                 }
               />

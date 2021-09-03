@@ -71,7 +71,7 @@ const useStyles = makeStyles({
     gap: "20px 10px",
     marginLeft: 300,
     marginBottom: "5%",
-    marginTop: "2%",
+    marginTop: 90,
   },
   strikeThrough: {
     textDecorationLine: "line-through",

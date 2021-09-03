@@ -26,6 +26,7 @@ const useStyles = makeStyles(theme => ({
     flexWrap: "nowrap",
     transform: "translateZ(0)",
     overflowX: "scroll",
+    width : "100%",
   },
   typography: {
     marginLeft: "1%",
@@ -73,9 +74,9 @@ const MainContainerNewProducts = () => {
       <div className={classes.root}>
         <ImageList
           className={classes.imageList}
-          cols={3}
+          cols={3.5}
           gap={20}
-          rowHeight={220}
+          rowHeight={300}
         >
           {whatsNew.map(item => (
             <ImageListItem key={item.id}>
@@ -104,7 +105,6 @@ const MainContainerNewProducts = () => {
                     className={classes.iconButton}
                     // aria-label={`star ${item.title}`}
                   >
-                    <StorefrontIcon />
                   </IconButton>
                 }
               />

@@ -69,9 +69,10 @@ const useStyles = makeStyles({
     color: "#E53F3F",
   },
   buttonGroup: {
-    width: 400,
+    width: "30%",
     display: "flex",
     justifyContent: "space-between",
+    alignItems: "center",
   },
 });
 
