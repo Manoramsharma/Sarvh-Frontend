@@ -5,6 +5,7 @@ import { Typography, makeStyles } from "@material-ui/core";
 import clsx from "clsx";
 import NavbarLoggedIn from "../components/homePage/Navbar2";
 import DeleteIcon from "@material-ui/icons/Delete";
+import { updateQuantity, deleteQuantity } from "../redux/actions/profileAction";
 const useStyles = makeStyles({
   mainContainer: {
     width: "100%",
@@ -55,37 +56,35 @@ const useStyles = makeStyles({
   },
 });
 
-let cartArray = [
-  {
-    img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dHNoaXJ0fGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80",
-    name: "Forever Tshirt",
-    cost: 1000,
-  },
-  {
-    img: "https://www.kwabey.com/uploads/products/469/469-1619177422-944065-4.jpg",
-    name: "Forever Tshirt",
-    cost: 1000,
-  },
-  {
-    img: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8dHNoaXJ0fGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80",
-    name: "Forever Tshirt",
-    cost: 1000,
-  },
-];
-
 const Cart = () => {
   const { auth } = useSelector(state => state);
   const [values, setValues] = useState([]);
+  const [total, setTotal] = useState(0);
+  const dispatch = useDispatch();
   const classes = useStyles();
-  const [number, setNumber] = useState("1");
 
   useEffect(() => {
     setValues(auth.user.cart);
   }, [auth.user.cart]);
-  const changeNumber = e => {
-    setNumber(e.target.value);
-  };
-
+  useEffect(() => {
+    var temp = 0;
+    for (var i = 0; i < values.length; i++) {
+      temp += parseInt(values[i].product.price) * values[i].quantity;
+    }
+    setTotal(temp);
+  });
+  async function handleChangeQuantity(id, quantity) {
+    dispatch(updateQuantity({ data: auth.user.cart, id, quantity, auth }));
+    var temp = 0;
+    for (var i = 0; i < values.length; i++) {
+      temp += parseInt(values[i].product.price) * values[i].quantity;
+    }
+    setTotal(temp);
+  }
+  async function handleDelete(id) {
+    console.log("clicking delete");
+    dispatch(deleteQuantity({ data: auth.user.cart, id, auth }));
+  }
   return (
     <div>
       <NavbarLoggedIn />
@@ -109,16 +108,18 @@ const Cart = () => {
                   <Typography>Rs. {item.product.price}</Typography>
                   <TextField
                     type="number"
-                    defaultValue={number}
+                    defaultValue={item.quantity}
+                    inputProps={{ min: 1 }}
                     onChange={e => {
-                      changeNumber(e);
+                      handleChangeQuantity(item.product._id, e.target.value);
                     }}
                     className={classes.textField}
-                  >
-                    1
-                  </TextField>
+                  />
+                  <div>{item.quantity * item.product.price}</div>
                   <IconButton aria-label="delete">
-                    <DeleteIcon />
+                    <DeleteIcon
+                      onClick={() => handleDelete(item.product._id)}
+                    />
                   </IconButton>
                 </div>
               ))}
@@ -127,10 +128,10 @@ const Cart = () => {
         </div>
         <div className={classes.right}>
           <Typography gutterBottom variant="h6">
-            Subtotal (1) items
+            Subtotal ({values.length}) items
           </Typography>
           <Typography gutterBottom className={classes.btn}>
-            Rs. 3000
+            {total}
           </Typography>
           <Divider />
           <Button

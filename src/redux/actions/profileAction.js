@@ -1,4 +1,4 @@
-import { getDataAPI, patchDataAPI } from "../../utils/fetchData";
+import { getDataAPI, patchDataAPI, postDataAPI } from "../../utils/fetchData";
 import { GLOBALTYPES, DeleteData } from "./globalTypes";
 
 export const PROFILE_TYPES = {
@@ -101,5 +101,57 @@ export const unfollow =
           error: err.response.data.msg,
         },
       });
+    }
+  };
+
+export const updateQuantity =
+  ({ data, id, quantity, auth }) =>
+  async dispatch => {
+    for (var i = 0; i < data.length; i++) {
+      if (data[i].product._id === id) {
+        data[i].quantity = parseInt(quantity);
+      }
+    }
+    dispatch({
+      type: GLOBALTYPES.AUTH,
+      payload: {
+        ...auth,
+        user: {
+          ...auth.user,
+          cart: data,
+        },
+      },
+    });
+    try {
+      const res = await postDataAPI(
+        `/cart/update/${id}/${quantity}`,
+        null,
+        auth.token
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+export const deleteQuantity =
+  ({ data, id, auth }) =>
+  async dispatch => {
+    var newData = data.filter(function (item) {
+      return item.product._id !== id;
+    });
+    dispatch({
+      type: GLOBALTYPES.AUTH,
+      payload: {
+        ...auth,
+        user: {
+          ...auth.user,
+          cart: newData,
+        },
+      },
+    });
+    try {
+      const res = await postDataAPI(`/cart/update/${id}/0`, null, auth.token);
+    } catch (error) {
+      console.log(error);
     }
   };
