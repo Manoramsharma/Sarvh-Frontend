@@ -67,7 +67,7 @@ function App() {
             <Route exact path="/uploadproduct" component={ProductUpload} />
             <Route exact path="/test" component={test} />
             <Route exact path="/sellonsarvh" component={SellPage} />
-            <Route exact path="/cart" component={Cart} />
+            <Route exact path="/cart" component={auth.token ? Cart : Home} />
             <Route
               exact
               path="/editprofile"

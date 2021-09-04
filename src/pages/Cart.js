@@ -1,9 +1,10 @@
+import { useSelector, useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
 import { Button, Divider, IconButton, TextField } from "@material-ui/core";
 import { Typography, makeStyles } from "@material-ui/core";
 import clsx from "clsx";
 import NavbarLoggedIn from "../components/homePage/Navbar2";
-import DeleteIcon from '@material-ui/icons/Delete';
-import { useState } from "react";
+import DeleteIcon from "@material-ui/icons/Delete";
 const useStyles = makeStyles({
   mainContainer: {
     width: "100%",
@@ -39,19 +40,19 @@ const useStyles = makeStyles({
   textField: {
     width: "7%",
   },
-  right : {
-      marginTop : 150,
-      backgroundColor : "white",
-      height : "fit-content",
-      padding : "2%",
-      border : "1px solid black",
-      borderRadius : 5,
-      width : "20%",
-      marginLeft : "5%"
+  right: {
+    marginTop: 150,
+    backgroundColor: "white",
+    height: "fit-content",
+    padding: "2%",
+    border: "1px solid black",
+    borderRadius: 5,
+    width: "20%",
+    marginLeft: "5%",
   },
-  btn : {
-      marginTop : "6%"
-  }
+  btn: {
+    marginTop: "6%",
+  },
 });
 
 let cartArray = [
@@ -73,14 +74,17 @@ let cartArray = [
 ];
 
 const Cart = () => {
+  const { auth } = useSelector(state => state);
+  const [values, setValues] = useState([]);
   const classes = useStyles();
   const [number, setNumber] = useState("1");
 
-    const changeNumber = (e) => {
-        setNumber(e.target.value);
-        
-    }
-
+  useEffect(() => {
+    setValues(auth.user.cart);
+  }, [auth.user.cart]);
+  const changeNumber = e => {
+    setNumber(e.target.value);
+  };
 
   return (
     <div>
@@ -88,27 +92,56 @@ const Cart = () => {
       <div className={classes.mainContainer}>
         <div className={classes.left}>
           <Typography variant="h5">Shopping Cart</Typography>
-          {cartArray.map((item) => (
-            <div className={clsx(classes.productDiv, classes.marginTop)}>
-              <div className={classes.imageContainer}>
-                <img className={classes.image} src={item.img} />
-              </div>
-              <Typography>{item.name}</Typography>
-              <Typography>Rs. {item.cost}</Typography>
-              <TextField type="number" defaultValue={number} onChange={(e) => {changeNumber(e)}} className={classes.textField}>
-                1
-              </TextField>
-              <IconButton aria-label="delete">
-                <DeleteIcon />
-              </IconButton>
-            </div>
-          ))}
+          {values && (
+            <>
+              {values.map((item, i) => (
+                <div
+                  className={clsx(classes.productDiv, classes.marginTop)}
+                  key={i}
+                >
+                  <div className={classes.imageContainer}>
+                    <img
+                      className={classes.image}
+                      src={item.product.images[0]}
+                    />
+                  </div>
+                  <Typography>{item.product.productName}</Typography>
+                  <Typography>Rs. {item.product.price}</Typography>
+                  <TextField
+                    type="number"
+                    defaultValue={number}
+                    onChange={e => {
+                      changeNumber(e);
+                    }}
+                    className={classes.textField}
+                  >
+                    1
+                  </TextField>
+                  <IconButton aria-label="delete">
+                    <DeleteIcon />
+                  </IconButton>
+                </div>
+              ))}
+            </>
+          )}
         </div>
         <div className={classes.right}>
-            <Typography gutterBottom variant="h6">Subtotal (1) items</Typography>
-            <Typography gutterBottom className={classes.btn}>Rs. 3000</Typography>
-            <Divider />
-            <Button color="primary" disableElevation variant="contained" fullWidth className={classes.btn}>Proceed to checkout</Button>
+          <Typography gutterBottom variant="h6">
+            Subtotal (1) items
+          </Typography>
+          <Typography gutterBottom className={classes.btn}>
+            Rs. 3000
+          </Typography>
+          <Divider />
+          <Button
+            color="primary"
+            disableElevation
+            variant="contained"
+            fullWidth
+            className={classes.btn}
+          >
+            Proceed to checkout
+          </Button>
         </div>
       </div>
     </div>
