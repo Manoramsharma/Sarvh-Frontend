@@ -16,7 +16,7 @@ import {
   Typography,
 } from "@material-ui/core";
 
-import SearchIcon from "@material-ui/icons/Search";
+import { Cancel, Search } from "@material-ui/icons";
 import { useHistory } from "react-router-dom";
 import Drawer from "@material-ui/core/Drawer";
 
@@ -36,15 +36,15 @@ import logo from "../../images/logo.png";
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
   },
   logo: {
     [theme.breakpoints.up("md")]: {
-      marginLeft: "2%",
+      marginLeft: "",
     },
-    width: "5vw",
+    width: "10vw",
     height: "5vh",
   },
   color: {
@@ -102,49 +102,60 @@ const useStyles = makeStyles(theme => ({
     }),
     marginRight: 0,
   },
-  search: {
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: alpha(theme.palette.common.black, 0.15),
-    "&:hover": {
-      backgroundColor: alpha(theme.palette.common.black, 0.25),
-    },
-    marginRight: theme.spacing(5),
-    marginLeft: 0,
 
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(1),
-      width: "35vw",
-    },
-    [theme.breakpoints.up("xs")]: {
-      marginLeft: theme.spacing(0.5),
-      width: "25vw",
-      height: "5vh",
-    },
-  },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
   grow: {
     flexGrow: 0.5,
   },
   inputRoot: {
-    color: "inherit",
+    color: "black",
+    padding: "2em",
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    paddingLeft: `calc(2em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("md")]: {
       width: "20ch",
+    },
+  },
+  searchButton: {
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up("sm")]: {
+      display: "none",
+    },
+  },
+
+  icons: {
+    alignItems: "center",
+    display: (props) => (props.openup ? "none" : "grid"),
+  },
+  searchButton: {
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up("sm")]: {
+      display: "none",
+    },
+  },
+  cancel: {
+    [theme.breakpoints.up("sm")]: {
+      display: "none",
+    },
+  },
+
+  search: {
+    display: "flex",
+    alignItems: "center",
+    backgroundColor: alpha(theme.palette.common.white, 0.15),
+    "&:hover": {
+      backgroundColor: alpha(theme.palette.common.white, 0.25),
+    },
+    borderRadius: theme.shape.borderRadius,
+    width: "50%",
+    [theme.breakpoints.down("sm")]: {
+      display: (props) => (props.openup ? "flex" : "none"),
+      width: "40%",
+      marginRight: "1em",
     },
   },
   loginButton: {
@@ -162,7 +173,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Navbar() {
-  const classes = useStyles();
+  const [openup, setOpenup] = React.useState(false);
+  const classes = useStyles({ openup });
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const history = useHistory();
@@ -194,33 +206,26 @@ export default function Navbar() {
           <Typography variant="h6" noWrap className={classes.title}>
             <img src={logo} alt="logo" className={classes.logo} />
           </Typography>
-          <div className={classes.grow}>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput,
-                }}
-                inputProps={{ "aria-label": "search" }}
-              />
-            </div>
+
+          <div className={classes.search}>
+            <Search />
+            <InputBase placeholder="Search..." className={classes.input} />
+            <Cancel
+              className={classes.cancel}
+              onClick={() => setOpenup(false)}
+            />
+          </div>
+          <div className={classes.icons}>
+            <Search
+              className={classes.searchButton}
+              onClick={() => setOpenup(true)}
+            />
+
             <div className={classes.grow} />
           </div>
           <ButtonGroup>
             <Button
               variant="contained"
-              color="secondary"
-              className={classes.loginButton}
-              onClick={signUpButton}
-            >
-              SIGN UP
-            </Button>
-            <Button
-              variant="outlined"
               color="secondary"
               className={classes.loginButton}
               onClick={loginButton}
