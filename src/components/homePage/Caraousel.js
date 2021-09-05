@@ -4,14 +4,14 @@ import { Button, makeStyles, Typography } from "@material-ui/core";
 import { useTheme } from "@material-ui/styles";
 import { useMediaQuery } from "@material-ui/core";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   carouselImages: {
     [theme.breakpoints.down("lg")]: { width: "50vw", height: "60vh" },
     [theme.breakpoints.down("md")]: { width: "50vw", height: "50vh" },
-    [theme.breakpoints.down("sm")]: { width: "45vw", height: "40vh" },
+    [theme.breakpoints.down("sm")]: { width: "50%", height: "40vh" },
 
     [theme.breakpoints.down("xs")]: {
-      height: "35vh",
+      height: "20vh",
     },
 
     /*  width: "60rem",
@@ -80,6 +80,7 @@ height : 150
       [theme.breakpoints.down("xs")]: {
         width: 100,
         height: 30,
+        fontSize: 9.8,
       },
     },
 

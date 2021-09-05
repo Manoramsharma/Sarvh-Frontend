@@ -62,7 +62,6 @@ const Cart = () => {
   const [total, setTotal] = useState(0);
   const dispatch = useDispatch();
   const classes = useStyles();
-
   useEffect(() => {
     setValues(auth.user.cart);
   }, [auth.user.cart]);
@@ -73,17 +72,19 @@ const Cart = () => {
     }
     setTotal(temp);
   });
-  async function handleChangeQuantity(id, quantity) {
-    dispatch(updateQuantity({ data: auth.user.cart, id, quantity, auth }));
+  async function handleChangeQuantity(id, quantity, size) {
+    dispatch(
+      updateQuantity({ data: auth.user.cart, id, quantity, auth, size })
+    );
     var temp = 0;
     for (var i = 0; i < values.length; i++) {
       temp += parseInt(values[i].product.price) * values[i].quantity;
     }
     setTotal(temp);
   }
-  async function handleDelete(id) {
+  async function handleDelete(id, size) {
     console.log("clicking delete");
-    dispatch(deleteQuantity({ data: auth.user.cart, id, auth }));
+    dispatch(deleteQuantity({ data: auth.user.cart, id, auth, size }));
   }
   return (
     <div>
@@ -105,20 +106,25 @@ const Cart = () => {
                     />
                   </div>
                   <Typography>{item.product.productName}</Typography>
+                  <Typography>{item.size}</Typography>
                   <Typography>Rs. {item.product.price}</Typography>
                   <TextField
                     type="number"
                     defaultValue={item.quantity}
                     inputProps={{ min: 1 }}
                     onChange={e => {
-                      handleChangeQuantity(item.product._id, e.target.value);
+                      handleChangeQuantity(
+                        item.product._id,
+                        e.target.value,
+                        item.size
+                      );
                     }}
                     className={classes.textField}
                   />
                   <div>{item.quantity * item.product.price}</div>
                   <IconButton aria-label="delete">
                     <DeleteIcon
-                      onClick={() => handleDelete(item.product._id)}
+                      onClick={() => handleDelete(item.product._id, item.size)}
                     />
                   </IconButton>
                 </div>

@@ -19,6 +19,11 @@ import { useParams } from "react-router";
 import { getDataAPI } from "../utils/fetchData";
 import ToggleButton from "@material-ui/lab/ToggleButton";
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
+import Ratings from "../components/ProfilePage/Ratings";
+import Linkshare from "../components/BuyProductPage/Linkshare";
+import { addToCart } from "../redux/actions/profileAction";
+import { useHistory } from "react-router-dom";
+
 const useStyles = makeStyles(theme => ({
   carousel: {
     height: 600,
@@ -116,10 +121,11 @@ async function getData(id) {
   console.log(res);
 }
 const BuyProductPage = () => {
-  const { product } = useSelector(state => state);
+  const { auth, product } = useSelector(state => state);
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const { id } = useParams();
-  const dispatch = useDispatch();
 
   const [values, setValues] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -144,7 +150,8 @@ const BuyProductPage = () => {
     setQuantity(n);
   };
   const handleAddToCart = () => {
-    console.log(size, id, quantity);
+    dispatch(addToCart({ size, id, quantity, auth }));
+    history.push("/cart");
   };
   return (
     <div>
@@ -203,7 +210,7 @@ const BuyProductPage = () => {
                     <Typography className={classes.bold}>
                       {values.user.fullname}
                     </Typography>
-                    <StarOutlinedIcon />
+                    <Ratings />
                   </div>
                 </div>
                 <div className={classes.icons}>
@@ -214,7 +221,7 @@ const BuyProductPage = () => {
                     <BookmarkBorderIcon />
                   </Button>
                   <Button>
-                    <SendIcon />
+                    <Linkshare />
                   </Button>
                 </div>
                 <div className={classes.divider}></div>
