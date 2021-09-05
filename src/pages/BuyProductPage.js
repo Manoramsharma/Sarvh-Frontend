@@ -18,7 +18,9 @@ import { getDataAPI } from "../utils/fetchData";
 import { Carousel } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { byProductId } from "../redux/actions/productAction";
-const useStyles = makeStyles(theme => ({
+import Ratings from "../components/ProfilePage/Ratings";
+import Linkshare from "../components/BuyProductPage/Linkshare";
+const useStyles = makeStyles((theme) => ({
   carousel: {
     height: 600,
     display: "flex",
@@ -115,7 +117,7 @@ async function getData(id) {
   console.log(res);
 }
 const BuyProductPage = () => {
-  const { product } = useSelector(state => state);
+  const { product } = useSelector((state) => state);
 
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -195,7 +197,7 @@ const BuyProductPage = () => {
                     <Typography className={classes.bold}>
                       {values.user.fullname}
                     </Typography>
-                    <StarOutlinedIcon />
+                    <Ratings />
                   </div>
                 </div>
                 <div className={classes.icons}>
@@ -206,7 +208,7 @@ const BuyProductPage = () => {
                     <BookmarkBorderIcon />
                   </Button>
                   <Button>
-                    <SendIcon />
+                    <Linkshare />
                   </Button>
                 </div>
                 <div className={classes.divider}></div>

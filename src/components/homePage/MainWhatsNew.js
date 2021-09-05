@@ -7,12 +7,14 @@ import {
   ImageListItemBar,
   Typography,
   IconButton,
+  useMediaQuery,
+  useTheme,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import StorefrontIcon from "@material-ui/icons/Storefront";
 import { getProduct } from "../../redux/actions/productAction";
 import { Carousel } from "react-bootstrap";
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     flexWrap: "wrap",
@@ -26,7 +28,7 @@ const useStyles = makeStyles(theme => ({
     flexWrap: "nowrap",
     transform: "translateZ(0)",
     overflowX: "scroll",
-    width : "100%",
+    width: "100%",
   },
   typography: {
     marginLeft: "1%",
@@ -45,14 +47,22 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     height: "100%",
   },
+  imgall: {
+    width: "100%",
+    height: "auto",
+  },
 }));
 
 const MainContainerNewProducts = () => {
-  const { product } = useSelector(state => state);
+  const { product } = useSelector((state) => state);
   const dispatch = useDispatch();
   const [whatsNew, setWhatsNew] = useState([]);
 
   const classes = useStyles();
+  const theme = useTheme();
+
+  const match = useMediaQuery(theme.breakpoints.down("sm"));
+  const match1 = useMediaQuery("(max-width : 960px");
 
   useEffect(() => {
     try {
@@ -71,17 +81,64 @@ const MainContainerNewProducts = () => {
       <Typography className={classes.typography} variant="h5">
         What's New In The Store!
       </Typography>
+      {match1 ? (
+        <>
+          {" "}
+          <div className={classes.root}>
+            <ImageList
+              className={classes.imageList}
+              cols={3}
+              gap={20}
+              rowHeight={220}
+            >
+              {whatsNew.map((item) => (
+                <ImageListItem key={item.id}>
+                  <Carousel>
+                    {item.images.map((image) => (
+                      <Carousel.Item className={classes.imgall}>
+                        <Link
+                          to={"/buyproduct/" + item._id}
+                          style={{ textDecoration: "none" }}
+                        >
+                          <img
+                            src={image}
+                            className={classes.productImage}
+                            alt={"whatsnew"}
+                          ></img>
+                        </Link>
+                      </Carousel.Item>
+                    ))}
+                  </Carousel>
+
+                  <ImageListItemBar
+                    // title={item.title}
+                    title={item.productName}
+                    actionIcon={
+                      <IconButton
+                        className={classes.iconButton}
+                        // aria-label={`star ${item.title}`}
+                      ></IconButton>
+                    }
+                  />
+                </ImageListItem>
+              ))}
+            </ImageList>
+          </div>{" "}
+        </>
+      ) : (
+        <> </>
+      )}
       <div className={classes.root}>
         <ImageList
           className={classes.imageList}
-          cols={3.5}
+          cols={3}
           gap={20}
-          rowHeight={300}
+          rowHeight={220}
         >
-          {whatsNew.map(item => (
+          {whatsNew.map((item) => (
             <ImageListItem key={item.id}>
               <Carousel>
-                {item.images.map(image => (
+                {item.images.map((image) => (
                   <Carousel.Item>
                     <Link
                       to={"/buyproduct/" + item._id}
@@ -104,14 +161,13 @@ const MainContainerNewProducts = () => {
                   <IconButton
                     className={classes.iconButton}
                     // aria-label={`star ${item.title}`}
-                  >
-                  </IconButton>
+                  ></IconButton>
                 }
               />
             </ImageListItem>
           ))}
         </ImageList>
-      </div>
+      </div>{" "}
     </div>
   );
 };
