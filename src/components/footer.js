@@ -5,7 +5,7 @@ import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import TwitterIcon from "@material-ui/icons/Twitter";
 import FacebookIcon from "@material-ui/icons/Facebook";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   footer: {
     height: "30vh",
     backgroundColor: "rgba(196, 196, 196, 0.19)",
@@ -13,7 +13,10 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "space-evenly",
     [theme.breakpoints.down("lg")]: { justifyContent: "" },
     [theme.breakpoints.down("md")]: { justifyContent: "center" },
-    [theme.breakpoints.down("sm")]: { justifyContent: "space-around" },
+    [theme.breakpoints.down("sm")]: {
+      justifyContent: "space-around",
+      display: "none",
+    },
     [theme.breakpoints.down("xs")]: { justifyContent: "center" },
 
     alignItems: "center",
