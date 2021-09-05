@@ -4,8 +4,9 @@ import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
 import { useSelector, useDispatch } from "react-redux";
 import Followbtn from "./Followbtn";
 import { Link } from "react-router-dom";
+import Ratings from "./Ratings";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   large: {
     width: theme.spacing(10),
     height: theme.spacing(10),
@@ -58,7 +59,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 const Info = ({ id }) => {
-  const { auth, profile } = useSelector(state => state);
+  const { auth, profile } = useSelector((state) => state);
   const dispatch = useDispatch();
   const classes = useStyles();
   const [userData, setUserData] = useState([]);
@@ -67,7 +68,7 @@ const Info = ({ id }) => {
       setUserData([auth.user]);
     } else {
       try {
-        const newData = profile.users.filter(user => user.username === id);
+        const newData = profile.users.filter((user) => user.username === id);
         setUserData(newData);
       } catch (err) {
         console.log(err);
@@ -76,7 +77,7 @@ const Info = ({ id }) => {
   }, [auth, profile.users, dispatch, id]);
   return (
     <div>
-      {userData.map(user => (
+      {userData.map((user) => (
         <div className={classes.avatarContainer} key={user.username}>
           <div className={classes.left}>
             <Avatar
@@ -89,7 +90,7 @@ const Info = ({ id }) => {
               <Typography color="textSecondary" className={classes.fontSize}>
                 {user.username}
               </Typography>
-              <StarOutlinedIcon />
+              <Ratings />
             </div>
           </div>
           <div className={classes.right}>
