@@ -5,10 +5,7 @@ import { Typography, makeStyles } from "@material-ui/core";
 import clsx from "clsx";
 import NavbarLoggedIn from "../components/homePage/Navbar2";
 import DeleteIcon from "@material-ui/icons/Delete";
-<<<<<<< HEAD
-=======
 import { updateQuantity, deleteQuantity } from "../redux/actions/profileAction";
->>>>>>> upstream/main
 const useStyles = makeStyles({
   mainContainer: {
     width: "100%",
@@ -60,22 +57,7 @@ const useStyles = makeStyles({
 });
 
 const Cart = () => {
-<<<<<<< HEAD
   const { auth } = useSelector((state) => state);
-
-  const classes = useStyles();
-  const [userCart, setUserCart] = useState([]);
-  const [number, setNumber] = useState("1");
-
-  const changeNumber = (e) => {
-    setNumber(e.target.value);
-  };
-  useEffect(() => {
-    setUserCart(auth.user.cart);
-    console.log(auth.user.cart);
-  }, []);
-=======
-  const { auth } = useSelector(state => state);
   const [values, setValues] = useState([]);
   const [total, setTotal] = useState(0);
   const dispatch = useDispatch();
@@ -103,7 +85,6 @@ const Cart = () => {
     console.log("clicking delete");
     dispatch(deleteQuantity({ data: auth.user.cart, id, auth }));
   }
->>>>>>> upstream/main
   return (
     // <div>
     //   {userCart && (
@@ -118,15 +99,6 @@ const Cart = () => {
       <div className={classes.mainContainer}>
         <div className={classes.left}>
           <Typography variant="h5">Shopping Cart</Typography>
-<<<<<<< HEAD
-        </div>
-        <div className={classes.right}>
-          <Typography gutterBottom variant="h6">
-            Subtotal (1) items
-          </Typography>
-          <Typography gutterBottom className={classes.btn}>
-            Rs. 3000
-=======
           {values && (
             <>
               {values.map((item, i) => (
@@ -146,7 +118,7 @@ const Cart = () => {
                     type="number"
                     defaultValue={item.quantity}
                     inputProps={{ min: 1 }}
-                    onChange={e => {
+                    onChange={(e) => {
                       handleChangeQuantity(item.product._id, e.target.value);
                     }}
                     className={classes.textField}
@@ -168,7 +140,6 @@ const Cart = () => {
           </Typography>
           <Typography gutterBottom className={classes.btn}>
             {total}
->>>>>>> upstream/main
           </Typography>
           <Divider />
           <Button
