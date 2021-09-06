@@ -105,7 +105,7 @@ export const unfollow =
   };
 
 export const updateQuantity =
-  ({ data, id, quantity, auth }) =>
+  ({ data, id, quantity, auth, size }) =>
   async dispatch => {
     for (var i = 0; i < data.length; i++) {
       if (data[i].product._id === id) {
@@ -124,7 +124,7 @@ export const updateQuantity =
     });
     try {
       const res = await postDataAPI(
-        `/cart/update/${id}/${quantity}`,
+        `/cart/update/${id}/${quantity}/${size}`,
         null,
         auth.token
       );
@@ -134,7 +134,7 @@ export const updateQuantity =
   };
 
 export const deleteQuantity =
-  ({ data, id, auth }) =>
+  ({ data, id, auth, size }) =>
   async dispatch => {
     var newData = data.filter(function (item) {
       return item.product._id !== id;
@@ -150,7 +150,35 @@ export const deleteQuantity =
       },
     });
     try {
-      const res = await postDataAPI(`/cart/update/${id}/0`, null, auth.token);
+      const res = await postDataAPI(
+        `/cart/update/${id}/0/${size}`,
+        null,
+        auth.token
+      );
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+export const addToCart =
+  ({ size, id, quantity, auth }) =>
+  async dispatch => {
+    try {
+      const result = await postDataAPI(
+        `/cart/update/${id}/${quantity}/${size}`,
+        null,
+        auth.token
+      );
+      dispatch({
+        type: GLOBALTYPES.AUTH,
+        payload: {
+          ...auth,
+          user: {
+            ...auth.user,
+            cart: result.data,
+          },
+        },
+      });
     } catch (error) {
       console.log(error);
     }

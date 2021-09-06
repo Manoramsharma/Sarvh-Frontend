@@ -1,26 +1,31 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
-import CarouselComponent from "../components/BuyProductPage/Caraousel";
 import NavbarLoggedIn from "../components/homePage/Navbar2";
-import { Avatar, Button, makeStyles, Typography } from "@material-ui/core";
+import {
+  Avatar,
+  Button,
+  makeStyles,
+  Typography,
+  TextField,
+} from "@material-ui/core";
 import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import SendIcon from "@material-ui/icons/Send";
-import { ButtonGroup } from "@material-ui/core";
 import { FormControl, InputGroup } from "react-bootstrap";
 import ThingsYouMayLikeComponent from "../components/BuyProductPage/ThingsYouMayLike";
 import Footer from "../components/footer";
 
 import { useParams } from "react-router";
 import { getDataAPI } from "../utils/fetchData";
-import { Carousel } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { byProductId } from "../redux/actions/productAction";
+import ToggleButton from "@material-ui/lab/ToggleButton";
+import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup";
 import Ratings from "../components/ProfilePage/Ratings";
 import Linkshare from "../components/BuyProductPage/Linkshare";
-const useStyles = makeStyles((theme) => ({
+import { addToCart } from "../redux/actions/profileAction";
+import { useHistory } from "react-router-dom";
+
+const useStyles = makeStyles(theme => ({
   carousel: {
     height: 600,
     display: "flex",
@@ -117,10 +122,11 @@ async function getData(id) {
   console.log(res);
 }
 const BuyProductPage = () => {
-  const { product } = useSelector((state) => state);
+  const { auth, product } = useSelector(state => state);
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const { id } = useParams();
-  const dispatch = useDispatch();
 
   const [values, setValues] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -134,12 +140,20 @@ const BuyProductPage = () => {
     }
   }, []);
   const classes = useStyles();
-  const [small, setSmall] = useState(false);
-  const [medium, setMedium] = useState(false);
-  const [large, setLarge] = useState(false);
-  const [xl, setXL] = useState(true);
-  const [xxl, setXXL] = useState(false);
 
+  const [size, setSize] = useState("s");
+  const [quantity, setQuantity] = useState(1);
+  const handleSize = (event, newSize) => {
+    setSize(newSize);
+  };
+
+  const handleChangeQuantity = n => {
+    setQuantity(n);
+  };
+  const handleAddToCart = () => {
+    dispatch(addToCart({ size, id, quantity, auth }));
+    history.push("/cart");
+  };
   return (
     <div>
       {loading && (
@@ -223,21 +237,33 @@ const BuyProductPage = () => {
                     Rs. {values.mrp}
                   </Typography>
                 </div>
+                <TextField
+                  type="number"
+                  defaultValue={1}
+                  inputProps={{ min: 1 }}
+                  onChange={e => {
+                    handleChangeQuantity(e.target.value);
+                  }}
+                />
                 <Typography gutterBottom className={classes.marginTop}>
                   SELECT SIZE
                 </Typography>
-                <ButtonGroup color="primary">
-                  <Button disabled={small}>S</Button>
-                  <Button disabled={medium}>M</Button>
-                  <Button disabled={large}>L</Button>
-                  <Button disabled={xl}>XL</Button>
-                  <Button disabled={xxl}>XXL</Button>
-                </ButtonGroup>
+                <ToggleButtonGroup exclusive onChange={handleSize} value={size}>
+                  <ToggleButton value="s">S</ToggleButton>
+                  <ToggleButton value="m">M</ToggleButton>
+                  <ToggleButton value="l">L</ToggleButton>
+                  <ToggleButton value="xl">XL</ToggleButton>
+                  <ToggleButton value="xxl">XXL</ToggleButton>
+                </ToggleButtonGroup>
                 <div className={classes.marginTop}>
-                  <Button size="large" className={classes.btn1}>
+                  {/* <Button size="large" className={classes.btn1}>
                     Buy Now
-                  </Button>
-                  <Button size="large" className={classes.btn2}>
+                  </Button> */}
+                  <Button
+                    size="large"
+                    className={classes.btn2}
+                    onClick={handleAddToCart}
+                  >
                     Add to Cart
                   </Button>
                 </div>
