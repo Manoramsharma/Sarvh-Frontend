@@ -163,7 +163,7 @@ const NavbarLoggedIn = () => {
             </Button> */}
             <IconButton aria-label="cart">
               <Link to={"/cart"}>
-              <StyledBadge badgeContent={1} color="secondary">
+              <StyledBadge badgeContent={3} color="secondary">
                 <ShoppingCartIcon />
               </StyledBadge>
               </Link>

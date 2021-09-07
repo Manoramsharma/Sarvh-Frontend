@@ -131,9 +131,9 @@ const MainContainerNewProducts = () => {
       <div className={classes.root}>
         <ImageList
           className={classes.imageList}
-          cols={3}
+          cols={3.5}
           gap={20}
-          rowHeight={220}
+          rowHeight={300}
         >
           {whatsNew.map((item) => (
             <ImageListItem key={item.id}>

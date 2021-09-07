@@ -6,7 +6,7 @@ import { useMediaQuery } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   carouselImages: {
-    [theme.breakpoints.down("lg")]: { width: "50vw", height: "60vh" },
+    [theme.breakpoints.down("lg")]: { width: "50vw", height: "40vh" },
     [theme.breakpoints.down("md")]: { width: "50vw", height: "50vh" },
     [theme.breakpoints.down("sm")]: { width: "50%", height: "40vh" },
 
@@ -14,24 +14,24 @@ const useStyles = makeStyles((theme) => ({
       height: "20vh",
     },
 
-    /*  width: "60rem",
-    [theme.breakpoints.down("md")]: {
-      width: "40rem",
-      height : 300 
-    },
-    [theme.breakpoints.down("sm")]:
-    {
-width : "20rem",
-height : 200 
-    },
-    [theme.breakpoints.down("xs")]:
-    {
-width : "10rem",
-height : 150 
-    },
+     width: "60rem",
+//     [theme.breakpoints.down("md")]: {
+//       width: "40rem",
+//       height : 300 
+//     },
+//     [theme.breakpoints.down("sm")]:
+//     {
+// width : "20rem",
+// height : 200 
+//     },
+//     [theme.breakpoints.down("xs")]:
+//     {
+// width : "10rem",
+// height : 150 
+//     },
     
-    height: 400,
-     */
+    height: 200,
+    
   },
   marginTop: {
     marginTop: "2%",
