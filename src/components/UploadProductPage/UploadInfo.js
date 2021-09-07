@@ -10,6 +10,21 @@ import { uploadProduct } from "../../redux/actions/productAction";
 import { useSelector, useDispatch } from "react-redux";
 
 const useStyles = makeStyles({
+  mainContainer: {
+    width: "40%",
+  },
+  smallImagesContainer: {
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr 1fr",
+    gap: "10px",
+    marginTop: "2%",
+  },
+  smallImages: {
+    width: "100%",
+  },
+  mainImage: {
+    width: "100%",
+  },
   uploadInfoContainer: {
     marginLeft: "5%",
     width: "40%",
@@ -95,6 +110,33 @@ const UploadInfoComponent = () => {
   };
   return (
     <div className={classes.uploadInfoContainer}>
+      <div className={classes.mainContainer}>
+        <div className={classes.imageContainer}>
+          <img
+            className={classes.mainImage}
+            src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hamilton-lead-1611181753.jpg?crop=1.00xw:1.00xh;0,0&resize=640:*"
+            alt={"uploadproduct"}
+          />
+          <div className={classes.smallImagesContainer}>
+            <img
+              className={classes.smallImages}
+              src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hamilton-lead-1611181753.jpg?crop=1.00xw:1.00xh;0,0&resize=640:*"
+              alt={"uploadproduct"}
+            ></img>
+            <img
+              className={classes.smallImages}
+              src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hamilton-lead-1611181753.jpg?crop=1.00xw:1.00xh;0,0&resize=640:*"
+              alt={"uploadproduct"}
+            ></img>
+            <img
+              className={classes.smallImages}
+              src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hamilton-lead-1611181753.jpg?crop=1.00xw:1.00xh;0,0&resize=640:*"
+              alt={"uploadproduct"}
+            ></img>
+          </div>
+        </div>
+      </div>
+
       <form onSubmit={handleFormSubmit}>
         <TextField
           variant="filled"
@@ -111,7 +153,6 @@ const UploadInfoComponent = () => {
             variant="filled"
             halfWidth
             type="number"
-
             label="Your Price"
             onChange={e => setValues({ ...values, price: e.target.value })}
           />
