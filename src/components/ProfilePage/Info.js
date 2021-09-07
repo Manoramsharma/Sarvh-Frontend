@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Followbtn from "./Followbtn";
 import { Link } from "react-router-dom";
 import Ratings from "./Ratings";
+import clsx from "clsx";
 
 const useStyles = makeStyles((theme) => ({
   large: {
@@ -24,6 +25,9 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     width: "30%",
     justifyContent: "space-around",
+  },
+  btn : {
+    width : "100%"
   },
   fontSize: {
     fontSize: "1rem",
@@ -114,7 +118,7 @@ const Info = ({ id }) => {
                   size="small"
                   color="primary"
                   variant="contained"
-                  className={classes.fontSize}
+                  className={clsx(classes.fontSize, classes.btn)}
                 >
                   Edit Profile
                 </Button>

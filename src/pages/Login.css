@@ -16,24 +16,26 @@
   position: fixed;
   left: 0px;
   top: 0px;
-  width: 100%;
+  width: 40%;
   height: 100%;
 }
 .mainlog {
-  display: grid;
+  display: flex;
   justify-content: normal;
+  flex-direction: column;
+  align-items: center;
 }
 .Login{
   margin-right: 5%;
 }
 .btnup {
-  justify-self: end;
+  align-self: flex-end;
   border-style: none;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-column-gap: 1px;
-  justify-content: space-between;
+  display : flex;
+  justify-content: space-evenly;
+  align-items: center;
   margin-top: 1rem;
+  width : 30%;
 }
 button {
   cursor: pointer;
@@ -107,39 +109,35 @@ button {
 }
 .mainbtn {
   display: flex;
+  margin-top : 3%;
   flex-direction: column;
   align-items: center;
-  width: 100rem;
-  height: fit-content;
-  text-align: center;
-  padding-left: 5vw;
+  justify-content: space-evenly;
+  width: 30%;
+  height: 250px;
 }
 .mainbtn >  button {
   height: 2.8rem;
   width: 100%;
 }
 .mainbtn button:first-child {
-  background-color: black;
   color: white;
-  font-size: 1.5rem;
+  font-size: 1rem;
+  height : 20px;
+  width : 100%;
+  display: flex;
+  align-items: center;
   border-style: none;
 }
 
-.mainbtn button:nth-child(2) {
+.mainbtn button:nth-child(1) {
   background-color: #4267b2;
   border-style: none;
+  width: 100%;
   font-size: 1.5rem;
   color: white;
+  border-radius: 4px;
 }
-
-.mainbtn button:last-child {
-  background-color: #ea4335;
-  border-style: none;
-  font-size: 1.5rem;
-  color: white;
-  
-}
-
 @media (max-width: 1070px) {
   .imghere {
     display: none;
