@@ -114,29 +114,44 @@ const UploadInfoComponent = () => {
         <div className={classes.imageContainer}>
           <img
             className={classes.mainImage}
-            src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hamilton-lead-1611181753.jpg?crop=1.00xw:1.00xh;0,0&resize=640:*"
+            src={
+              values.file[0]
+                ? values.file[0]
+                : "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hamilton-lead-1611181753.jpg?crop=1.00xw:1.00xh;0,0&resize=640:*"
+            }
             alt={"uploadproduct"}
           />
           <div className={classes.smallImagesContainer}>
             <img
               className={classes.smallImages}
-              src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hamilton-lead-1611181753.jpg?crop=1.00xw:1.00xh;0,0&resize=640:*"
+              src={
+                values.file[1]
+                  ? values.file[1]
+                  : "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hamilton-lead-1611181753.jpg?crop=1.00xw:1.00xh;0,0&resize=640:*"
+              }
               alt={"uploadproduct"}
             ></img>
             <img
               className={classes.smallImages}
-              src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hamilton-lead-1611181753.jpg?crop=1.00xw:1.00xh;0,0&resize=640:*"
+              src={
+                values.file[2]
+                  ? values.file[2]
+                  : "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hamilton-lead-1611181753.jpg?crop=1.00xw:1.00xh;0,0&resize=640:*"
+              }
               alt={"uploadproduct"}
             ></img>
             <img
               className={classes.smallImages}
-              src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hamilton-lead-1611181753.jpg?crop=1.00xw:1.00xh;0,0&resize=640:*"
+              src={
+                values.file[3]
+                  ? values.file[3]
+                  : "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/hamilton-lead-1611181753.jpg?crop=1.00xw:1.00xh;0,0&resize=640:*"
+              }
               alt={"uploadproduct"}
             ></img>
           </div>
         </div>
       </div>
-
       <form onSubmit={handleFormSubmit}>
         <TextField
           variant="filled"
