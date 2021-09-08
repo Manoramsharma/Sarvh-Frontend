@@ -24,23 +24,26 @@ const useStyles = makeStyles({
   field: {
     marginTop: 20,
     marginBottom: 20,
-    width: "130%",
-    marginLeft: "-10%",
+    width: "100%",
   },
   mainContainer: {
-    width: "50%",
+    width: "100%",
     display: "flex",
     flexDirection: "column",
+    justifyContent: "center",
     alignItems: "center",
-    marginTop: "6%",
+    marginTop: "25%",
   },
   btn: {
     marginTop: "5%",
-    width: "10rem",
+    width: "50%",
+    marginLeft: 90
   },
   forgotPass: {
     letterSpacing: "0.1rem",
     textDecoration: "none",
+    display : "flex",
+    justifyContent: "center"
   },
 });
 
@@ -157,6 +160,7 @@ const Login = () => {
               onSuccess={responseGoogle}
               onFailure={responseGoogle}
               cookiePolicy={"single_host_origin"}
+              className={classes.googleButton}
             />
             <FacebookLogin
               appId="558674212075076"

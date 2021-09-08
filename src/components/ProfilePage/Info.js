@@ -27,6 +27,9 @@ const useStyles = makeStyles((theme) => ({
     width: "30%",
     justifyContent: "space-around",
   },
+  btn: {
+    width: "100%",
+  },
   fontSize: {
     fontSize: "1rem",
   },
@@ -138,7 +141,7 @@ const Info = ({ id }) => {
                   size="small"
                   color="primary"
                   variant="contained"
-                  className={classes.fontSize}
+                  className={clsx(classes.fontSize, classes.btn)}
                 >
                   Edit Profile
                 </Button>
