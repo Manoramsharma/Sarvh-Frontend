@@ -25,6 +25,7 @@ export const getProduct = data => async dispatch => {
     dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
 
     const res = await getDataAPI(`product`);
+    console.log(res);
     dispatch({
       type: PRODUCT_TYPES.WHATSNEW,
       payload: res.data.product,
