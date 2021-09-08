@@ -21,7 +21,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../../redux/actions/authAction";
 import Category from "../../pages/Category";
 
-const StyledBadge = withStyles((theme) => ({
+const StyledBadge = withStyles(theme => ({
   badge: {
     right: -3,
     top: 13,
@@ -36,7 +36,7 @@ const useStyles = makeStyles({
     borderBottom: "1px solid #A9A9A9",
     display: "flex",
     justifyContent: "space-around",
-    alignItems: "center"
+    alignItems: "center",
   },
   logo: {
     maxWidth: 35,
@@ -59,8 +59,8 @@ const useStyles = makeStyles({
   },
   roundedButton: {
     borderRadius: 100,
-    height : 50,
-    width : 50,
+    height: 50,
+    width: 50,
   },
   profileButton: {
     width: 130,
@@ -78,7 +78,7 @@ const useStyles = makeStyles({
 
 const NavbarLoggedIn = () => {
   const classes = useStyles();
-  const { auth } = useSelector((state) => state);
+  const { auth } = useSelector(state => state);
   const dispatch = useDispatch();
   // const { pathname } = useLocation();
   const [values, setValues] = useState({
@@ -147,7 +147,9 @@ const NavbarLoggedIn = () => {
                   </Dropdown.Item>
                 </Link>
                 <Link to={"/editprofile"} style={{ textDecoration: "none" }}>
-                  <Dropdown.Item href="/editprofile">Edit profile</Dropdown.Item>
+                  <Dropdown.Item href="/editprofile">
+                    Edit profile
+                  </Dropdown.Item>
                 </Link>
                 <div className="dropdown-divider"></div>
                 <Link
@@ -163,9 +165,12 @@ const NavbarLoggedIn = () => {
             </Button> */}
             <IconButton aria-label="cart">
               <Link to={"/cart"}>
-              <StyledBadge badgeContent={3} color="secondary">
-                <ShoppingCartIcon />
-              </StyledBadge>
+                <StyledBadge
+                  badgeContent={auth.user ? auth.user.cart.length : 0}
+                  color="secondary"
+                >
+                  <ShoppingCartIcon />
+                </StyledBadge>
               </Link>
             </IconButton>
             <Button className={classes.roundedButton}>

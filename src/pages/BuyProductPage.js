@@ -155,10 +155,10 @@ const BuyProductPage = () => {
   };
   return (
     <div>
+      <NavbarLoggedIn />
       {loading && (
         <>
           <div>
-            <NavbarLoggedIn />
             <div className={classes.carousel}>
               {/* <CarouselComponent /> */}
               <div className={classes.imageGrid}>
