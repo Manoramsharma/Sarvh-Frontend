@@ -120,17 +120,12 @@ const Cart = () => {
                     type="number"
                     defaultValue={item.quantity}
                     inputProps={{ min: 1 }}
-<<<<<<< HEAD
                     onChange={(e) => {
-                      handleChangeQuantity(item.product._id, e.target.value);
-=======
-                    onChange={e => {
                       handleChangeQuantity(
                         item.product._id,
                         e.target.value,
                         item.size
                       );
->>>>>>> upstream/main
                     }}
                     className={classes.textField}
                   />

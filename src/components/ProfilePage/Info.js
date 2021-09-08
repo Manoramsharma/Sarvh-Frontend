@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import Rating from "@material-ui/lab/Rating";
+import Box from "@material-ui/core/Box";
+
 import { Avatar, Button, makeStyles, Typography } from "@material-ui/core";
 import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
 import { useSelector, useDispatch } from "react-redux";
 import Followbtn from "./Followbtn";
 import { Link } from "react-router-dom";
-import Ratings from "./Ratings";
 
 const useStyles = makeStyles((theme) => ({
   large: {
@@ -60,12 +62,25 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Info = ({ id }) => {
   const { auth, profile } = useSelector((state) => state);
+  const [value, setValue] = React.useState(2);
+
   const dispatch = useDispatch();
   const classes = useStyles();
   const [userData, setUserData] = useState([]);
+  const [rating, setRating] = useState(0);
+
+  useEffect(() => {
+    console.log(userData);
+    // var sum = 0;
+    // for (var i = 0; i < userData[0].rating.length; i++) {
+    //   sum += userData[0].rating[i].rated;
+    // }
+    // setRating(sum / userData[0].rating.length);
+  }, [userData]);
   useEffect(() => {
     if (auth.user.username === id) {
       setUserData([auth.user]);
+      console.log(userData);
     } else {
       try {
         const newData = profile.users.filter((user) => user.username === id);
@@ -90,7 +105,16 @@ const Info = ({ id }) => {
               <Typography color="textSecondary" className={classes.fontSize}>
                 {user.username}
               </Typography>
-              <Ratings />
+              <Box component="fieldset" mb={3} borderColor="transparent">
+                <Typography component="legend">Controlled</Typography>
+                <Rating
+                  name="simple-controlled"
+                  value={rating ? rating : 0}
+                  onChange={(event, newValue) => {
+                    setValue(newValue);
+                  }}
+                />
+              </Box>
             </div>
           </div>
           <div className={classes.right}>
