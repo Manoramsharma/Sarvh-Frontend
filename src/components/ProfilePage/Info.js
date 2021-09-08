@@ -7,8 +7,9 @@ import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
 import { useSelector, useDispatch } from "react-redux";
 import Followbtn from "./Followbtn";
 import { Link } from "react-router-dom";
+import clsx from "clsx";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   large: {
     width: theme.spacing(10),
     height: theme.spacing(10),
@@ -64,7 +65,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const Info = ({ id }) => {
-  const { auth, profile } = useSelector((state) => state);
+  const { auth, profile } = useSelector(state => state);
   const [value, setValue] = React.useState(2);
 
   const dispatch = useDispatch();
@@ -72,21 +73,19 @@ const Info = ({ id }) => {
   const [userData, setUserData] = useState([]);
   const [rating, setRating] = useState(0);
 
-  useEffect(() => {
-    console.log(userData);
-    // var sum = 0;
-    // for (var i = 0; i < userData[0].rating.length; i++) {
-    //   sum += userData[0].rating[i].rated;
-    // }
-    // setRating(sum / userData[0].rating.length);
-  }, [userData]);
+  function calculateRating(user) {
+    var res = 0;
+    for (var i = 0; i < user.rating.length; i++) {
+      res += user.rating[i].rated;
+    }
+    return parseInt(res / user.rating.length);
+  }
   useEffect(() => {
     if (auth.user.username === id) {
       setUserData([auth.user]);
-      console.log(userData);
     } else {
       try {
-        const newData = profile.users.filter((user) => user.username === id);
+        const newData = profile.users.filter(user => user.username === id);
         setUserData(newData);
       } catch (err) {
         console.log(err);
@@ -95,7 +94,7 @@ const Info = ({ id }) => {
   }, [auth, profile.users, dispatch, id]);
   return (
     <div>
-      {userData.map((user) => (
+      {userData.map(user => (
         <div className={classes.avatarContainer} key={user.username}>
           <div className={classes.left}>
             <Avatar
@@ -112,7 +111,7 @@ const Info = ({ id }) => {
                 <Typography component="legend">Controlled</Typography>
                 <Rating
                   name="simple-controlled"
-                  value={rating ? rating : 0}
+                  value={user ? calculateRating(user) : 0}
                   onChange={(event, newValue) => {
                     setValue(newValue);
                   }}
