@@ -15,6 +15,7 @@ import SendIcon from "@material-ui/icons/Send";
 import { FormControl, InputGroup } from "react-bootstrap";
 import ThingsYouMayLikeComponent from "../components/BuyProductPage/ThingsYouMayLike";
 import Footer from "../components/footer";
+
 import { useParams } from "react-router";
 import { getDataAPI } from "../utils/fetchData";
 import ToggleButton from "@material-ui/lab/ToggleButton";
