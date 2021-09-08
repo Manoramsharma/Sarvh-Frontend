@@ -57,7 +57,7 @@ const useStyles = makeStyles({
 });
 
 const Cart = () => {
-  const { auth } = useSelector(state => state);
+  const { auth } = useSelector((state) => state);
   const [values, setValues] = useState([]);
   const [total, setTotal] = useState(0);
   const dispatch = useDispatch();
@@ -87,8 +87,16 @@ const Cart = () => {
     dispatch(deleteQuantity({ data: auth.user.cart, id, auth, size }));
   }
   return (
+    // <div>
+    //   {userCart && (
+    //     <>
+    //       <div>{userCart[0].product.productName}</div>
+    //     </>
+    //   )}
+    // </div>
     <div>
       <NavbarLoggedIn />
+
       <div className={classes.mainContainer}>
         <div className={classes.left}>
           <Typography variant="h5">Shopping Cart</Typography>
@@ -112,7 +120,7 @@ const Cart = () => {
                     type="number"
                     defaultValue={item.quantity}
                     inputProps={{ min: 1 }}
-                    onChange={e => {
+                    onChange={(e) => {
                       handleChangeQuantity(
                         item.product._id,
                         e.target.value,

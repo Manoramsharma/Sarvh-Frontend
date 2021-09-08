@@ -57,8 +57,8 @@ const NavbarWithLogin = () => {
     <div>
       <AppBar position="fixed" elevation={0} style={{ zIndex: 1251 }}>
         <Toolbar className={classes.navbar}>
-          {match ? (
-            <Navbar />
+          {match ? ( 
+            <Navbar />            
           ) : (
             <>
               {" "}
