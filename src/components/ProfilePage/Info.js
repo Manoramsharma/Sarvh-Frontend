@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
+import Rating from "@material-ui/lab/Rating";
+import Box from "@material-ui/core/Box";
+
 import { Avatar, Button, makeStyles, Typography } from "@material-ui/core";
 import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
 import { useSelector, useDispatch } from "react-redux";
 import Followbtn from "./Followbtn";
 import { Link } from "react-router-dom";
-import Ratings from "./Ratings";
 import clsx from "clsx";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   large: {
     width: theme.spacing(10),
     height: theme.spacing(10),
@@ -26,8 +28,8 @@ const useStyles = makeStyles((theme) => ({
     width: "30%",
     justifyContent: "space-around",
   },
-  btn : {
-    width : "100%"
+  btn: {
+    width: "100%",
   },
   fontSize: {
     fontSize: "1rem",
@@ -63,16 +65,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const Info = ({ id }) => {
-  const { auth, profile } = useSelector((state) => state);
+  const { auth, profile } = useSelector(state => state);
+  const [value, setValue] = React.useState(2);
+
   const dispatch = useDispatch();
   const classes = useStyles();
   const [userData, setUserData] = useState([]);
+  const [rating, setRating] = useState(0);
+
+  function calculateRating(user) {
+    var res = 0;
+    for (var i = 0; i < user.rating.length; i++) {
+      res += user.rating[i].rated;
+    }
+    return parseInt(res / user.rating.length);
+  }
   useEffect(() => {
     if (auth.user.username === id) {
       setUserData([auth.user]);
     } else {
       try {
-        const newData = profile.users.filter((user) => user.username === id);
+        const newData = profile.users.filter(user => user.username === id);
         setUserData(newData);
       } catch (err) {
         console.log(err);
@@ -81,7 +94,7 @@ const Info = ({ id }) => {
   }, [auth, profile.users, dispatch, id]);
   return (
     <div>
-      {userData.map((user) => (
+      {userData.map(user => (
         <div className={classes.avatarContainer} key={user.username}>
           <div className={classes.left}>
             <Avatar
@@ -94,7 +107,16 @@ const Info = ({ id }) => {
               <Typography color="textSecondary" className={classes.fontSize}>
                 {user.username}
               </Typography>
-              <Ratings />
+              <Box component="fieldset" mb={3} borderColor="transparent">
+                <Typography component="legend">Controlled</Typography>
+                <Rating
+                  name="simple-controlled"
+                  value={user ? calculateRating(user) : 0}
+                  onChange={(event, newValue) => {
+                    setValue(newValue);
+                  }}
+                />
+              </Box>
             </div>
           </div>
           <div className={classes.right}>

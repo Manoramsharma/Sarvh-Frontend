@@ -9,13 +9,13 @@ const colors = {
 function Ratings() {
   const [currentValue, setCurrentValue] = useState(0);
   const [hoverValue, setHoverValue] = useState(undefined);
-  const stars = Array(4).fill(0);
+  const stars = Array(5).fill(0);
 
-  const handleClick = (value) => {
+  const handleClick = value => {
     setCurrentValue(value);
   };
 
-  const handleMouseOver = (newHoverValue) => {
+  const handleMouseOver = newHoverValue => {
     setHoverValue(newHoverValue);
   };
 
