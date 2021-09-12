@@ -24,6 +24,7 @@ import Ratings from "../components/ProfilePage/Ratings";
 import Linkshare from "../components/BuyProductPage/Linkshare";
 import { addToCart } from "../redux/actions/profileAction";
 import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   carousel: {
@@ -112,17 +113,8 @@ const useStyles = makeStyles(theme => ({
     width: 300,
   },
 }));
-
-const productInfo = {
-  rate: "Rs. 599",
-  MRP: "Rs. 899",
-};
-async function getData(id) {
-  const res = await getDataAPI(`byproductid/${id}`);
-  console.log(res);
-}
 const BuyProductPage = () => {
-  const { auth, product } = useSelector(state => state);
+  const { auth } = useSelector(state => state);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -202,15 +194,25 @@ const BuyProductPage = () => {
               </div>
               <div className={classes.rightMain}>
                 <div className={classes.left}>
-                  <Avatar
-                    src={values.user.avatar}
-                    alt="profile image"
-                    className={classes.large}
-                  />
+                  <Link
+                    to={"/profile/" + values.user.username}
+                    style={{ textDecoration: "none" }}
+                  >
+                    <Avatar
+                      src={values.user.avatar}
+                      alt="profile image"
+                      className={classes.large}
+                    />
+                  </Link>
                   <div className={classes.userInfo}>
-                    <Typography className={classes.bold}>
-                      {values.user.fullname}
-                    </Typography>
+                    <Link
+                      to={"/profile/" + values.user.username}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <Typography className={classes.bold}>
+                        {values.user.fullname}
+                      </Typography>
+                    </Link>
                     <Ratings />
                   </div>
                 </div>

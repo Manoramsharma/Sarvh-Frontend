@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Rating from "@material-ui/lab/Rating";
 import Box from "@material-ui/core/Box";
-
+import { updateRating } from "../../redux/actions/profileAction";
 import { Avatar, Button, makeStyles, Typography } from "@material-ui/core";
 import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
 import { useSelector, useDispatch } from "react-redux";
@@ -66,13 +66,11 @@ const useStyles = makeStyles(theme => ({
 }));
 const Info = ({ id }) => {
   const { auth, profile } = useSelector(state => state);
-  const [value, setValue] = React.useState(2);
-
   const dispatch = useDispatch();
+  const [value, setValue] = React.useState(2);
   const classes = useStyles();
   const [userData, setUserData] = useState([]);
   const [rating, setRating] = useState(0);
-
   function calculateRating(user) {
     var res = 0;
     for (var i = 0; i < user.rating.length; i++) {
@@ -80,79 +78,111 @@ const Info = ({ id }) => {
     }
     return parseInt(res / user.rating.length);
   }
+  function isEmptyObject(obj) {
+    return JSON.stringify(obj) === "{}";
+  }
   useEffect(() => {
-    if (auth.user.username === id) {
-      setUserData([auth.user]);
-    } else {
+    console.log("in use effect info.js");
+    console.log(auth);
+    if (isEmptyObject(auth)) {
+      console.log(" in auth.length===0");
       try {
         const newData = profile.users.filter(user => user.username === id);
-        setUserData(newData);
+        setUserData(newData[0]);
+        console.log(newData[0]);
       } catch (err) {
         console.log(err);
       }
+    } else {
+      console.log("in else condition");
+      if (auth.user.username === id) {
+        setUserData(auth.user);
+      } else {
+        try {
+          const newData = profile.users.filter(user => user.username === id);
+          setUserData(newData[0]);
+        } catch (err) {
+          console.log(err);
+        }
+      }
     }
+    // console.log(auth);
+    // if (auth.length !== 0) {
+    //   if (auth.user.username === id) {
+    //     setUserData([auth.user]);
+    //   }
+    // } else {
+    //   try {
+    //     const newData = profile.users.filter(user => user.username === id);
+    //     setUserData(newData);
+    //   } catch (err) {
+    //     console.log(err);
+    //   }
+    // }
   }, [auth, profile.users, dispatch, id]);
   return (
     <div>
-      {userData.map(user => (
-        <div className={classes.avatarContainer} key={user.username}>
-          <div className={classes.left}>
-            <Avatar
-              src={user.avatar}
-              alt="profile image"
-              className={classes.large}
-            />
-            <div className={classes.userInfo}>
-              <Typography className={classes.bold}>{user.fullname}</Typography>
-              <Typography color="textSecondary" className={classes.fontSize}>
-                {user.username}
-              </Typography>
-              <Box component="fieldset" mb={3} borderColor="transparent">
-                <Typography component="legend">Controlled</Typography>
-                <Rating
-                  name="simple-controlled"
-                  value={user ? calculateRating(user) : 0}
-                  onChange={(event, newValue) => {
-                    setValue(newValue);
-                  }}
-                />
-              </Box>
-            </div>
-          </div>
-          <div className={classes.right}>
-            <div className={classes.right2}>
-              <div className={classes.followersDiv}>
+      {userData && userData.followers && userData.following && (
+        <>
+          <div className={classes.avatarContainer}>
+            <div className={classes.left}>
+              <Avatar
+                src={userData.avatar}
+                alt="profile image"
+                className={classes.large}
+              />
+              <div className={classes.userInfo}>
                 <Typography className={classes.bold}>
-                  {user.followers.length}
+                  {userData.fullname}
                 </Typography>
-                <Typography>Followers</Typography>
-              </div>
-              <div className={classes.followersDiv}>
-                <Typography className={classes.bold}>
-                  {user.following.length}
+                <Typography color="textSecondary" className={classes.fontSize}>
+                  {userData.username}
                 </Typography>
-                <Typography gutterBottom>Following</Typography>
               </div>
             </div>
-            {user.username === auth.user.username ? (
-              <Link to={"/editprofile/"} style={{ textDecoration: "none" }}>
-                <Button
-                  size="small"
-                  color="primary"
-                  variant="contained"
-                  className={clsx(classes.fontSize, classes.btn)}
-                >
-                  Edit Profile
-                </Button>
-              </Link>
-            ) : (
-              <Followbtn user={user}></Followbtn>
-            )}
+            <div className={classes.right}>
+              <div className={classes.right2}>
+                <div className={classes.followersDiv}>
+                  <Typography className={classes.bold}>
+                    {userData.followers.length}
+                  </Typography>
+                  <Typography>Followers</Typography>
+                </div>
+                <div className={classes.followersDiv}>
+                  <Typography className={classes.bold}>
+                    {userData.following.length}
+                  </Typography>
+                  <Typography gutterBottom>Following</Typography>
+                </div>
+              </div>
+              {/* logged in  */}
+              {!isEmptyObject(auth) && (
+                <>
+                  {userData.username === auth.user.username ? (
+                    <Link
+                      to={"/editprofile/"}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <Button
+                        size="small"
+                        color="primary"
+                        variant="contained"
+                        className={clsx(classes.fontSize, classes.btn)}
+                      >
+                        Edit Profile
+                      </Button>
+                    </Link>
+                  ) : (
+                    <Followbtn user={userData}></Followbtn>
+                  )}
+                </>
+              )}
+              {isEmptyObject(auth) && <div></div>}
+            </div>
           </div>
-        </div>
-      ))}
+        </>
+      )}
     </div>
   );
 };
-
 export default Info;
