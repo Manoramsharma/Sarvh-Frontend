@@ -1,8 +1,13 @@
 import NavbarLoggedIn from "../components/homePage/Navbar2";
 import { Avatar, makeStyles, Typography } from "@material-ui/core";
 import DashboardIcon from "@material-ui/icons/Dashboard";
+import Ratings from "../components/ProfilePage/Ratings";
+import InformationComponent from "../components/Dashboard/Info";
+import TopCategoryComponent from "../components/Dashboard/TopCategory";
+const image =
+  "https://thumbor.forbes.com/thumbor/fit-in/416x416/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F5bb22ae84bbe6f67d2e82e05%2F0x0.jpg%3Fbackground%3D000000%26cropX1%3D627%26cropX2%3D1639%26cropY1%3D129%26cropY2%3D1142";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   mainContainer: {
     background:
       "linear-gradient(150deg, rgba(240,217,255,1), rgba(191,162,219,1))",
@@ -15,8 +20,8 @@ const useStyles = makeStyles({
   },
   card: {
     backdropFilter: "blur(25px) saturate(200%)",
-    backgroundColor: "rgba(255, 255, 255, 0.63)",
-    borderRadius: 12,
+    background : "#FFFAFA",
+    borderRadius: 14,
     border: "1px solid rgba(209, 213, 219, 0.3)",
     height: "85%",
     width: "90%",
@@ -24,17 +29,45 @@ const useStyles = makeStyles({
     padding: "2%",
   },
   topBar: {
-      display: "flex",
-      justifyContent : "space-between",
-      alignItems : "center",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
-  inner : {
+  inner: {
+    display: "flex",
+    width: "20%",
+    alignItems: "center",
+    justifyContent: "space-evenly",
+  },
+  nameSection: {
+    display: "flex",
+    width: "20%",
+    justifyContent: "space-evenly",
+    alignItems: "center",
+  },
+  large: {
+    width: theme.spacing(6),
+    height: theme.spacing(6),
+  },
+  innerLeft: {
+    width: "70%",
+    height: "100%",
+  },
+  innerRight: {
+    width: "20%",
+    height: "60%",
+    border : "1px solid #C8C6C6",
+    borderRadius : "10px",
+    padding : "2%",
+  },
+  container : {
       display : "flex",
-      width : "20%",
-      alignItems : "center",
-      justifyContent : "space-evenly"
+      height : "90%",
+      width : "100%",
+      justifyContent: "space-between",
+      marginTop: "2%",
   }
-});
+}));
 const SellerDashboard = () => {
   const classes = useStyles();
   return (
@@ -47,7 +80,21 @@ const SellerDashboard = () => {
               <DashboardIcon />
               <Typography variant="h4">Dashboard</Typography>
             </div>
-            <Avatar />
+            <div className={classes.nameSection}>
+              <Avatar src={image} className={classes.large} />
+              <div>
+                <Typography>Swahim Namdev</Typography>
+                <Ratings />
+              </div>
+            </div>
+          </div>
+          <div className={classes.container}>
+            <div className={classes.innerLeft}>
+                <InformationComponent />
+            </div>
+            <div className={classes.innerRight}>
+              <TopCategoryComponent />
+            </div>
           </div>
         </div>
       </div>
