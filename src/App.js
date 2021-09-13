@@ -20,6 +20,7 @@ import ErrorPage from "./pages/ErrorPage";
 import SellPage from "./pages/sellOnSarvhPage";
 import EditProfilePage from "./pages/EditProfile";
 import Cart from "./pages/Cart";
+import SellerDashboard from "./pages/Dashboard";
 const Theme = createTheme({
   palette: {
     secondary: {
@@ -63,6 +64,7 @@ function App() {
             <Route exact path="/uploadproduct" component={ProductUpload} />
             <Route exact path="/test" component={test} />
             <Route exact path="/sellonsarvh" component={SellPage} />
+            <Route exact path="/dashboard" component={SellerDashboard} />
             <Route exact path="/cart" component={auth.token ? Cart : Home} />
             <Route
               exact

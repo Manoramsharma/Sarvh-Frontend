@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 const Toast = ({msg, handleShow, bgColor}) => {
     return (
         <div className={`toast show position-fixed text-light ${bgColor}`}
@@ -15,6 +16,7 @@ const Toast = ({msg, handleShow, bgColor}) => {
             <div className="toast-body">
                 {msg.body}
             </div>
+           
         </div>
     )
 }
