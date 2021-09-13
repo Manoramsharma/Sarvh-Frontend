@@ -4,6 +4,8 @@ import DashboardIcon from "@material-ui/icons/Dashboard";
 import Ratings from "../components/ProfilePage/Ratings";
 import InformationComponent from "../components/Dashboard/Info";
 import TopCategoryComponent from "../components/Dashboard/TopCategory";
+import YourProductsComponent from "../components/Dashboard/YourProducts";
+import RecentOrderComponent from "../components/Dashboard/RecentOrder";
 const image =
   "https://thumbor.forbes.com/thumbor/fit-in/416x416/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F5bb22ae84bbe6f67d2e82e05%2F0x0.jpg%3Fbackground%3D000000%26cropX1%3D627%26cropX2%3D1639%26cropY1%3D129%26cropY2%3D1142";
 
@@ -91,6 +93,8 @@ const SellerDashboard = () => {
           <div className={classes.container}>
             <div className={classes.innerLeft}>
                 <InformationComponent />
+                <YourProductsComponent />
+                <RecentOrderComponent />
             </div>
             <div className={classes.innerRight}>
               <TopCategoryComponent />
