@@ -29,12 +29,16 @@ const profileReducer = (state = initialState, action) => {
         ...state,
         users: EditData(state.users, action.payload.username, action.payload),
       };
+    case PROFILE_TYPES.RATING:
+      return {
+        ...state,
+        users: EditData(state.users, action.payload.username, action.payload),
+      };
     case PROFILE_TYPES.GETPRODUCT:
       return {
         ...state,
-        product: [...state.product, action.payload.product]
-
-      }
+        product: [...state.product, action.payload.product],
+      };
     default:
       return state;
   }
