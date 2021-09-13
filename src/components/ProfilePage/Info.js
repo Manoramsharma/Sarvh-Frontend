@@ -25,7 +25,7 @@ function getModalStyle() {
   };
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   large: {
     width: theme.spacing(10),
     height: theme.spacing(10),
@@ -90,7 +90,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const Info = ({ id }) => {
-  const { auth, profile } = useSelector((state) => state);
+  const { auth, profile } = useSelector(state => state);
   const dispatch = useDispatch();
   const [value, setValue] = React.useState(2);
   const classes = useStyles();
@@ -109,6 +109,8 @@ const Info = ({ id }) => {
 
   const [modalStyle] = React.useState(getModalStyle);
   const [open, setOpen] = React.useState(false);
+  const [followersOpen, setFollowersOpen] = useState(false);
+  const [followingOpen, setFollowingOpen] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);
@@ -118,55 +120,53 @@ const Info = ({ id }) => {
     setOpen(false);
   };
 
-  const body = (
-    <div style={modalStyle} className={classes.paper}>
-      <h2>Followers/Following</h2>
-      {/*  <h2 id="simple-modal-title">Text in a modal</h2>
-      <p id="simple-modal-description">
-        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-      </p> */}
-    </div>
-  );
-
   useEffect(() => {
-    console.log("in use effect info.js");
     console.log(auth);
     if (isEmptyObject(auth)) {
-      console.log(" in auth.length===0");
       try {
-        const newData = profile.users.filter((user) => user.username === id);
+        const newData = profile.users.filter(user => user.username === id);
         setUserData(newData[0]);
         console.log(newData[0]);
       } catch (err) {
         console.log(err);
       }
     } else {
-      console.log("in else condition");
       if (auth.user.username === id) {
         setUserData(auth.user);
       } else {
         try {
-          const newData = profile.users.filter((user) => user.username === id);
+          const newData = profile.users.filter(user => user.username === id);
           setUserData(newData[0]);
         } catch (err) {
           console.log(err);
         }
       }
     }
-    // console.log(auth);
-    // if (auth.length !== 0) {
-    //   if (auth.user.username === id) {
-    //     setUserData([auth.user]);
-    //   }
-    // } else {
-    //   try {
-    //     const newData = profile.users.filter(user => user.username === id);
-    //     setUserData(newData);
-    //   } catch (err) {
-    //     console.log(err);
-    //   }
-    // }
   }, [auth, profile.users, dispatch, id]);
+  function body(values) {
+    return (
+      <div style={modalStyle} className={classes.paper}>
+        {values.map((item, i) => (
+          <div key={i}>
+            <span>
+              <Avatar
+                src={item.avatar}
+                alt="profile image"
+                className={classes.large}
+              />
+            </span>
+            <span>{item.fullname}</span>
+            <Link
+              to={"/profile/" + item.username}
+              style={{ textDecoration: "none" }}
+            >
+              <span>{item.username}</span>
+            </Link>
+          </div>
+        ))}
+      </div>
+    );
+  }
   return (
     <div>
       {userData && userData.followers && userData.following && (
@@ -194,28 +194,44 @@ const Info = ({ id }) => {
                     {userData.followers.length}
                   </Typography>
 
-                  <Button onClick={handleOpen}>Followers</Button>
+                  <Button
+                    onClick={() => {
+                      setFollowersOpen(true);
+                    }}
+                  >
+                    Following
+                  </Button>
                   <Modal
-                    open={open}
-                    onClose={handleClose}
+                    open={followersOpen}
+                    onClose={() => {
+                      setFollowersOpen(false);
+                    }}
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description"
                   >
-                    {body}
+                    {body(userData.followers)}
                   </Modal>
                 </div>
                 <div className={classes.followersDiv}>
                   <Typography className={classes.bold}>
                     {userData.following.length}
                   </Typography>
-                  <Button onClick={handleOpen}>Following</Button>
+                  <Button
+                    onClick={() => {
+                      setFollowingOpen(true);
+                    }}
+                  >
+                    Following
+                  </Button>
                   <Modal
-                    open={open}
-                    onClose={handleClose}
+                    open={followingOpen}
+                    onClose={() => {
+                      setFollowingOpen(false);
+                    }}
                     aria-labelledby="simple-modal-title"
                     aria-describedby="simple-modal-description"
                   >
-                    {body}
+                    {body(userData.following)}
                   </Modal>
                 </div>
               </div>
