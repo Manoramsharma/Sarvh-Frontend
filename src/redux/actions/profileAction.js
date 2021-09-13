@@ -16,8 +16,6 @@ export const getProfileUsers =
         dispatch({ type: PROFILE_TYPES.LOADING, payload: true });
         const res = await getDataAPI(`/user/${id}`, auth.token);
         const res2 = await getDataAPI(`/product/${id}`, auth.token);
-        console.log(res);
-        console.log(res2);
         dispatch({
           type: PROFILE_TYPES.GET_USER,
           payload: res.data,
@@ -218,4 +216,9 @@ export const addToCart =
     } catch (error) {
       console.log(error);
     }
+  };
+export const updateRating =
+  ({ rating, auth }) =>
+  async dispatch => {
+    console.log(rating);
   };
