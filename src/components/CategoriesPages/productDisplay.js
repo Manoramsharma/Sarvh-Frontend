@@ -87,6 +87,7 @@ const ProductDisplayComponent = () => {
   const [Gendervalue, setGenderValue] = React.useState("");
   const [RatingValue, setRatingValue] = React.useState("");
   const [ProductValue, setProductsValue] = React.useState("");
+  const [SubCategory, setSubCategory] = useState("");
   const [products, setProducts] = React.useState([]);
   const handleReset = () => {
     setGenderValue("");
@@ -96,14 +97,25 @@ const ProductDisplayComponent = () => {
 
   const handleGenderChange = event => {
     setGenderValue(event.target.value);
+    const temp = product.allproducts.filter(
+      x => x.category === event.target.value
+    );
+    setProductArray(temp);
   };
-  const handleRatingChange = event => {
-    setRatingValue(event.target.value);
+  const handleCategoryChange = event => {
+    setSubCategory(event.target.value);
+    const temp = product.allproducts.filter(
+      x => x.subCategory === event.target.value
+    );
+    setProductArray(temp);
   };
   const handleProductChange = event => {
     setProductsValue(event.target.value);
   };
 
+  // useEffect(() => {
+  //   console.log(Gendervalue);
+  // }, [Gendervalue]);
   useEffect(() => {
     try {
       if (product.allproducts.length === 0) {
@@ -153,15 +165,15 @@ const ProductDisplayComponent = () => {
               onChange={handleGenderChange}
             >
               <FormControlLabel
-                value="male"
+                value="Men"
                 control={<Radio />}
-                label="Male"
+                label="Men"
                 labelPlacement="start"
               />
               <FormControlLabel
-                value="female"
+                value="Women"
                 control={<Radio />}
-                label="Female"
+                label="Women"
                 labelPlacement="start"
               />
 
@@ -174,42 +186,30 @@ const ProductDisplayComponent = () => {
             </RadioGroup>
             <div className={classes.container}>
               <GradeIcon className={classes.starIcon} />
-              <Typography>Rating -</Typography>
+              <Typography>SubCategory -</Typography>
             </div>
             <RadioGroup
               aria-label="rating"
               name="rating"
-              value={RatingValue}
-              onChange={handleRatingChange}
+              value={SubCategory}
+              onChange={handleCategoryChange}
             >
               <FormControlLabel
-                value="1Star"
+                value="Shirt"
                 control={<Radio />}
-                label="1 Star"
+                label="Shirt"
                 labelPlacement="start"
               />
               <FormControlLabel
-                value="2Star"
+                value="T-shirt"
                 control={<Radio />}
-                label="2 Star"
+                label="T-shirt"
                 labelPlacement="start"
               />
               <FormControlLabel
-                value="3Star"
+                value="Jeans"
                 control={<Radio />}
-                label="3 Star"
-                labelPlacement="start"
-              />
-              <FormControlLabel
-                value="4Star"
-                control={<Radio />}
-                label="4 Star"
-                labelPlacement="start"
-              />
-              <FormControlLabel
-                value="5Star"
-                control={<Radio />}
-                label="5 Star"
+                label="Jeans"
                 labelPlacement="start"
               />
             </RadioGroup>

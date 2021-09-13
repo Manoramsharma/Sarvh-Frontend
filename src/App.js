@@ -67,7 +67,9 @@ function App() {
             <Route
               exact
               path="/editprofile"
-              component={auth.token ? EditProfilePage : Home}
+              render={() =>
+                auth.token ? <EditProfilePage /> : <Redirect to="/" />
+              }
             />
             <Route component={ErrorPage} />
           </Switch>
