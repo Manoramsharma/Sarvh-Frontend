@@ -145,7 +145,7 @@ const Cart = () => {
             Subtotal ({values.length}) items
           </Typography>
           <Typography gutterBottom className={classes.btn}>
-            {total}
+            Rs. {total}
           </Typography>
           <Divider />
           <Button
