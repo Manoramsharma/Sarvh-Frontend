@@ -7,12 +7,37 @@ import StarOutlinedIcon from "@material-ui/icons/StarOutlined";
 import { useSelector, useDispatch } from "react-redux";
 import Followbtn from "./Followbtn";
 import { Link } from "react-router-dom";
+import Modal from "@material-ui/core/Modal";
 import clsx from "clsx";
 
-const useStyles = makeStyles(theme => ({
+function rand() {
+  return Math.round(Math.random() * 20) - 10;
+}
+
+function getModalStyle() {
+  const top = 50 + rand();
+  const left = 50 + rand();
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
+
+const useStyles = makeStyles((theme) => ({
   large: {
     width: theme.spacing(10),
     height: theme.spacing(10),
+  },
+  paper: {
+    position: "absolute",
+    width: "40%",
+    height: "30%",
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
   },
   avatarContainer: {
     marginTop: 100,
@@ -65,7 +90,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 const Info = ({ id }) => {
-  const { auth, profile } = useSelector(state => state);
+  const { auth, profile } = useSelector((state) => state);
   const dispatch = useDispatch();
   const [value, setValue] = React.useState(2);
   const classes = useStyles();
@@ -81,13 +106,35 @@ const Info = ({ id }) => {
   function isEmptyObject(obj) {
     return JSON.stringify(obj) === "{}";
   }
+
+  const [modalStyle] = React.useState(getModalStyle);
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const body = (
+    <div style={modalStyle} className={classes.paper}>
+      <h2>Followers/Following</h2>
+      {/*  <h2 id="simple-modal-title">Text in a modal</h2>
+      <p id="simple-modal-description">
+        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+      </p> */}
+    </div>
+  );
+
   useEffect(() => {
     console.log("in use effect info.js");
     console.log(auth);
     if (isEmptyObject(auth)) {
       console.log(" in auth.length===0");
       try {
-        const newData = profile.users.filter(user => user.username === id);
+        const newData = profile.users.filter((user) => user.username === id);
         setUserData(newData[0]);
         console.log(newData[0]);
       } catch (err) {
@@ -99,7 +146,7 @@ const Info = ({ id }) => {
         setUserData(auth.user);
       } else {
         try {
-          const newData = profile.users.filter(user => user.username === id);
+          const newData = profile.users.filter((user) => user.username === id);
           setUserData(newData[0]);
         } catch (err) {
           console.log(err);
@@ -146,13 +193,30 @@ const Info = ({ id }) => {
                   <Typography className={classes.bold}>
                     {userData.followers.length}
                   </Typography>
-                  <Typography>Followers</Typography>
+
+                  <Button onClick={handleOpen}>Followers</Button>
+                  <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
+                  >
+                    {body}
+                  </Modal>
                 </div>
                 <div className={classes.followersDiv}>
                   <Typography className={classes.bold}>
                     {userData.following.length}
                   </Typography>
-                  <Typography gutterBottom>Following</Typography>
+                  <Button onClick={handleOpen}>Following</Button>
+                  <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="simple-modal-title"
+                    aria-describedby="simple-modal-description"
+                  >
+                    {body}
+                  </Modal>
                 </div>
               </div>
               {/* logged in  */}
