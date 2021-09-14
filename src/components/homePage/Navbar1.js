@@ -13,6 +13,10 @@ import SearchIcon from "@material-ui/icons/Search";
 import { useHistory } from "react-router-dom";
 import Navbar from "./Drawer";
 import Category from "../../pages/Category";
+import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+import HomeIcon from "@material-ui/icons/Home";
+
 const useStyles = makeStyles({
   navbar: {
     backgroundColor: "#ffffff",
@@ -41,7 +45,7 @@ const useStyles = makeStyles({
   },
 });
 
-const NavbarWithLogin = () => {
+const NavbarWithLogin = props => {
   const classes = useStyles();
   const history = useHistory();
   const loginButton = () => {
@@ -53,12 +57,14 @@ const NavbarWithLogin = () => {
 
   const theme = useTheme();
   const match = useMediaQuery(theme.breakpoints.down("sm"));
+  const location = useLocation();
+  console.log(location.pathname);
   return (
     <div>
       <AppBar position="fixed" elevation={0} style={{ zIndex: 1251 }}>
         <Toolbar className={classes.navbar}>
-          {match ? ( 
-            <Navbar />            
+          {match ? (
+            <Navbar />
           ) : (
             <>
               {" "}
@@ -91,6 +97,13 @@ const NavbarWithLogin = () => {
                   LOGIN
                 </Button>
               </ButtonGroup>
+              {location.pathname !== "/" && (
+                <Button className={classes.roundedButton}>
+                  <Link to={"/"}>
+                    <HomeIcon color="secondary" />
+                  </Link>
+                </Button>
+              )}
             </>
           )}
           {/*   <img src={logo} alt="logo" className={classes.logo} />
