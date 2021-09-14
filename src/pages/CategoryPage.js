@@ -3,7 +3,7 @@ import React from "react";
 import { useState } from "react";
 import ProductDisplayComponent from "../components/CategoriesPages/productDisplay";
 import FooterForCategory from "../components/FooterForCategory";
-import NavbarLoggedIn from "../components/homePage/Navbar2";
+import { Navbar } from "../components/Navbar";
 
 const useStyles = makeStyles({
   centerAlign: {
@@ -16,7 +16,7 @@ const CategoriesProduct = () => {
   const classes = useStyles();
   return (
     <div>
-      <NavbarLoggedIn />
+      <Navbar />
       <div>
         {/* <DrawerComponent /> */}
         <div>

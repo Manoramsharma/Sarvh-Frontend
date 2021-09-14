@@ -1,22 +1,17 @@
 import React, { useEffect } from "react";
-
+import { Navbar } from "../components/Navbar";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllCategory } from "../redux/actions/category";
 import "./Category.css";
-
-/**
- * @author
- * @function Category
- **/
-export const ArrayCategory = (props) => {
-  const category = useSelector((state) => state.category);
+export const ArrayCategory = props => {
+  const category = useSelector(state => state.category);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllCategory());
   }, []);
 
-  const renderCategories = (categories) => {
+  const renderCategories = categories => {
     let myCategories = [];
     for (let category of categories) {
       myCategories.push(
@@ -44,8 +39,10 @@ export const ArrayCategory = (props) => {
   return (
     <div style={{ color: "black" }} class="select">
       <select name="format" id="format">
-        <option selected disabled>selec category</option>
-        {createCategoryList(category.categories).map((option) => (
+        <option selected disabled>
+          selec category
+        </option>
+        {createCategoryList(category.categories).map(option => (
           <option key={option.value} value={option.value}>
             {option.name}
           </option>
@@ -55,15 +52,15 @@ export const ArrayCategory = (props) => {
   );
 };
 
-const Category = (props) => {
-  const category = useSelector((state) => state.category);
+const Category = props => {
+  const category = useSelector(state => state.category);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getAllCategory());
   }, []);
 
-  const renderCategories = (categories) => {
+  const renderCategories = categories => {
     let myCategories = [];
     for (let category of categories) {
       myCategories.push(

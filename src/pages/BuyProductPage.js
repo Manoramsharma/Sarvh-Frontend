@@ -15,7 +15,6 @@ import SendIcon from "@material-ui/icons/Send";
 import { FormControl, InputGroup } from "react-bootstrap";
 import ThingsYouMayLikeComponent from "../components/BuyProductPage/ThingsYouMayLike";
 import Footer from "../components/footer";
-
 import { useParams } from "react-router";
 import { getDataAPI } from "../utils/fetchData";
 import ToggleButton from "@material-ui/lab/ToggleButton";
@@ -25,6 +24,7 @@ import Linkshare from "../components/BuyProductPage/Linkshare";
 import { addToCart } from "../redux/actions/profileAction";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { Navbar } from "../components/Navbar";
 
 const useStyles = makeStyles(theme => ({
   carousel: {
@@ -148,7 +148,7 @@ const BuyProductPage = () => {
   };
   return (
     <div>
-      <NavbarLoggedIn />
+      <Navbar />
       {loading && (
         <>
           <div>

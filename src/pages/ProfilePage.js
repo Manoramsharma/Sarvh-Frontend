@@ -7,6 +7,7 @@ import Posts from "../components/ProfilePage/Posts";
 import { useParams } from "react-router";
 import { getProfileUsers } from "../redux/actions/profileAction";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import { Navbar } from "../components/Navbar";
 
 const useStyles = makeStyles(theme => ({
   large: {
@@ -73,7 +74,7 @@ const ProfilePage = () => {
   return (
     <div>
       {profile.loading && <LinearProgress />}
-      <NavbarLoggedIn />
+      <Navbar />
       <Info id={id} />
       <Posts />
     </div>

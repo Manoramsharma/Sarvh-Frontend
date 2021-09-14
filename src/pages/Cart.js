@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Button, Divider, IconButton, TextField } from "@material-ui/core";
 import { Typography, makeStyles } from "@material-ui/core";
 import clsx from "clsx";
-import NavbarLoggedIn from "../components/homePage/Navbar2";
+import { Navbar } from "../components/Navbar";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { updateQuantity, deleteQuantity } from "../redux/actions/profileAction";
 const useStyles = makeStyles({
@@ -57,7 +57,7 @@ const useStyles = makeStyles({
 });
 
 const Cart = () => {
-  const { auth } = useSelector((state) => state);
+  const { auth } = useSelector(state => state);
   const [values, setValues] = useState([]);
   const [total, setTotal] = useState(0);
   const dispatch = useDispatch();
@@ -95,7 +95,7 @@ const Cart = () => {
     //   )}
     // </div>
     <div>
-      <NavbarLoggedIn />
+      <Navbar />
 
       <div className={classes.mainContainer}>
         <div className={classes.left}>
@@ -120,7 +120,7 @@ const Cart = () => {
                     type="number"
                     defaultValue={item.quantity}
                     inputProps={{ min: 1 }}
-                    onChange={(e) => {
+                    onChange={e => {
                       handleChangeQuantity(
                         item.product._id,
                         e.target.value,

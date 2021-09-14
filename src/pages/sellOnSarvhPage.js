@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import NavbarLoggedIn from "../components/homePage/Navbar2";
+import { Navbar } from "../components/Navbar";
 import { makeStyles, Typography, Button } from "@material-ui/core";
 import clsx from "clsx";
 import Image1 from "../images/undraw_Online_shopping_re_k1sv.svg";
@@ -72,7 +72,7 @@ const SellPage = () => {
   const classes = useStyles();
   return (
     <div>
-      <NavbarLoggedIn />
+      <Navbar />
       <div className={classes.topContainer}>
         <div className={classes.leftTopContainer}>
           <Typography variant="h3">Sell On Sarvh</Typography>

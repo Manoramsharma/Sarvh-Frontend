@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-import NavbarLoggedIn from "../components/homePage/Navbar2";
+import { Navbar } from "../components/Navbar";
 import { patchDataAPI } from "../utils/fetchData";
 import {
   Avatar,
@@ -140,7 +140,7 @@ const EditProfilePage = () => {
       {userData && (
         <>
           <div>
-            <NavbarLoggedIn />
+            <Navbar />
             <div className={classes.mainContainer}>
               <div className={clsx(classes.left)}>
                 <Typography variant="h3" className={clsx(classes.heading)}>
