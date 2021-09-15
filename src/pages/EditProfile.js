@@ -22,7 +22,8 @@ import { Button } from "@material-ui/core";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import imageCompression from "browser-image-compression";
-
+import Swal from "sweetalert2";
+import { editProfile } from "../redux/actions/authAction";
 const useStyles = makeStyles(theme => ({
   left: {
     backgroundColor: "#00BFA6",
@@ -87,6 +88,8 @@ const EditProfilePage = () => {
   const classes = useStyles();
 
   const [userData, setUserData] = useState([]);
+  const dispatch = useDispatch();
+
   const options = {
     maxSizeMB: 1,
     maxWidthOrHeight: 300,
@@ -127,13 +130,19 @@ const EditProfilePage = () => {
       setValue({ ...value, file: reader.result });
     };
   };
-  const handleFormSubmit = async e => {
+  async function handleFormSubmit(e) {
     e.preventDefault();
-    const res = await patchDataAPI("user", value, auth.token);
-    if (res.data.msg === "Update Success!") {
-      window.location.href = "/";
-    }
-  };
+    dispatch(editProfile({ value, token: auth.token }));
+    // const res = await patchDataAPI("user", value, auth.token);
+    // console.log(res);
+    // if (res.data.msg === "Update Success!") {
+    //   window.location.href = "/";
+    // } else if (res.data.msg === "This user name already exists.")
+    //   Swal.fire({
+    //     icon: "error",
+    //     text: res.data.msg,
+    //   });
+  }
 
   return (
     <div>
