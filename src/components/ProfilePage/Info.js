@@ -8,7 +8,6 @@ import { useSelector, useDispatch } from "react-redux";
 import Followbtn from "./Followbtn";
 import { Link } from "react-router-dom";
 import Modal from "@material-ui/core/Modal";
-import clsx from "clsx";
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -247,7 +246,7 @@ const Info = ({ id }) => {
                         size="small"
                         color="primary"
                         variant="contained"
-                        className={clsx(classes.fontSize, classes.btn)}
+                        className={`${classes.fontSize} ${classes.btn}`}
                       >
                         Edit Profile
                       </Button>

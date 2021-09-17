@@ -2,7 +2,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { Button, Divider, IconButton, TextField } from "@material-ui/core";
 import { Typography, makeStyles } from "@material-ui/core";
-import clsx from "clsx";
 import { Navbar } from "../components/Navbar";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { updateQuantity, deleteQuantity } from "../redux/actions/profileAction";
@@ -104,7 +103,7 @@ const Cart = () => {
             <>
               {values.map((item, i) => (
                 <div
-                  className={clsx(classes.productDiv, classes.marginTop)}
+                  className={`${classes.productDiv} ${classes.marginTop}`}
                   key={i}
                 >
                   <div className={classes.imageContainer}>

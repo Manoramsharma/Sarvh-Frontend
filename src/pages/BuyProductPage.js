@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import NavbarLoggedIn from "../components/homePage/Navbar2";
 import {
   Avatar,
   Button,

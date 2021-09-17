@@ -2,7 +2,6 @@ import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import LocalMallIcon from "@material-ui/icons/LocalMall";
 import TimelineIcon from "@material-ui/icons/Timeline";
 import { makeStyles } from "@material-ui/styles";
-import clsx from "clsx";
 import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -55,22 +54,22 @@ const InformationComponent = () => {
   const classes = useStyles();
   return (
     <div className={classes.container}>
-      <div className={clsx(classes.common, classes.boxOne)}>
-        <MonetizationOnIcon className={clsx(classes.large, classes.purple)}/>
+      <div className={`${classes.common} ${classes.boxOne}`}>
+        <MonetizationOnIcon className={`${classes.large} ${classes.purple}`} />
         <div className={classes.marginLeft}>
           <Typography className={classes.light} >Total Sales</Typography>
           <Typography variant="h5" className={classes.bold}>$ 471K</Typography>
         </div>
       </div>
-      <div className={clsx(classes.common, classes.second)}>
-        <TimelineIcon className={clsx(classes.large, classes.blue)}/>
+      <div className={`${classes.common} ${classes.second}`}>
+        <TimelineIcon className={`${classes.large} ${classes.blue}`}/>
         <div className={classes.marginLeft}>
           <Typography className={classes.light} >Total Visitors</Typography>
           <Typography variant="h5" className={classes.bold}>129K</Typography>
         </div>
       </div>
-      <div className={clsx(classes.common, classes.third)}>
-        <LocalMallIcon className={clsx(classes.large, classes.pink)}/>
+      <div className={`${classes.common} ${classes.third}`}>
+        <LocalMallIcon className={`${classes.large} ${classes.pink}`}/>
         <div className={classes.marginLeft}>
           <Typography className={classes.light} >Total Orders</Typography>
           <Typography variant="h5" className={classes.bold}>63K</Typography>

@@ -1,4 +1,4 @@
-import NavbarLoggedIn from "../components/homePage/Navbar2";
+import {Navbar} from "../components/Navbar";
 import { makeStyles } from "@material-ui/styles";
 import UploadInfoComponent from "../components/UploadProductPage/UploadInfo";
 import { Typography } from "@material-ui/core";
@@ -22,7 +22,7 @@ const ProductUpload = () => {
   const classes = useStyles();
   return (
     <div>
-      <NavbarLoggedIn />
+      <Navbar />
       <Typography variant="h4" className={classes.marginTop}>
         Upload Your Product
       </Typography>

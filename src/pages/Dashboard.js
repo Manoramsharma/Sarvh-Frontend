@@ -1,4 +1,4 @@
-import NavbarLoggedIn from "../components/homePage/Navbar2";
+import {Navbar} from "../components/Navbar";
 import { Avatar, makeStyles, Typography } from "@material-ui/core";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import Ratings from "../components/ProfilePage/Ratings";
@@ -74,7 +74,7 @@ const SellerDashboard = () => {
   const classes = useStyles();
   return (
     <div>
-      <NavbarLoggedIn />
+      <Navbar />
       <div className={classes.mainContainer}>
         <div className={classes.card}>
           <div className={classes.topBar}>

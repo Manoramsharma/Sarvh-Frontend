@@ -2,7 +2,6 @@ import { MenuItem, TextField } from "@material-ui/core";
 import { Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
 import { useState } from "react";
-import clsx from "clsx";
 import { Form, Button } from "react-bootstrap";
 import imageCompression from "browser-image-compression";
 import Swal from "sweetalert2";
@@ -164,7 +163,7 @@ const UploadInfoComponent = () => {
         </Typography>
         <div className={classes.inputContainer}>
           <TextField
-            className={clsx(classes.marginTop, classes.twoInputs)}
+            className={`${classes.marginTop} ${classes.twoInputs}`}
             variant="filled"
             halfWidth
             type="number"
@@ -172,7 +171,7 @@ const UploadInfoComponent = () => {
             onChange={e => setValues({ ...values, price: e.target.value })}
           />
           <TextField
-            className={clsx(classes.marginTop, classes.twoInputs)}
+            className={`${classes.marginTop} ${classes.twoInputs}`}
             variant="filled"
             halfWidth
             type="number"
@@ -212,7 +211,7 @@ const UploadInfoComponent = () => {
             value={values.category}
             select
             label="Category"
-            className={clsx(classes.selectCategories, classes.marginTop)}
+            className={`${classes.selectCategories} ${classes.marginTop}`}
           >
             <MenuItem value="Men">Men</MenuItem>
             <MenuItem value="Women">Women</MenuItem>
@@ -226,14 +225,14 @@ const UploadInfoComponent = () => {
             value={values.subCategory}
             select
             label="Sub Category"
-            className={clsx(classes.selectCategories, classes.marginTop)}
+            className={`${classes.selectCategories} ${classes.marginTop}`}
           >
             <MenuItem value="Shirt">Shirt</MenuItem>
             <MenuItem value="T-Shirt">T-Shirt</MenuItem>
             <MenuItem value="Jeans">Jeans</MenuItem>
           </TextField>
           <Form.Group
-            className={clsx(classes.choosePhotos, classes.marginTop)}
+            className={`${classes.choosePhotos} ${classes.marginTop}`}
             controlId="formFileMultiple"
           >
             <Form.Label>Choose Photos</Form.Label>
@@ -249,7 +248,7 @@ const UploadInfoComponent = () => {
 
         <Button
           type="submit"
-          className={clsx(classes.marginTop, classes.saveButton)}
+          className={`${classes.marginTop} ${classes.saveButton}`}
           variant="secondary"
         >
           Submit
