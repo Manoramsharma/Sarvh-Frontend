@@ -11,7 +11,6 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import image from "../images/editProfile.svg";
-import clsx from "clsx";
 import { Dropdown, Form } from "react-bootstrap";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import AssignmentIndIcon from "@material-ui/icons/AssignmentInd";
@@ -151,14 +150,14 @@ const EditProfilePage = () => {
           <div>
             <Navbar />
             <div className={classes.mainContainer}>
-              <div className={clsx(classes.left)}>
-                <Typography variant="h3" className={clsx(classes.heading)}>
+              <div className={classes.left}>
+                <Typography variant="h3" className={classes.heading}>
                   Edit Your Profile
                 </Typography>
                 {/* {value.file ? (<img src={value.file} className={classes.image} alt="chosen" />) : (<img src={image} className={classes.image} />)} */}
                 <img src={image} className={classes.image} />
               </div>
-              <div className={clsx(classes.right)}>
+              <div className={classes.right}>
                 <form onSubmit={handleFormSubmit}>
                   <div className={classes.rightAvatarEdit}>
                     {value.file ? (
@@ -178,7 +177,7 @@ const EditProfilePage = () => {
                       </Form.Group>
                     </div>
                   </div>
-                  <div className={clsx(classes.inputFields, classes.marginTop)}>
+                  <div className={`${classes.inputFields} ${classes.marginTop}`}>
                     <TextField
                       onChange={e =>
                         setValue({ ...value, fullname: e.target.value })
@@ -212,7 +211,7 @@ const EditProfilePage = () => {
                       }}
                     />
                   </div>
-                  <div className={clsx(classes.inputFields, classes.marginTop)}>
+                  <div className={`${classes.inputFields} ${classes.marginTop}`}>
                     <TextField
                       className={classes.inputField}
                       placeholder={userData.mobile}
@@ -247,7 +246,7 @@ const EditProfilePage = () => {
                       }}
                     />
                   </div>
-                  <div className={clsx(classes.inputFields, classes.marginTop)}>
+                  <div className={`${classes.inputFields} ${classes.marginTop}`}>
                     <TextField
                       id="bio"
                       label="Your Bio"
@@ -262,7 +261,7 @@ const EditProfilePage = () => {
                       variant="filled"
                     />
                   </div>
-                  <div className={clsx(classes.inputFields, classes.marginTop)}>
+                  <div className={`${classes.inputFields} ${classes.marginTop}`}>
                     <InputLabel id="demo-simple-select-label">
                       Gender
                     </InputLabel>
@@ -299,7 +298,7 @@ const EditProfilePage = () => {
 
                   <Button
                     type="submit"
-                    className={clsx(classes.button)}
+                    className={classes.button}
                     color="secondary"
                     variant="contained"
                   >

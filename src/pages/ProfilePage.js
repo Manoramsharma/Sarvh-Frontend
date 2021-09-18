@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core";
-import NavbarLoggedIn from "../components/homePage/Navbar2";
 import Info from "../components/ProfilePage/Info";
 import Posts from "../components/ProfilePage/Posts";
 import { useParams } from "react-router";

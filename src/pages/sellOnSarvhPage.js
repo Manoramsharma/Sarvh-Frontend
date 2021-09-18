@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { Navbar } from "../components/Navbar";
 import { makeStyles, Typography, Button } from "@material-ui/core";
-import clsx from "clsx";
 import Image1 from "../images/undraw_Online_shopping_re_k1sv.svg";
 import Image2 from "../images/undraw_stepping_up_g6oo.svg";
 import Image4 from "../images/undraw_Mobile_payments_re_7udl.svg";
@@ -76,7 +75,7 @@ const SellPage = () => {
       <div className={classes.topContainer}>
         <div className={classes.leftTopContainer}>
           <Typography variant="h3">Sell On Sarvh</Typography>
-          <Typography className={clsx(classes.marginTop)} variant="h5">
+          <Typography className={classes.marginTop} variant="h5">
             Sell your products and connect with large audience on our social
             commerce. Start your great beginnings today.
           </Typography>
@@ -85,7 +84,7 @@ const SellPage = () => {
               size="large"
               color="secondary"
               variant="outlined"
-              className={clsx(classes.btn)}
+              className={classes.btn}
             >
               REGISTER NOW
             </Button>
@@ -93,11 +92,11 @@ const SellPage = () => {
         </div>
         <div className={classes.rightTopContainer}>
           <img
-            className={clsx(classes.images, classes.imageLeft)}
+            className={`${classes.images} ${classes.imageLeft}`}
             src={Image1}
           />
           <img
-            className={clsx(classes.images, classes.marginLeft)}
+            className={`${classes.images} ${classes.marginLeft}`}
             src={Image2}
           />
         </div>
@@ -105,14 +104,14 @@ const SellPage = () => {
       <Typography
         variant="h4"
         color="secondary"
-        className={clsx(classes.center, classes.marginTop)}
+        className={`${classes.center} ${classes.marginTop}`}
       >
         This Why We Do
       </Typography>
       <Typography
         variant="h4"
         color="secondary"
-        className={clsx(classes.center)}
+        className={classes.center}
       >
         What We Do.
       </Typography>
@@ -120,7 +119,7 @@ const SellPage = () => {
       <Typography
         variant="h4"
         color="secondary"
-        className={clsx(classes.center, classes.marginTop)}
+        className={`${classes.center} ${classes.marginTop}`}
       >
         How to sell on Sarvh
       </Typography>
