@@ -1,7 +1,7 @@
-import { postDataAPI } from "../../utils/fetchData";
+import { postDataAPI, patchDataAPI } from "../../utils/fetchData";
 import { GLOBALTYPES } from "./globalTypes";
 
-export const login = (data) => async (dispatch) => {
+export const login = data => async dispatch => {
   try {
     dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
     const res = await postDataAPI("login", data);
@@ -29,7 +29,7 @@ export const login = (data) => async (dispatch) => {
     });
   }
 };
-export const googlelogin = (data) => async (dispatch) => {
+export const googlelogin = data => async dispatch => {
   try {
     dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
     const res = await postDataAPI("googlelogin", data);
@@ -57,7 +57,7 @@ export const googlelogin = (data) => async (dispatch) => {
     });
   }
 };
-export const facebooklogin = (data) => async (dispatch) => {
+export const facebooklogin = data => async dispatch => {
   try {
     dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
     const res = await postDataAPI("facebooklogin", data);
@@ -85,7 +85,7 @@ export const facebooklogin = (data) => async (dispatch) => {
     });
   }
 };
-export const refreshToken = () => async (dispatch) => {
+export const refreshToken = () => async dispatch => {
   const firstLogin = localStorage.getItem("firstLogin");
   if (firstLogin) {
     dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
@@ -108,7 +108,7 @@ export const refreshToken = () => async (dispatch) => {
   }
 };
 
-export const register = (data) => async (dispatch) => {
+export const register = data => async dispatch => {
   try {
     dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
 
@@ -127,7 +127,7 @@ export const register = (data) => async (dispatch) => {
   }
 };
 
-export const logout = () => async (dispatch) => {
+export const logout = () => async dispatch => {
   try {
     localStorage.removeItem("firstLogin");
     await postDataAPI("logout");
@@ -141,3 +141,22 @@ export const logout = () => async (dispatch) => {
     });
   }
 };
+
+export const editProfile =
+  ({ value, token }) =>
+  async dispatch => {
+    console.log(value, token);
+    try {
+      const response = await patchDataAPI("user", value, token);
+      console.log(response);
+      window.location.href = "/";
+    } catch (err) {
+      console.log(err);
+      dispatch({
+        type: GLOBALTYPES.ALERT,
+        payload: {
+          error: err.response.data.msg,
+        },
+      });
+    }
+  };

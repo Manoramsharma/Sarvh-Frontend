@@ -1,4 +1,4 @@
-import {Navbar} from "../components/Navbar";
+import { Navbar } from "../components/Navbar";
 import { Avatar, makeStyles, Typography } from "@material-ui/core";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import Ratings from "../components/ProfilePage/Ratings";
@@ -9,7 +9,7 @@ import RecentOrderComponent from "../components/Dashboard/RecentOrder";
 const image =
   "https://thumbor.forbes.com/thumbor/fit-in/416x416/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F5bb22ae84bbe6f67d2e82e05%2F0x0.jpg%3Fbackground%3D000000%26cropX1%3D627%26cropX2%3D1639%26cropY1%3D129%26cropY2%3D1142";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   mainContainer: {
     background:
       "linear-gradient(150deg, rgba(240,217,255,1), rgba(191,162,219,1))",
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     backdropFilter: "blur(25px) saturate(200%)",
-    background : "#FFFAFA",
+    background: "#FFFAFA",
     borderRadius: 14,
     border: "1px solid rgba(209, 213, 219, 0.3)",
     height: "85%",
@@ -58,17 +58,17 @@ const useStyles = makeStyles((theme) => ({
   innerRight: {
     width: "20%",
     height: "60%",
-    border : "1px solid #C8C6C6",
-    borderRadius : "10px",
-    padding : "2%",
+    border: "1px solid #C8C6C6",
+    borderRadius: "10px",
+    padding: "2%",
   },
-  container : {
-      display : "flex",
-      height : "90%",
-      width : "100%",
-      justifyContent: "space-between",
-      marginTop: "2%",
-  }
+  container: {
+    display: "flex",
+    height: "90%",
+    width: "100%",
+    justifyContent: "space-between",
+    marginTop: "2%",
+  },
 }));
 const SellerDashboard = () => {
   const classes = useStyles();
@@ -92,9 +92,9 @@ const SellerDashboard = () => {
           </div>
           <div className={classes.container}>
             <div className={classes.innerLeft}>
-                <InformationComponent />
-                <YourProductsComponent />
-                <RecentOrderComponent />
+              <InformationComponent />
+              <YourProductsComponent />
+              <RecentOrderComponent />
             </div>
             <div className={classes.innerRight}>
               <TopCategoryComponent />
