@@ -9,9 +9,13 @@ import {
 } from "@material-ui/core";
 import logo from "../images/logo.png";
 import { useHistory } from "react-router-dom";
-import { useSelector} from "react-redux";
-import {SearchButton , MenuItemsWithoutLogin , MenuItemsWithLogin} from "./homePage/navbarMenuItems";
-import CloseIcon from '@material-ui/icons/Close';
+import { useSelector } from "react-redux";
+import {
+  SearchButton,
+  MenuItemsWithoutLogin,
+  MenuItemsWithLogin,
+} from "./homePage/navbarMenuItems";
+import CloseIcon from "@material-ui/icons/Close";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -22,33 +26,33 @@ import GradeIcon from "@material-ui/icons/Grade";
 import StarOutlineIcon from "@material-ui/icons/StarOutline";
 import InfoIcon from "@material-ui/icons/Info";
 import ContactsOutlinedIcon from "@material-ui/icons/ContactsOutlined";
+import { Link } from "react-router-dom";
 
-
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   appBar: {
-    height:64,
-    width:'100%'
+    height: 64,
+    width: "100%",
   },
   navbar: {
-    width:'100%',
-    minHeight:64,
+    width: "100%",
+    minHeight: 64,
     backgroundColor: "white",
     color: "black",
-    display:"flex",
-    justifyContent:'flex-end',
-    padding:0
+    display: "flex",
+    justifyContent: "flex-end",
+    padding: 0,
   },
   logo: {
-    zIndex:3,
-    position:'absolute',
-    top:'50%',
-    transform:'translateY(-50%)',
-    left:'2%',
+    zIndex: 3,
+    position: "absolute",
+    top: "50%",
+    transform: "translateY(-50%)",
+    left: "2%",
     width: "auto",
-    width:35,
+    width: 35,
     "@media (max-width: 400px)": {
-      opacity:(props) => (props.openup ? "0" : "1")
-    }, 
+      opacity: props => (props.openup ? "0" : "1"),
+    },
   },
   drawerHeader: {
     display: "flex",
@@ -65,7 +69,7 @@ export const Navbar = () => {
   const [openup, setOpenup] = useState(false);
   const [open, setOpen] = React.useState(false);
 
-  const classes = useStyles({openup});
+  const classes = useStyles({ openup });
   const history = useHistory();
 
   const handleDrawerClose = () => {
@@ -86,14 +90,29 @@ export const Navbar = () => {
   const theme = useTheme();
   const match = useMediaQuery(theme.breakpoints.down("sm"));
 
-  return(
+  return (
     <div>
-      <AppBar position="fixed" elevation={0} style={{ zIndex: 1150 }} className={classes.appBar}>
+      <AppBar
+        position="fixed"
+        elevation={0}
+        style={{ zIndex: 1150 }}
+        className={classes.appBar}
+      >
         <Toolbar className={classes.navbar}>
-          <a href='/'><img src={logo} alt="logo" className={classes.logo} /></a>
-          <SearchButton openup={openup} setOpenup={setOpenup}/>
-          {auth.token ? (<MenuItemsWithLogin openup={openup}/>) : <MenuItemsWithoutLogin openup={openup} setOpenup={setOpenup} open={open} setOpen={setOpen}/>}
-
+          <Link to="/">
+            <img src={logo} alt="logo" className={classes.logo} />
+          </Link>
+          <SearchButton openup={openup} setOpenup={setOpenup} />
+          {auth.token ? (
+            <MenuItemsWithLogin openup={openup} />
+          ) : (
+            <MenuItemsWithoutLogin
+              openup={openup}
+              setOpenup={setOpenup}
+              open={open}
+              setOpen={setOpen}
+            />
+          )}
         </Toolbar>
       </AppBar>
 
@@ -102,7 +121,7 @@ export const Navbar = () => {
         className={classes.drawer}
         variant="persistent"
         anchor="right"
-        open={open} 
+        open={open}
         classes={{
           paper: classes.drawerPaper,
         }}
