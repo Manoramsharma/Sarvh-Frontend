@@ -486,13 +486,15 @@ export const MenuItemsWithLogin = props => {
   const { auth } = useSelector(state => state);
   const dispatch = useDispatch();
   // const { pathname } = useLocation();
-  const [values, setValues] = useState({
-    username: "sarvhuser",
-  });
+  // const [values, setValues] = useState({
+  //   username: "sarvhuser",
+  // });
+  const [values, setValues] = useState([]);
 
   useEffect(() => {
     try {
-      setValues({ ...values, username: auth.user.username });
+      setValues(auth.user);
+      // setValues({ ...values, username: auth.user.username });
     } catch (error) {
       console.log(error);
     }
@@ -598,6 +600,15 @@ export const MenuItemsWithLogin = props => {
         >
           My Profile
         </Link>
+        {values.isSeller && (
+          <Link
+            className={classes.profDisplayL}
+            to={"/uploadproduct"}
+            style={{ textDecoration: "none" }}
+          >
+            Upload Product
+          </Link>
+        )}
         <Link
           className={classes.profDisplayL}
           to={"/sellonsarvh"}
