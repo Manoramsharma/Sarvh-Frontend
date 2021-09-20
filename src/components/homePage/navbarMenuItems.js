@@ -600,22 +600,33 @@ export const MenuItemsWithLogin = props => {
         >
           My Profile
         </Link>
-        {values.isSeller && (
+        {values.isSeller ? (
+          <>
+            <Link
+              className={classes.profDisplayL}
+              to={"/uploadproduct"}
+              style={{ textDecoration: "none" }}
+            >
+              Upload Product
+            </Link>
+            <Link
+              className={classes.profDisplayL}
+              to={"/dashboard"}
+              style={{ textDecoration: "none" }}
+            >
+              Dashboard
+            </Link>
+          </>
+        ) : (
           <Link
             className={classes.profDisplayL}
-            to={"/uploadproduct"}
+            to={"/sellonsarvh"}
             style={{ textDecoration: "none" }}
           >
-            Upload Product
+            Sell On Sarvh
           </Link>
         )}
-        <Link
-          className={classes.profDisplayL}
-          to={"/sellonsarvh"}
-          style={{ textDecoration: "none" }}
-        >
-          Sell On Sarvh
-        </Link>
+
         <Link
           className={classes.profDisplayL}
           to={"/editprofile"}
