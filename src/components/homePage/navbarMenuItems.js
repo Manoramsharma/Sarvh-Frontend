@@ -22,7 +22,7 @@ import { logout } from "../../redux/actions/authAction";
 import MenuIcon from "@material-ui/icons/Menu";
 import PhotoAlbumIcon from "@material-ui/icons/PhotoAlbum";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   // Search button styles starts here
 
   // search and input buttons for big screens
@@ -64,7 +64,7 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     minWidth: 150,
     maxWidth: 340,
-    display: props => (props.display ? "flex" : "none"),
+    display: (props) => (props.display ? "flex" : "none"),
     flexDirection: "column",
     justifyContent: "flex-start",
     backgroundColor: "#ffffff",
@@ -92,7 +92,7 @@ const useStyles = makeStyles(theme => ({
   // search and input style for small screens
   searchMin: {
     zIndex: 4,
-    backgroundColor: props => (props.openup ? "#ffffff" : "transparent"),
+    backgroundColor: (props) => (props.openup ? "#ffffff" : "transparent"),
     transition: "background-color 0.5s ease-in",
     position: "relative",
     top: "50%",
@@ -128,8 +128,8 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     [theme.breakpoints.down("sm")]: {
       display: "flex",
-      opacity: props => (props.openup ? "1" : "0"),
-      width: props => (props.openup ? "100%" : "0"),
+      opacity: (props) => (props.openup ? "1" : "0"),
+      width: (props) => (props.openup ? "100%" : "0"),
       transition: "width 0.5s ease-in , opacity 0.5s ease-in",
     },
   },
@@ -155,13 +155,13 @@ const useStyles = makeStyles(theme => ({
   buttonGroup: {
     transition: "width 0.5s ease-in , opacity 0s ease-in 0.5",
     "@media (max-width: 600px)": {
-      transition: props =>
+      transition: (props) =>
         props.openup
           ? "width 0.5s ease-in , opacity 0s ease-in "
           : "width 0.5s ease-in , opacity 0s ease-in 0.5s",
-      width: props => (props.openup ? "0" : props.match ? "100px" : "200px"),
-      overflow: props => (props.openup ? "hidden" : "auto"),
-      opacity: props => (props.openup ? "0" : "1"),
+      width: (props) => (props.openup ? "0" : props.match ? "100px" : "200px"),
+      overflow: (props) => (props.openup ? "hidden" : "auto"),
+      opacity: (props) => (props.openup ? "0" : "1"),
     },
     "@media (max-width: 330px)": {
       width: "100px",
@@ -212,13 +212,13 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "space-between",
     alignItems: "center",
     "@media (max-width: 600px)": {
-      transition: props =>
+      transition: (props) =>
         props.openup
           ? "width 0.5s ease-in , opacity 0s ease-in "
           : "width 0.5s ease-in , opacity 0s ease-in 0.5s",
-      width: props => (props.openup ? "0" : "180px"),
-      overflow: props => (props.openup ? "hidden" : "auto"),
-      opacity: props => (props.openup ? "0" : "1"),
+      width: (props) => (props.openup ? "0" : "180px"),
+      overflow: (props) => (props.openup ? "hidden" : "auto"),
+      opacity: (props) => (props.openup ? "0" : "1"),
     },
   },
   cartIcon: {
@@ -228,7 +228,7 @@ const useStyles = makeStyles(theme => ({
   },
   notiDisplay: {
     position: "absolute",
-    display: props => (props.notiOpen ? "flex" : "none"),
+    display: (props) => (props.notiOpen ? "flex" : "none"),
     flexDirection: "column",
     backgroundColor: "#ffffff",
     width: 250,
@@ -260,7 +260,7 @@ const useStyles = makeStyles(theme => ({
   },
   profDisplay: {
     position: "absolute",
-    display: props => (props.profileOpen ? "flex" : "none"),
+    display: (props) => (props.profileOpen ? "flex" : "none"),
     flexDirection: "column",
     backgroundColor: "#ffffff",
     width: "200px",
@@ -295,7 +295,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const StyledBadge = withStyles(theme => ({
+const StyledBadge = withStyles((theme) => ({
   badge: {
     right: -3,
     top: 13,
@@ -305,7 +305,7 @@ const StyledBadge = withStyles(theme => ({
 }))(Badge);
 
 // <--------------------------Search Button divs start here --------------------------------------------------->
-const SearchResults = props => {
+const SearchResults = (props) => {
   const classes = useStyles();
   return (
     <Link
@@ -318,7 +318,7 @@ const SearchResults = props => {
   );
 };
 
-const SearchResultArea = props => {
+const SearchResultArea = (props) => {
   const classes = useStyles({ display: props.display });
   const results = [
     { text: "You dont need a parachute to go skydiving", link: "/" },
@@ -328,7 +328,7 @@ const SearchResultArea = props => {
   ];
   return (
     <div className={classes.searchDiv}>
-      {results.map(result => (
+      {results.map((result) => (
         <SearchResults text={result.text} link={result.link} />
       ))}
     </div>
@@ -339,7 +339,7 @@ function SearchDisplay(event, setdisplay) {
   event.target.value ? setdisplay(true) : setdisplay(false);
 }
 
-export const SearchButton = props => {
+export const SearchButton = (props) => {
   const [openup, setOpenup] = [props.openup, props.setOpenup];
   const [display, setdisplay] = useState(false);
   const classes = useStyles({ openup });
@@ -357,7 +357,7 @@ export const SearchButton = props => {
         <div className={classes.search}>
           {/* place all the search items inside this div */}
           <InputBase
-            onChange={event => {
+            onChange={(event) => {
               SearchDisplay(event, setdisplay);
             }}
             placeholder="Search..."
@@ -380,7 +380,7 @@ export const SearchButton = props => {
         <InputBase
           placeholder="Search for product and more"
           className={classes.inputBase}
-          onChange={event => {
+          onChange={(event) => {
             SearchDisplay(event, setdisplay);
           }}
         ></InputBase>
@@ -393,7 +393,7 @@ export const SearchButton = props => {
 // <--------------------------Search Button divs Ends here --------------------------------------------------->
 
 // <--------------------------Menu Button Without login divs start here --------------------------------------------------->
-export const MenuItemsWithoutLogin = props => {
+export const MenuItemsWithoutLogin = (props) => {
   const [open, setOpen] = [props.open, props.setOpen];
   const [openup, setOpenup] = [props.openup, props.setOpenup];
 
@@ -457,7 +457,7 @@ function NotificationsDisplay() {
     { text: "( ͡❛ ͜ʖ ͡❛) 👉" },
     { text: "💪 ( ͡❛ ͜ʖ ͡❛) 👊" },
   ];
-  return data.map(ele => (
+  return data.map((ele) => (
     <Link
       className={classes.notiDisplayL}
       to={"/"}
@@ -468,7 +468,7 @@ function NotificationsDisplay() {
   ));
 }
 
-export const MenuItemsWithLogin = props => {
+export const MenuItemsWithLogin = (props) => {
   const [openup] = [props.openup];
   const [profPosition, setProfPosition] = useState({ top: 0, left: 0 });
   const [notiPosition, setNotiPosition] = useState({ top: 0, left: 0 });
@@ -483,7 +483,7 @@ export const MenuItemsWithLogin = props => {
     profileOpen: profileOpen,
     notiOpen: notiOpen,
   });
-  const { auth } = useSelector(state => state);
+  const { auth } = useSelector((state) => state);
   const dispatch = useDispatch();
   // const { pathname } = useLocation();
   const [values, setValues] = useState({
@@ -557,6 +557,7 @@ export const MenuItemsWithLogin = props => {
       >
         <NotificationsIcon className={classes.bellIcon} />
       </Button>
+
       <Button
         onClick={() => {
           profileOpen ? setProfileOpen(false) : setProfileOpen(true);
@@ -580,7 +581,6 @@ export const MenuItemsWithLogin = props => {
           </StyledBadge>
         </Link>
       </IconButton>
-
       <div
         style={{ top: notiPosition.top, left: notiPosition.left }}
         className={classes.notiDisplay}
