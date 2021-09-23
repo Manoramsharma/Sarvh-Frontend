@@ -1,11 +1,15 @@
 import { Navbar } from "../components/Navbar";
-import { Avatar, makeStyles, Typography } from "@material-ui/core";
+import { Avatar, makeStyles, Typography, Button } from "@material-ui/core";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import Ratings from "../components/ProfilePage/Ratings";
 import InformationComponent from "../components/Dashboard/Info";
 import TopCategoryComponent from "../components/Dashboard/TopCategory";
 import YourProductsComponent from "../components/Dashboard/YourProducts";
 import RecentOrderComponent from "../components/Dashboard/RecentOrder";
+import { useSelector, useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+import { getProfileUsers } from "../redux/actions/profileAction";
+
 const image =
   "https://thumbor.forbes.com/thumbor/fit-in/416x416/filters%3Aformat%28jpg%29/https%3A%2F%2Fspecials-images.forbesimg.com%2Fimageserve%2F5bb22ae84bbe6f67d2e82e05%2F0x0.jpg%3Fbackground%3D000000%26cropX1%3D627%26cropX2%3D1639%26cropY1%3D129%26cropY2%3D1142";
 
@@ -69,9 +73,43 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "space-between",
     marginTop: "2%",
   },
+  productcontainer: {
+    width: "95%",
+    height: "45%",
+    padding: "2%",
+    border: "1px solid #C8C6C6",
+    borderRadius: "10px",
+    marginTop: "3%",
+    marginLeft: "3%",
+  },
 }));
 const SellerDashboard = () => {
+  const { auth, profile } = useSelector(state => state);
+  const dispatch = useDispatch();
+  const [products, setProducts] = useState([]);
+
   const classes = useStyles();
+
+  useEffect(() => {
+    if (profile.users.every(item => item !== auth.user.username)) {
+      dispatch(
+        getProfileUsers({ users: profile.users, id: auth.user.username, auth })
+      );
+    }
+  }, [auth, dispatch, profile.users]);
+  useEffect(() => {
+    try {
+      function filter_data(product) {
+        var newData = product.filter(
+          temp => temp.user.username === auth.user.username
+        );
+        setProducts(newData);
+      }
+      profile.product.forEach(filter_data);
+    } catch (err) {
+      console.log(err);
+    }
+  }, [profile.product]);
   return (
     <div>
       <Navbar />
@@ -82,18 +120,23 @@ const SellerDashboard = () => {
               <DashboardIcon />
               <Typography variant="h4">Dashboard</Typography>
             </div>
-            <div className={classes.nameSection}>
-              <Avatar src={image} className={classes.large} />
-              <div>
-                <Typography>Swahim Namdev</Typography>
-                <Ratings />
-              </div>
-            </div>
+            {auth.user && (
+              <>
+                <div className={classes.nameSection}>
+                  <Avatar src={auth.user.avatar} className={classes.large} />
+                  <div>
+                    <Typography>{auth.user.fullname}</Typography>
+                    <Ratings />
+                  </div>
+                </div>
+              </>
+            )}
           </div>
           <div className={classes.container}>
             <div className={classes.innerLeft}>
               <InformationComponent />
-              <YourProductsComponent />
+              <YourProductsComponent products={products} auth={auth} />
+
               <RecentOrderComponent />
             </div>
             <div className={classes.innerRight}>

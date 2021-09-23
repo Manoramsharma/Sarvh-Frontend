@@ -1,4 +1,9 @@
-import { getDataAPI, patchDataAPI, postDataAPI } from "../../utils/fetchData";
+import {
+  getDataAPI,
+  patchDataAPI,
+  postDataAPI,
+  deleteDataAPI,
+} from "../../utils/fetchData";
 import { GLOBALTYPES, DeleteData } from "./globalTypes";
 
 export const PROFILE_TYPES = {
@@ -10,8 +15,8 @@ export const PROFILE_TYPES = {
 };
 export const getProfileUsers =
   ({ users, id, auth }) =>
-  async (dispatch) => {
-    if (users.every((user) => user.username !== id)) {
+  async dispatch => {
+    if (users.every(user => user.username !== id)) {
       try {
         dispatch({ type: PROFILE_TYPES.LOADING, payload: true });
         const res = await getDataAPI(`/user/${id}`, auth.token);
@@ -37,7 +42,7 @@ export const getProfileUsers =
 
 export const follow =
   ({ users, user, auth }) =>
-  async (dispatch) => {
+  async dispatch => {
     console.log(user);
     var newUser = { ...user, followers: [...user.followers, auth.user] };
     dispatch({
@@ -73,7 +78,7 @@ export const follow =
 
 export const unfollow =
   ({ users, user, auth }) =>
-  async (dispatch) => {
+  async dispatch => {
     var newUser = {
       ...user,
       followers: DeleteData(user.followers, auth.user.username),
@@ -104,7 +109,7 @@ export const unfollow =
 
 export const rating =
   ({ users, user, auth, rate, id }) =>
-  async (dispatch) => {
+  async dispatch => {
     console.log(user);
     var newUser = { ...user, rating: [...user.rating, auth.user] };
     dispatch({
@@ -140,7 +145,7 @@ export const rating =
 
 export const updateQuantity =
   ({ data, id, quantity, auth, size }) =>
-  async (dispatch) => {
+  async dispatch => {
     for (var i = 0; i < data.length; i++) {
       if (data[i].product._id === id) {
         data[i].quantity = parseInt(quantity);
@@ -169,7 +174,7 @@ export const updateQuantity =
 
 export const deleteQuantity =
   ({ data, id, auth, size }) =>
-  async (dispatch) => {
+  async dispatch => {
     var newData = data.filter(function (item) {
       return item.product._id !== id;
     });
@@ -196,7 +201,7 @@ export const deleteQuantity =
 
 export const addToCart =
   ({ size, id, quantity, auth }) =>
-  async (dispatch) => {
+  async dispatch => {
     try {
       const result = await postDataAPI(
         `/cart/update/${id}/${quantity}/${size}`,
@@ -221,4 +226,20 @@ export const updateRating =
   ({ rating, auth }) =>
   async dispatch => {
     console.log(rating);
+  };
+export const deleteProduct =
+  ({ products, auth, _id }) =>
+  async dispatch => {
+    products = products.filter(item => item._id != _id);
+    dispatch({
+      type: PROFILE_TYPES.GETPRODUCT,
+      payload: {
+        product: products,
+      },
+    });
+    try {
+      const res = await deleteDataAPI(`deleteproduct/${_id}`, auth.token);
+    } catch (error) {
+      console.log(error);
+    }
   };

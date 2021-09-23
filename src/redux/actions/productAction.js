@@ -10,15 +10,15 @@ export const uploadProduct = (auth, data) => async dispatch => {
     console.log(data);
     dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: true } });
     const res = await postDataAPI(`uploadfile`, data, auth.token);
-    console.log(res);
+    dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: false } });
+  } catch (err) {
     dispatch({
       type: GLOBALTYPES.ALERT,
       payload: {
-        success: res.data.msg,
+        error: err.response.data.msg,
       },
     });
-    dispatch({ type: GLOBALTYPES.ALERT, payload: { loading: false } });
-  } catch (err) {}
+  }
 };
 export const getProduct = data => async dispatch => {
   try {
